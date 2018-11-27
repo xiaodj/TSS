@@ -6,7 +6,11 @@
 
     <groupId>TSS</groupId>
     <artifactId>TSS</artifactId>
+    <packaging>pom</packaging>
     <version>1.0.01</version>
+    <modules>
+        <module>TssWeb</module>
+    </modules>
 
 
 </project>
