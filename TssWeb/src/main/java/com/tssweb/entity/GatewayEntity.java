@@ -9,4 +9,5 @@ public class GatewayEntity {
     private String  FRSPEED;    //读卡器读卡频率
     private String  FRRANGE;    //读卡器读取距离
     private Integer FRSTATE;    //读卡器状态
+    private Integer UID;
 }

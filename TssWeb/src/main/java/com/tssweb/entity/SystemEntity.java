@@ -9,4 +9,5 @@ public class SystemEntity {
     private String  ONENDTIME;      //上班时间段的结束时间
     private String  OFFSTARTTIME;   //下班时间段的开始时间
     private String  OFFENDTIME;     //下班时间段的结束时间
+    private Integer UID;
 }

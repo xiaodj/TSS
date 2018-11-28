@@ -12,4 +12,5 @@ public class WorkerEntity {
     private String  WKCCRSID;       //员工CCRSID
     private String  WKIMAGEPATH;    //员工头像路径
     private String  WKOTHER;        //其它
+    private Integer UID;            //用户ID
 }
