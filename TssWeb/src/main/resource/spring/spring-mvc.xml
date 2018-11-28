@@ -7,7 +7,7 @@
 
     <!-- 视图解析-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/"/>
+        <property name="prefix" value="/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
     <!-- html视图解析器, 必须先配置freemarkerConfig(需要freemarker库),注意html是没有prefix前缀属性的-->
