@@ -17,13 +17,13 @@
 <script type="text/javascript">
     var websocket = null;
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://localhost:8080/quicksand/websocket/socketServer.do");
+        websocket = new WebSocket("ws://localhost:8080/websocket/socketServer.do");
     }
     else if ('MozWebSocket' in window) {
-        websocket = new MozWebSocket("ws://localhost:8080/quicksand/websocket/socketServer.do");
+        websocket = new MozWebSocket("ws://localhost:8080/websocket/socketServer.do");
     }
     else {
-        websocket = new SockJS("http://localhost:8080/quicksand/sockjs/socketServer.do");
+        websocket = new SockJS("http://localhost:8080/sockjs/socketServer.do");
     }
     websocket.onopen = onOpen;
     websocket.onmessage = onMessage;
@@ -31,7 +31,7 @@
     websocket.onclose = onClose;
 
     function onOpen(openEvt) {
-        //alert(openEvt.Data);
+        alert(openEvt.Data);
     }
 
     function onMessage(evt) {

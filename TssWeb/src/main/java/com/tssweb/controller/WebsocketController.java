@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class WebsocketController {
 
+
     @Bean//这个注解会从Spring容器拿出Bean
     public WebSocketHandler infoHandler() {
         return new WebSocketHandler();
@@ -40,4 +41,5 @@ public class WebsocketController {
         infoHandler().sendMessageToUser(username, new TextMessage("你好，测试！！！！"));
         return null;
     }
+
 }
