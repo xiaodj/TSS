@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by xiaodj on 2018/11/27.
  */
+
 public class WebSocketHandler extends TextWebSocketHandler{
     private static final ArrayList<WebSocketSession> users;//这个会出现性能问题，最好用Map来存储，key用userid
     //private static Logger logger = Logger.getLogger(SpringWebSocketHandler.class);
@@ -51,6 +52,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         super.handleTextMessage(session, message);
+        System.out.println("收到消息："+message.getPayload());
     }
 
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
