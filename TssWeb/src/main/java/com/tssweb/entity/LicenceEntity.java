@@ -7,5 +7,5 @@ public class LicenceEntity {
     private Integer LID;    //许可证ID
     private String  LCNAME; //许可证名称
     private Integer WID;    //员工ID
-    private String  LCDATETIME; //许可证过期时间
+    private String  LCDATE; //许可证过期日期
 }
