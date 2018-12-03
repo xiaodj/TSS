@@ -1,6 +1,9 @@
 package com.tssweb.controller;
 
 import com.tssweb.dto.BaseDto;
+import com.tssweb.dto.LoginDto;
+import com.tssweb.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +18,24 @@ import java.util.Map;
 @Controller
 public class UserController {
 
+    //@Autowired
+    private IUserService iUserService;
+
     /**
      * 登录接口
+     * @author 邓江
      */
     @RequestMapping(value = "/api/user/login", method = RequestMethod.POST)
-    public @ResponseBody
-    BaseDto login(@RequestBody Map<String, String> param){
-        return iUser.login(param);
+    public @ResponseBody LoginDto login(@RequestBody Map<String, String> param){
+        return iUserService.login(param);
+    }
+
+    /**
+     * 用户设置
+     * @author 邓江
+     */
+    @RequestMapping(value = "/api/user/set", method = RequestMethod.POST)
+    public @ResponseBody BaseDto set(@RequestBody Map<String, String> param){
+        return iUserService.set(param);
     }
 }

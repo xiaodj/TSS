@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
  * Created by xiaodj on 2018/11/28.
  */
 @Controller
-public class SystemSetController {
+public class HardwareController {
 
     /**
      * 添加 /api/system/add
