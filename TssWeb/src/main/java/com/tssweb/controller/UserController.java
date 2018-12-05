@@ -2,6 +2,7 @@ package com.tssweb.controller;
 
 import com.tssweb.dto.BaseDto;
 import com.tssweb.dto.LoginDto;
+import com.tssweb.dto.UserSetDto;
 import com.tssweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,15 @@ public class UserController {
     private IUserService iUserService;
 
     /**
+     * 注册接口
+     * @author 邓江
+     */
+    @RequestMapping(value = "/api/user/register", method = RequestMethod.POST)
+    public @ResponseBody BaseDto register(@RequestBody Map<String, String> param){
+        return iUserService.register(param);
+    }
+
+    /**
      * 登录接口
      * @author 邓江
      */
@@ -31,11 +41,21 @@ public class UserController {
     }
 
     /**
-     * 用户设置
+     * 获取用户设置信息
      * @author 邓江
      */
-    @RequestMapping(value = "/api/user/set", method = RequestMethod.POST)
-    public @ResponseBody BaseDto set(@RequestBody Map<String, String> param){
-        return iUserService.set(param);
+    @RequestMapping(value = "/api/user/set", method = RequestMethod.GET)
+    public @ResponseBody
+    UserSetDto GetSetInfo(@RequestBody Map<String, String> param){
+        return iUserService.getSetInfo(param);
+    }
+
+    /**
+     * 修改用户设置信息
+     * @author 邓江
+     */
+    @RequestMapping(value = "/api/user/set", method = RequestMethod.PUT)
+    public @ResponseBody BaseDto PutSetInfo(@RequestBody Map<String, String> param){
+        return iUserService.putSetInfo(param);
     }
 }

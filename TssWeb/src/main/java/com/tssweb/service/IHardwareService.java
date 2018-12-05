@@ -1,12 +1,18 @@
 package com.tssweb.service;
 
 import com.tssweb.dto.BaseDto;
+import com.tssweb.dto.HardwareSetDto;
 
 import java.util.Map;
 
 public interface IHardwareService {
     /**
-     * 硬件设置
+     * 获取硬件设置信息
      */
-    public BaseDto set(Map<String, String> var);
+    public HardwareSetDto getHardwareInfo(Map<String, String> var);
+
+    /**
+     * 修改硬件设置信息
+     */
+    public BaseDto putHardwareInfo(Map<String, String> var);
 }
