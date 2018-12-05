@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="../css/tss.min.css">
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+    <script src="../lib/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base:'../js/'
+        }).use('user');
+    </script>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <a href="main.html"><div class="layui-logo">TSS智能管理系统</div></a>
+    </div>
+</div>
+<div class="login-nav">
+    <form class="layui-form">
+        <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
+            <div class="layui-inline"><h3>账户登录</h3></div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-inline">
+                    <input id="UserName" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-inline">
+                    <input id="PassWord" class="layui-input" type="password" autocomplete="off" required lay-verify="required">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label"></label>
+                <div class="layui-input-inline">
+                    <button id="Login" class="layui-btn layui-btn-fluid" type="button">登录</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
