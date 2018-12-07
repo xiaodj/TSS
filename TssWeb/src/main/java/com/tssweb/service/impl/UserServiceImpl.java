@@ -1,11 +1,11 @@
 package com.tssweb.service.impl;
 
+import com.tssweb.dao.IUserDao;
 import com.tssweb.dto.BaseDto;
 import com.tssweb.dto.LoginDto;
 import com.tssweb.dto.UserSetDto;
 import com.tssweb.entity.UserEntity;
 import com.tssweb.service.IUserService;
-import com.tssweb.service.db.IUserDB;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
@@ -13,15 +13,38 @@ import java.util.Map;
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    private IUserDB iUserDB;
+    private IUserDao iUserDao;
 
     @Autowired
     private LoginDto loginDto;
+    @Autowired
+    private BaseDto baseDto;
 
     @Override
     public BaseDto register(Map<String, String> var) {
-        //
-        return null;
+        String username = var.get("username");
+        String password = var.get("password");
+
+        //通过用户名获取用户信息
+        UserEntity userEntity = iUserDao.GetUserByUserName(username);
+        if (!userEntity.equals(null)){
+            baseDto.setCode(1);
+            baseDto.setMessage("用户已存在");
+            return baseDto;
+        }
+
+        userEntity = new UserEntity();
+        userEntity.setUSERNAME(username);
+        userEntity.setPASSWORD(password);
+        if (iUserDao.AddUser(userEntity).equals(0)){
+            baseDto.setCode(1);
+            baseDto.setMessage("注册失败");
+            return baseDto;
+        }else{
+            baseDto.setCode(0);
+            baseDto.setMessage("注册成功");
+            return baseDto;
+        }
     }
 
     @Override
@@ -35,9 +58,9 @@ public class UserServiceImpl implements IUserService {
             return loginDto;
         }
 
-        //查询用户
-        UserEntity userEntity = iUserDB.GetUserByUserName(username);
-        if (userEntity == null){
+        //通过用户名获取用户信息
+        UserEntity userEntity = iUserDao.GetUserByUserName(username);
+        if (!userEntity.equals(null)){
             loginDto.setCode(1);
             loginDto.setMessage("该用户不存在");
             return loginDto;

@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.djweb.dao.IUserDAO">
-    <!-- 添加用户 -->
-    <insert id="insert" parameterType="com.djweb.entity.UserEntity">
-        INSERT INTO TBL_USER(USERNAME, PASSWORD, NICKNAME)
-        VALUES(#{USERNAME}, #{PASSWORD}, #{NICKNAME});
-    </insert>
-    <!-- 根据用户ID查询用户信息 -->
-    <select id="selectByUID" resultType="com.djweb.entity.UserEntity">
-        SELECT * FROM TBL_USER WHERE UID = #{uid};
+<mapper namespace="com.tssweb.dao.IRecordDao">
+    <!-- 根据时间段查询所有员工记录 -->
+    <select id="GetRecordsByDate" resultType="com.tssweb.entity.RecordEntity">
+        <![CDATA[SELECT * FROM TBL_RECORD WHERE DATE_FORMAT(RCDATE, '%y-%m-%d') >= DATE_FORMAT(#{startDate}, '%y-%m-%d')
+                AND DATE_FORMAT(RCDATE, '%y-%m-%d') <= DATE_FORMAT(#{endDate}, '%y-%m-%d');]]>
     </select>
-    <!-- 判断用户是否存在 -->
-    <select id="selectByUserName" resultType="com.djweb.entity.UserEntity">
-        SELECT * FROM TBL_USER WHERE USERNAME = #{username};
+    <!-- 根据时间段以及员工编号查询员工记录 -->
+    <select id="GetRecordsByDateAndWID" resultType="com.tssweb.entity.RecordEntity">
+        <![CDATA[SELECT * FROM TBL_RECORD WHERE DATE_FORMAT(RCDATE, '%y-%m-%d') >= DATE_FORMAT(#{startDate}, '%y-%m-%d')
+                AND DATE_FORMAT(RCDATE, '%y-%m-%d') <= DATE_FORMAT(#{endDate}, '%y-%m-%d')
+                AND WID=#WID;]]>
     </select>
-    <!-- 根据用户ID删除用户 -->
-    <delete id="deleteByUID">
-        DELETE FROM TBL_USER WHERE UID = #{uid};
-    </delete>
 </mapper>

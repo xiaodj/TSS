@@ -12,7 +12,8 @@ public class RecordEntity {
     private String  WKCHNAME;       //员工中文姓名
     private String  WKSURNAME;      //员工英文姓
     private String  WKENNAME;       //员工英文名
-    private String  RCDATETIME; //记录时间
+    private String  RCDATE; //记录日期
+    private String  RCTIME; //记录时间
     private Integer TAGSTATE;   //标签状态  进来or离开
 
     public Integer getRID() {
@@ -55,12 +56,20 @@ public class RecordEntity {
         this.WKENNAME = WKENNAME;
     }
 
-    public String getRCDATETIME() {
-        return RCDATETIME;
+    public String getRCDATE() {
+        return RCDATE;
     }
 
-    public void setRCDATETIME(String RCDATETIME) {
-        this.RCDATETIME = RCDATETIME;
+    public void setRCDATE(String RCDATE) {
+        this.RCDATE = RCDATE;
+    }
+
+    public String getRCTIME() {
+        return RCTIME;
+    }
+
+    public void setRCTIME(String RCTIME) {
+        this.RCTIME = RCTIME;
     }
 
     public Integer getTAGSTATE() {

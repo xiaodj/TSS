@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tssweb.dao.IHardwareDao">
+    <!-- 通过用户编码获取硬件设置信息 -->
+    <select id="GetHardwareSetBy" parameterType="java.lang.Integer" resultType="com.tssweb.entity.HardwareSetEntity">
+        SELECT * FROM TBL_HARDWARE_SET WHERE UID=#{UID};
+    </select>
+    <!-- 新增硬件设置信息 -->
+    <insert id="AddHardwareSet" parameterType="com.tssweb.entity.HardwareSetEntity">
+        INSERT INTO TBL_HARDWARE_SET (GID, GWNAME, FRSPEED, FRRANGE, FRSTATE, UID)
+        VALUES (#{GID}, #{GWNAME}, #{FRSPEED}, #{FRRANGE}, #{FRSTATE}, #{UID});
+    </insert>
+    <!-- 根据用户编码修改硬件设置信息 -->
+    <update id="UpdateHardwareSetByUID" parameterType="com.tssweb.entity.HardwareSetEntity">
+        UPDATE TBL_HARDWARE_SET SET GID=#{GID}, GWNAME=#{GWNAME}, FRSPEED=#{FRSPEED}, FRRANGE=#{FRRANGE}, FRSTATE=#{FRSTATE} WHERE UID = #{UID};
+    </update>
+</mapper>

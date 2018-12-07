@@ -1,21 +1,63 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.djweb.dao.IUserDAO">
-    <!-- 添加用户 -->
-    <insert id="insert" parameterType="com.djweb.entity.UserEntity">
-        INSERT INTO TBL_USER(USERNAME, PASSWORD, NICKNAME)
-        VALUES(#{USERNAME}, #{PASSWORD}, #{NICKNAME});
+<mapper namespace="com.tssweb.dao.IWorkerDao">
+    <!-- 添加员工信息 -->
+    <insert id="AddWorker" parameterType="com.tssweb.entity.WorkerEntity">
+        INSERT INTO TBL_WORKER (WID, WKCHNAME, WKSURNAME, WKENNAME, WKCARD, WKCCRSID, WKOTHER, WKIMAGEPATH, UID)
+         VALUES (#{WID}, #{WKCHNAME}, #{WKSURNAME}, #{WKENNAME}, #{WKCARD}, #{WKCCRSID}, #{WKOTHER}, #{WKIMAGEPATH}, #{UID});
     </insert>
-    <!-- 根据用户ID查询用户信息 -->
-    <select id="selectByUID" resultType="com.djweb.entity.UserEntity">
-        SELECT * FROM TBL_USER WHERE UID = #{uid};
+    <!-- 修改员工信息 -->
+    <update id="UpdateWorker" parameterType="com.tssweb.entity.WorkerEntity">
+        UPDATE TBL_WORKER SET WKCHNAME=#{WKCHNAME}, WKSURNAME=#{WKSURNAME}, WKENNAME=#{WKENNAME}, WKCARD=#{WKCARD}, WKCCRSID=#{WKCCRSID}, WKOTHER=#{WKOTHER} WHERE WID=#{WID};
+    </update>
+    <!-- 通过员工编码获取员工信息 -->
+    <select id="GetWorkerInfo" parameterType="java.lang.String" resultType="com.tssweb.entity.WorkerEntity">
+        SELECT * FROM TBL_WORKER WHERE WID=#{WID};
     </select>
-    <!-- 判断用户是否存在 -->
-    <select id="selectByUserName" resultType="com.djweb.entity.UserEntity">
-        SELECT * FROM TBL_USER WHERE USERNAME = #{username};
+    <!-- 通过用户编码获取员工信息集合 -->
+    <select id="GetWorkersInfo" parameterType="java.lang.Integer" resultType="com.tssweb.entity.WorkerEntity">
+        SELECT * FROM TBL_WORKER WHERE UID=#{UID};
     </select>
-    <!-- 根据用户ID删除用户 -->
-    <delete id="deleteByUID">
-        DELETE FROM TBL_USER WHERE UID = #{uid};
+    <!-- 通过员工编码删除员工信息 -->
+    <delete id="DeleteWorker" parameterType="java.lang.String">
+        DELETE TBL_WORKER WHERE WID=#{WID};
+    </delete>
+    <!-- 通过许可证编码获取许可证信息 -->
+    <select id="GetLicenceInfoByLID" parameterType="java.lang.String" resultType="com.tssweb.entity.LicenceEntity">
+        SELECT * FROM TBL_LICENCE WHERE LID=#{LID};
+    </select>
+    <!-- 根据员工编码获取许可证信息 -->
+    <select id="GetLicenceInfoByWID" parameterType="java.lang.String" resultType="com.tssweb.entity.LicenceEntity">
+        SELECT * FROM TBL_LICENCE WHERE WID=#{WID};
+    </select>
+    <!-- 新增许可证信息 -->
+    <insert id="AddLicenceInfo" parameterType="com.tssweb.entity.LicenceEntity">
+        INSERT INTO TBL_LICENCE (LID, LCNAME, LCDATE, WID, WKCHNAME)
+        VALUES (#{LID}, #{LCNAME}, #{LCDATE}, #{WID}, #{WKCHNAME});
+    </insert>
+    <!-- 通过员工编号删除许可证信息 -->
+    <delete id="DeleteLicenceByWID" parameterType="java.lang.String">
+        DELETE TBL_LICENCE WHERE WID=#{WID};
+    </delete>
+    <!-- 根据标签编码获取标签信息 -->
+    <select id="GetTagInfoByTID" parameterType="java.lang.String" resultType="com.tssweb.entity.TagEntity">
+        SELECT * FROM TBL_TAG WHERE TID=#{TID};
+    </select>
+    <!-- 通过标签编码获取员工信息 -->
+    <select id="GetWorkerInfoByTID" parameterType="java.lang.String" resultType="com.tssweb.entity.WorkerEntity">
+        SELECT * FROM TBL_WORKER WHERE WID=(SELECT WID FROM TBL_TAG WHERE TID=#{TID});
+    </select>
+    <!-- 根据员工编码获取标签信息 -->
+    <select id="GetTagsInfoByWID" parameterType="java.lang.String" resultType="com.tssweb.entity.TagEntity">
+        SELECT * FROM TBL_TAG WHERE WID=#{WID};
+    </select>
+    <!-- 新增标签信息 -->
+    <insert id="AddTag" parameterType="com.tssweb.entity.TagEntity">
+        INSERT INTO TBL_TAG (TID, TAGNAME, WID, WKCHNAME, WKSURNAME, WKENNAME)
+        VALUES (#{TID}, #{TAGNAME}, #{WID}, #{WKCHNAME}, #{WKSURNAME}, #{WKENNAME});
+    </insert>
+    <!-- 通过员工编码删除标签信息 -->
+    <delete id="DeleteTags" parameterType="java.lang.String">
+        DELETE TBL_TAG WHERE WID=#{WID};
     </delete>
 </mapper>
