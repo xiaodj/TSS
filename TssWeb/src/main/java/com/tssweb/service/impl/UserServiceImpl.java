@@ -5,6 +5,7 @@ import com.tssweb.dto.BaseDto;
 import com.tssweb.dto.LoginDto;
 import com.tssweb.dto.UserSetDto;
 import com.tssweb.entity.UserEntity;
+import com.tssweb.entity.UserSetEntity;
 import com.tssweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,6 +20,8 @@ public class UserServiceImpl implements IUserService {
     private LoginDto loginDto;
     @Autowired
     private BaseDto baseDto;
+    @Autowired
+    private UserSetDto userSetDto;
 
     @Override
     public BaseDto register(Map<String, String> var) {
@@ -79,12 +82,35 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserSetDto getSetInfo(Map<String, String> var) {
-        return null;
+    public UserSetDto getSetInfo(Integer uid) {
+
+        UserSetEntity userSetEntity = iUserDao.GetUserSetInfoByUID(uid);
+        if (userSetEntity.equals(null)){
+            userSetDto.setCode(1);
+            userSetDto.setMessage("未查到用户设置信息");
+            return userSetDto;
+        }else{
+            userSetDto.setCode(0);
+            userSetDto.setMessage("成功获取到用户设置信息");
+            userSetDto.setOnStartTime(userSetEntity.getONSTARTTIME());
+            userSetDto.setOnEndTime(userSetEntity.getONENDTIME());
+            userSetDto.setOffStartTime(userSetEntity.getOFFSTARTTIME());
+            userSetDto.setOffEndTime(userSetEntity.getOFFENDTIME());
+            return userSetDto;
+        }
     }
 
     @Override
     public BaseDto putSetInfo(Map<String, String> var) {
-        return null;
+        UserSetEntity userSetEntity = new UserSetEntity();
+        userSetEntity.setUID(Integer.valueOf(var.get("uid")));
+        userSetEntity.setONSTARTTIME(var.get("onstarttime"));
+        userSetEntity.setONENDTIME(var.get("onendtime"));
+        userSetEntity.setOFFSTARTTIME(var.get("offstarttime"));
+        userSetEntity.setOFFENDTIME(var.get("offendtime"));
+        iUserDao.UpdateUserSetByUID(userSetEntity);
+        baseDto.setCode(0);
+        baseDto.setMessage("修改设置信息成功");
+        return baseDto;
     }
 }

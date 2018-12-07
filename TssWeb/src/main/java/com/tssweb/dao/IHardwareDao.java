@@ -7,7 +7,7 @@ public interface IHardwareDao {
     /**
      * 通过用户编码获取硬件设置信息
      */
-    public HardwareSetEntity GetHardwareSetBy(Integer uid);
+    public HardwareSetEntity GetHardwareSetByUID(Integer uid);
 
     /**
      * 新增硬件设置信息

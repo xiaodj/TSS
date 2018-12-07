@@ -9,7 +9,7 @@ public interface IHardwareService {
     /**
      * 获取硬件设置信息
      */
-    public HardwareSetDto getHardwareInfo(Map<String, String> var);
+    public HardwareSetDto getHardwareInfo(Integer uid);
 
     /**
      * 修改硬件设置信息

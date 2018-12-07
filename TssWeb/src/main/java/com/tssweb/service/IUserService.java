@@ -21,7 +21,7 @@ public interface IUserService {
     /**
      * 获取用户设置
      */
-    public UserSetDto getSetInfo(Map<String, String> var);
+    public UserSetDto getSetInfo(Integer uid);
 
     /**
      * 修改用户设置
