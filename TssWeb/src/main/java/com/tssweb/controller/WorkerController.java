@@ -41,8 +41,8 @@ public class WorkerController {
     @RequestMapping(value = "/v1/user/{uid}/worker/{wid}", method = RequestMethod.PUT)
     public @ResponseBody BaseDto PutWorker(@PathVariable("uid") Integer uid,
                                            @PathVariable("wid") String wid,
-                                           @RequestBody Map<String, String> param){
-        return iWorkerService.putWorker(uid, wid, param);
+                                           @RequestBody WorkerDto workerDto){
+        return iWorkerService.putWorker(uid, wid, workerDto);
     }
 
     /**
@@ -50,7 +50,7 @@ public class WorkerController {
      */
     @RequestMapping(value = "/v1/user/{uid}/worker/{wid}", method = RequestMethod.GET)
     public @ResponseBody
-    WorkerDto GetWorker(@PathVariable("uid") Integer uid, @PathVariable("uid") String wid){
+    WorkerDto GetWorker(@PathVariable("uid") Integer uid, @PathVariable("wid") String wid){
         return iWorkerService.getWorker(uid, wid);
     }
 

@@ -26,7 +26,7 @@ public interface IWorkerService {
     /**
      * 修改员工信息
      */
-    public BaseDto putWorker(Integer uid, String wid, Map<String, String> var);
+    public BaseDto putWorker(Integer uid, String wid, WorkerDto workerDto);
 
     /**
      * 删除员工信息

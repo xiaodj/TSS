@@ -31,9 +31,6 @@ public class WorkerServiceImpl implements IWorkerService {
     @Override
     public BaseDto addWorker(Integer uid, WorkerDto workerDto) {
         WorkerEntity workerEntity = new WorkerEntity();
-        List<LicenceEntity> licenceEntityList = new ArrayList<LicenceEntity>();
-        List<TagEntity> tagEntityList = new ArrayList<TagEntity>();
-
         workerEntity.setUID(uid);
         workerEntity.setWID(workerDto.getWid());
         workerEntity.setWKCHNAME(workerDto.getChname());
@@ -79,15 +76,15 @@ public class WorkerServiceImpl implements IWorkerService {
             return workersDto;
         }
 
-        List<WorkerBaseInfo> workerBaseInfoList = new ArrayList<WorkerBaseInfo>();
+        List<WorkerInfo> workerBaseInfoList = new ArrayList<WorkerInfo>();
         for (WorkerEntity workerEntity:workerEntityList) {
-            WorkerBaseInfo workerBaseInfo = new WorkerBaseInfo();
-            workerBaseInfo.setWid(workerEntity.getWID());
-            workerBaseInfo.setChname(workerEntity.getWKCHNAME());
-            workerBaseInfo.setSurname(workerEntity.getWKSURNAME());
-            workerBaseInfo.setEnname(workerEntity.getWKENNAME());
-            workerBaseInfo.setImagepath(workerEntity.getWKIMAGEPATH());
-            workerBaseInfoList.add(workerBaseInfo);
+            WorkerInfo workerInfo = new WorkerInfo();
+            workerInfo.setWid(workerEntity.getWID());
+            workerInfo.setChname(workerEntity.getWKCHNAME());
+            workerInfo.setSurname(workerEntity.getWKSURNAME());
+            workerInfo.setEnname(workerEntity.getWKENNAME());
+            workerInfo.setImagepath(workerEntity.getWKIMAGEPATH());
+            workerBaseInfoList.add(workerInfo);
         }
         workersDto.setCode(0);
         workersDto.setMessage("成功获取到用户信息");
@@ -153,7 +150,37 @@ public class WorkerServiceImpl implements IWorkerService {
 
     @Transactional
     @Override
-    public BaseDto putWorker(Integer uid, String wid, Map<String, String> var) {
+    public BaseDto putWorker(Integer uid, String wid, WorkerDto workerDto) {
+        WorkerEntity workerEntity = new WorkerEntity();
+        workerEntity.setWID(wid);
+        workerEntity.setWKCHNAME(workerDto.getChname());
+        workerEntity.setWKSURNAME(workerDto.getSurname());
+        workerEntity.setWKENNAME(workerDto.getEnname());
+        workerEntity.setWKCARD(workerDto.getWkcard());
+        workerEntity.setWKCCRSID(workerDto.getCcrsid());
+        workerEntity.setWKOTHER(workerDto.getOther());
+        iWorkerDao.UpdateWorker(workerEntity);
+
+        iWorkerDao.DeleteLicenceByWID(wid);
+        iWorkerDao.DeleteTagByWID(wid);
+        for (LicencesInfo licencesInfo: workerDto.getLicences()) {
+            LicenceEntity licenceEntity = new LicenceEntity();
+            licenceEntity.setWID(wid);
+            licenceEntity.setLCNAME(licencesInfo.getLcname());
+            licenceEntity.setLCDATE(licencesInfo.getLcdate());
+            iWorkerDao.AddLicenceInfo(licenceEntity);
+        }
+
+        for (TagInfo tagInfo: workerDto.getTags()) {
+            TagEntity tagEntity = new TagEntity();
+            tagEntity.setTID(tagInfo.getTid());
+            tagEntity.setTAGNAME(tagInfo.getTagname());
+            tagEntity.setWID(wid);
+            iWorkerDao.AddTag(tagEntity);
+        }
+
+        baseDto.setCode(0);
+        baseDto.setMessage("修改用户成功");
         return baseDto;
     }
 

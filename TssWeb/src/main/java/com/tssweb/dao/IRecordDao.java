@@ -18,4 +18,9 @@ public interface IRecordDao {
      * 根据时间段以及员工编号查询员工记录
      */
     public List<RecordEntity> GetRecordsByDateAndWID(@Param("startDate") String startDate, @Param("endDate") String endDate, @Param("wid") String wid);
+
+    /**
+     * 新增记录
+     */
+    public Integer AddRecord(RecordEntity recordEntity);
 }

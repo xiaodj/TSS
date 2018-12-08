@@ -4,10 +4,7 @@ import com.tssweb.dto.BaseDto;
 import com.tssweb.dto.RecordsDto;
 import com.tssweb.service.IRecordService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -22,10 +19,20 @@ public class RecordController {
      * 查询记录
      * @author 邓江
      */
-    @RequestMapping(value = "/api/records", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/user/{uid}/records/startdate/{sdt}/enddate/{edt}", method = RequestMethod.GET)
     public @ResponseBody
-    RecordsDto GetRecords(@RequestBody Map<String, String> param){
-        return iRecordService.getRecords(param);
+    RecordsDto GetRecords(@PathVariable("uid") Integer uid, @PathVariable("sdt") String sdt, @PathVariable("edt") String edt){
+        return iRecordService.getRecords(uid, sdt, edt);
     }
 
+    /**
+     * 查询记录
+     * @author 邓江
+     */
+    @RequestMapping(value = "/v1/user/{uid}/worker/{wid}/records/startdate/{sdt}/enddate/{edt}", method = RequestMethod.GET)
+    public @ResponseBody
+    RecordsDto GetRecords(@PathVariable("uid") Integer uid, @PathVariable("wid") String wid,
+                          @PathVariable("sdt") String sdt, @PathVariable("edt") String edt){
+        return iRecordService.getRecords(uid, wid, sdt, edt);
+    }
 }

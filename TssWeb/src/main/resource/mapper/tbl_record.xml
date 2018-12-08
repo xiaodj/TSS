@@ -4,12 +4,16 @@
     <!-- 根据时间段查询所有员工记录 -->
     <select id="GetRecordsByDate" resultType="com.tssweb.entity.RecordEntity">
         <![CDATA[SELECT * FROM TBL_RECORD WHERE DATE_FORMAT(RCDATE, '%y-%m-%d') >= DATE_FORMAT(#{startDate}, '%y-%m-%d')
-                AND DATE_FORMAT(RCDATE, '%y-%m-%d') <= DATE_FORMAT(#{endDate}, '%y-%m-%d');]]>
+                AND DATE_FORMAT(RCDATE, '%y-%m-%d') <= DATE_FORMAT(#{endDate}, '%y-%m-%d') ORDER BY RCDATE ASC, WID ASC, RCTIME ASC;]]>
     </select>
     <!-- 根据时间段以及员工编号查询员工记录 -->
     <select id="GetRecordsByDateAndWID" resultType="com.tssweb.entity.RecordEntity">
         <![CDATA[SELECT * FROM TBL_RECORD WHERE DATE_FORMAT(RCDATE, '%y-%m-%d') >= DATE_FORMAT(#{startDate}, '%y-%m-%d')
                 AND DATE_FORMAT(RCDATE, '%y-%m-%d') <= DATE_FORMAT(#{endDate}, '%y-%m-%d')
-                AND WID=#WID;]]>
+                AND WID=#WID ORDER BY RCDATE ASC, WID ASC, RCTIME ASC;]]>
     </select>
+    <!-- 新增记录 -->
+    <insert id="AddRecord" parameterType="com.tssweb.entity.RecordEntity">
+        INSERT INTO TBL_RECORD (WID, RCDATE, RCTIME, TAGSTATE) VALUES (#{WID}, #{RCDATE}, #{RCTIME}, #{TAGSTATE});
+    </insert>
 </mapper>

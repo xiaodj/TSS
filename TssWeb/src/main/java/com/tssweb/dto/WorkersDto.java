@@ -6,13 +6,13 @@ import java.util.List;
 
 @Component
 public class WorkersDto extends BaseDto{
-    private List<WorkerBaseInfo> member;
+    private List<WorkerInfo> member;
 
-    public List<WorkerBaseInfo> getMember() {
+    public List<WorkerInfo> getMember() {
         return member;
     }
 
-    public void setMember(List<WorkerBaseInfo> member) {
+    public void setMember(List<WorkerInfo> member) {
         this.member = member;
     }
 }
