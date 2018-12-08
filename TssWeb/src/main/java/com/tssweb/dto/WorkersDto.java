@@ -1,7 +1,10 @@
 package com.tssweb.dto;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class WorkersDto extends BaseDto{
     private List<WorkerBaseInfo> member;
 

@@ -6,10 +6,7 @@ import com.tssweb.dto.UserSetDto;
 import com.tssweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -19,14 +16,14 @@ import java.util.Map;
 @Controller
 public class UserController {
 
-    //@Autowired
+    @Autowired
     private IUserService iUserService;
 
     /**
      * 注册接口
      * @author 邓江
      */
-    @RequestMapping(value = "/api/user/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/user/register", method = RequestMethod.POST)
     public @ResponseBody BaseDto register(@RequestBody Map<String, String> param){
         return iUserService.register(param);
     }
@@ -35,7 +32,7 @@ public class UserController {
      * 登录接口
      * @author 邓江
      */
-    @RequestMapping(value = "/api/user/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/user/login", method = RequestMethod.POST)
     public @ResponseBody LoginDto login(@RequestBody Map<String, String> param){
         return iUserService.login(param);
     }
@@ -44,18 +41,18 @@ public class UserController {
      * 获取用户设置信息
      * @author 邓江
      */
-    @RequestMapping(value = "/api/user/set", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/user/{uid}/set", method = RequestMethod.GET)
     public @ResponseBody
-    UserSetDto GetSetInfo(@RequestBody Map<String, String> param){
-        return iUserService.getSetInfo(param);
+    UserSetDto GetSetInfo(@PathVariable("uid") Integer uid){
+        return iUserService.getSetInfo(uid);
     }
 
     /**
      * 修改用户设置信息
      * @author 邓江
      */
-    @RequestMapping(value = "/api/user/set", method = RequestMethod.PUT)
-    public @ResponseBody BaseDto PutSetInfo(@RequestBody Map<String, String> param){
-        return iUserService.putSetInfo(param);
+    @RequestMapping(value = "/v1/user/{uid}/set", method = RequestMethod.PUT)
+    public @ResponseBody BaseDto PutSetInfo(@PathVariable("uid") Integer uid, @RequestBody Map<String, String> param){
+        return iUserService.putSetInfo(uid, param);
     }
 }

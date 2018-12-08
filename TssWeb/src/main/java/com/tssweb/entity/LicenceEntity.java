@@ -7,17 +7,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class LicenceEntity {
-    private String  LID;    //许可证ID
+    private Integer  LID;    //许可证ID
     private String  LCNAME; //许可证名称
     private String  LCDATE; //许可证过期日期
-    private Integer WID;    //员工ID
-    private String  WKCHNAME; //员工中文姓名
+    private String  WID;    //员工编码
 
-    public String getLID() {
+    public Integer getLID() {
         return LID;
     }
 
-    public void setLID(String LID) {
+    public void setLID(Integer LID) {
         this.LID = LID;
     }
 
@@ -37,19 +36,11 @@ public class LicenceEntity {
         this.LCDATE = LCDATE;
     }
 
-    public Integer getWID() {
+    public String getWID() {
         return WID;
     }
 
-    public void setWID(Integer WID) {
+    public void setWID(String WID) {
         this.WID = WID;
-    }
-
-    public String getWKCHNAME() {
-        return WKCHNAME;
-    }
-
-    public void setWKCHNAME(String WKCHNAME) {
-        this.WKCHNAME = WKCHNAME;
     }
 }

@@ -3,9 +3,11 @@ package com.tssweb.dao;
 import com.tssweb.entity.LicenceEntity;
 import com.tssweb.entity.TagEntity;
 import com.tssweb.entity.WorkerEntity;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface IWorkerDao {
 
     /**
@@ -31,7 +33,7 @@ public interface IWorkerDao {
     /**
      * 通过员工编码删除员工信息
      */
-    public Integer DeleteWorker(String wid);
+    public Integer DeleteWorkerByWID(String wid);
 
     /**
      * 通过许可证编码获取许可证信息
@@ -76,5 +78,5 @@ public interface IWorkerDao {
     /**
      * 通过员工编码删除标签信息
      */
-    public Integer DeleteTags(String wid);
+    public Integer DeleteTagByWID(String wid);
 }

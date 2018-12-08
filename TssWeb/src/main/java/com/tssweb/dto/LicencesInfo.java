@@ -1,5 +1,8 @@
 package com.tssweb.dto;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class LicencesInfo {
     private String lcname;  //许可证名称
     private String lcdate;  //许可证过期时间

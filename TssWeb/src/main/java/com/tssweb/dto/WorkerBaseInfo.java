@@ -1,5 +1,8 @@
 package com.tssweb.dto;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class WorkerBaseInfo {
     private String wid;         //员工编号
     private String surname;     //英文姓

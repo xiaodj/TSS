@@ -1,5 +1,8 @@
 package com.tssweb.dto;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class TagInfo {
     private String tagname; //标签名称
     private String tid;     //标签编号

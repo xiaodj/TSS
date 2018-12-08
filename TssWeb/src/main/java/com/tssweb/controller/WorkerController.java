@@ -4,11 +4,9 @@ import com.tssweb.dto.BaseDto;
 import com.tssweb.dto.WorkerDto;
 import com.tssweb.dto.WorkersDto;
 import com.tssweb.service.IWorkerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -18,48 +16,51 @@ import java.util.Map;
 @Controller
 public class WorkerController {
 
+    @Autowired
     private IWorkerService iWorkerService;
 
     /**
      * 添加员工信息
      */
-    @RequestMapping(value = "/api/worker", method = RequestMethod.POST)
-    public @ResponseBody BaseDto AddWorker(@RequestBody Map<String, String> param){
-        return iWorkerService.addWorker(param);
+    @RequestMapping(value = "/v1/user/{uid}/worker", method = RequestMethod.POST)
+    public @ResponseBody BaseDto AddWorker(@PathVariable("uid") Integer uid, @RequestBody WorkerDto workerDto){
+        return iWorkerService.addWorker(uid, workerDto);
     }
 
     /**
-     * 删除员工信息   /api/worker/delete
+     * 删除员工信息
      */
-    @RequestMapping(value = "/api/worker", method = RequestMethod.DELETE)
-    public @ResponseBody BaseDto DeleteWorker(@RequestBody Map<String, String> param){
-        return iWorkerService.deleteWorker(param);
+    @RequestMapping(value = "/v1/user/{uid}/worker/{wid}", method = RequestMethod.DELETE)
+    public @ResponseBody BaseDto DeleteWorker(@PathVariable("uid") Integer uid, @PathVariable("wid") String wid){
+        return iWorkerService.deleteWorker(uid, wid);
     }
 
     /**
-     * 修改员工信息   /api/worker/update
+     * 修改员工信息
      */
-    @RequestMapping(value = "/api/worker", method = RequestMethod.PUT)
-    public @ResponseBody BaseDto PutWorker(@RequestBody Map<String, String> param){
-        return iWorkerService.putWorker(param);
+    @RequestMapping(value = "/v1/user/{uid}/worker/{wid}", method = RequestMethod.PUT)
+    public @ResponseBody BaseDto PutWorker(@PathVariable("uid") Integer uid,
+                                           @PathVariable("wid") String wid,
+                                           @RequestBody Map<String, String> param){
+        return iWorkerService.putWorker(uid, wid, param);
     }
 
     /**
-     * 获取员工详细信息 /api/workers
+     * 获取员工详细信息
      */
-    @RequestMapping(value = "/api/worker", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/user/{uid}/worker/{wid}", method = RequestMethod.GET)
     public @ResponseBody
-    WorkerDto GetWorker(@RequestBody Map<String, String> param){
-        return iWorkerService.getWorker(param);
+    WorkerDto GetWorker(@PathVariable("uid") Integer uid, @PathVariable("uid") String wid){
+        return iWorkerService.getWorker(uid, wid);
     }
 
     /**
      * 获取员工基本信息
      */
-    @RequestMapping(value = "/api/workers", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/user/{uid}/workers", method = RequestMethod.GET)
     public @ResponseBody
-    WorkersDto GetWorkers(@RequestBody Map<String, String> param){
-        return iWorkerService.getWorkers(param);
+    WorkersDto GetWorkers(@PathVariable("uid") Integer uid){
+        return iWorkerService.getWorkers(uid);
     }
 
     /**

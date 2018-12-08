@@ -8,9 +8,11 @@ import com.tssweb.entity.UserEntity;
 import com.tssweb.entity.UserSetEntity;
 import com.tssweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Service
 public class UserServiceImpl implements IUserService {
 
     @Autowired
@@ -30,7 +32,7 @@ public class UserServiceImpl implements IUserService {
 
         //通过用户名获取用户信息
         UserEntity userEntity = iUserDao.GetUserByUserName(username);
-        if (!userEntity.equals(null)){
+        if (null != userEntity){
             baseDto.setCode(1);
             baseDto.setMessage("用户已存在");
             return baseDto;
@@ -63,7 +65,7 @@ public class UserServiceImpl implements IUserService {
 
         //通过用户名获取用户信息
         UserEntity userEntity = iUserDao.GetUserByUserName(username);
-        if (!userEntity.equals(null)){
+        if (null == userEntity){
             loginDto.setCode(1);
             loginDto.setMessage("该用户不存在");
             return loginDto;
@@ -85,7 +87,7 @@ public class UserServiceImpl implements IUserService {
     public UserSetDto getSetInfo(Integer uid) {
 
         UserSetEntity userSetEntity = iUserDao.GetUserSetInfoByUID(uid);
-        if (userSetEntity.equals(null)){
+        if (null == userSetEntity){
             userSetDto.setCode(1);
             userSetDto.setMessage("未查到用户设置信息");
             return userSetDto;
@@ -96,19 +98,33 @@ public class UserServiceImpl implements IUserService {
             userSetDto.setOnEndTime(userSetEntity.getONENDTIME());
             userSetDto.setOffStartTime(userSetEntity.getOFFSTARTTIME());
             userSetDto.setOffEndTime(userSetEntity.getOFFENDTIME());
+            userSetDto.setTimeOut(userSetEntity.getTIMEOUT());
             return userSetDto;
         }
     }
 
     @Override
-    public BaseDto putSetInfo(Map<String, String> var) {
-        UserSetEntity userSetEntity = new UserSetEntity();
-        userSetEntity.setUID(Integer.valueOf(var.get("uid")));
-        userSetEntity.setONSTARTTIME(var.get("onstarttime"));
-        userSetEntity.setONENDTIME(var.get("onendtime"));
-        userSetEntity.setOFFSTARTTIME(var.get("offstarttime"));
-        userSetEntity.setOFFENDTIME(var.get("offendtime"));
-        iUserDao.UpdateUserSetByUID(userSetEntity);
+    public BaseDto putSetInfo(Integer uid, Map<String, String> var) {
+
+        UserSetEntity userSetEntity = iUserDao.GetUserSetInfoByUID(uid);
+        if (null == userSetEntity){
+            userSetEntity = new UserSetEntity();
+            userSetEntity.setUID(uid);
+            userSetEntity.setONSTARTTIME(var.get("onstarttime"));
+            userSetEntity.setONENDTIME(var.get("onendtime"));
+            userSetEntity.setOFFSTARTTIME(var.get("offstarttime"));
+            userSetEntity.setOFFENDTIME(var.get("offendtime"));
+            userSetEntity.setTIMEOUT(Integer.valueOf(var.get("timeout")));
+            iUserDao.AddUserSet(userSetEntity);
+        } else {
+            userSetEntity.setONSTARTTIME(var.get("onstarttime"));
+            userSetEntity.setONENDTIME(var.get("onendtime"));
+            userSetEntity.setOFFSTARTTIME(var.get("offstarttime"));
+            userSetEntity.setOFFENDTIME(var.get("offendtime"));
+            userSetEntity.setTIMEOUT(Integer.valueOf(var.get("timeout")));
+            iUserDao.UpdateUserSetByUID(userSetEntity);
+        }
+
         baseDto.setCode(0);
         baseDto.setMessage("修改设置信息成功");
         return baseDto;

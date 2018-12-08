@@ -3,11 +3,9 @@ package com.tssweb.controller;
 import com.tssweb.dto.BaseDto;
 import com.tssweb.dto.HardwareSetDto;
 import com.tssweb.service.IHardwareService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -17,22 +15,23 @@ import java.util.Map;
 @Controller
 public class HardwareController {
 
+    @Autowired
     private IHardwareService iHardwareService;
 
     /**
      * 获取硬件设置信息 /api/system/update
      */
-    @RequestMapping(value = "/api/hardware/set", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/user/{uid}/hardware/set", method = RequestMethod.GET)
     public @ResponseBody
-    HardwareSetDto GetHardwareInfo(@RequestBody Map<String, String> param){
-        return iHardwareService.getHardwareInfo(param);
+    HardwareSetDto GetHardwareInfo(@PathVariable("uid") Integer uid){
+        return iHardwareService.getHardwareInfo(uid);
     }
 
     /**
      * 修改硬件设置信息   /api/system
      */
-    @RequestMapping(value = "/api/hardware/set", method = RequestMethod.PUT)
-    public @ResponseBody BaseDto PutHardwareInfo(@RequestBody Map<String, String> param){
-        return iHardwareService.putHardwareInfo(param);
+    @RequestMapping(value = "/v1/user/{uid}/hardware/set", method = RequestMethod.PUT)
+    public @ResponseBody BaseDto PutHardwareInfo(@PathVariable("uid") Integer uid, @RequestBody Map<String, String> param){
+        return iHardwareService.putHardwareInfo(uid, param);
     }
 }

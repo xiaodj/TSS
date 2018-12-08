@@ -2,9 +2,11 @@ package com.tssweb.dao;
 
 import com.tssweb.entity.RecordEntity;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface IRecordDao {
 
     /**

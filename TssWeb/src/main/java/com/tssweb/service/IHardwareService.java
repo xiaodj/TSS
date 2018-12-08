@@ -14,5 +14,5 @@ public interface IHardwareService {
     /**
      * 修改硬件设置信息
      */
-    public BaseDto putHardwareInfo(Map<String, String> var);
+    public BaseDto putHardwareInfo(Integer uid, Map<String, String> var);
 }

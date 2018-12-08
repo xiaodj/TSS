@@ -1,7 +1,9 @@
 package com.tssweb.dao;
 
 import com.tssweb.entity.HardwareSetEntity;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface IHardwareDao {
 
     /**

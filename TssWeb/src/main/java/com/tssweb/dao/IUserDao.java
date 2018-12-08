@@ -2,7 +2,9 @@ package com.tssweb.dao;
 
 import com.tssweb.entity.UserEntity;
 import com.tssweb.entity.UserSetEntity;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface IUserDao {
 
     /**

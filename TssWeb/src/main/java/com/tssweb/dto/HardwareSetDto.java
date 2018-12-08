@@ -1,5 +1,8 @@
 package com.tssweb.dto;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class HardwareSetDto extends BaseDto {
     private String frSpeed;     //读卡速度
     private String frRange;     //读卡距离

@@ -26,5 +26,5 @@ public interface IUserService {
     /**
      * 修改用户设置
      */
-    public BaseDto putSetInfo(Map<String, String> var);
+    public BaseDto putSetInfo(Integer uid, Map<String, String> var);
 }
