@@ -62,6 +62,7 @@ public class RecordServiceImpl implements IRecordService {
 
         String strDate = "";    //临时保存记录日期
         String strWID="";       //临时保存员工编号
+        boolean bNewTime = true;    //需要新建一个Time主要用于out状态的判断
 
         Map<String, WorkerDto> workerMap = new HashMap<String, WorkerDto>();//临时保存已经获取过的员工信息
         for (Integer index = 0; index < recordEntityList.size(); index++){
@@ -107,14 +108,17 @@ public class RecordServiceImpl implements IRecordService {
                 recTimeInfoList = new ArrayList<RecTimeInfo>();
                 recWorkerInfo.setTimes(recTimeInfoList);
                 recWorkerInfoList.add(recWorkerInfo);
+
+                bNewTime = true;
             }
 
             if (recordEntity.getTAGSTATE() == 0){
                 recTimeInfo = new RecTimeInfo();
                 recTimeInfoList.add(recTimeInfo);
                 recTimeInfo.setIntime(recordEntity.getRCTIME());
+                bNewTime = false;
             }else{
-                if (index == 0){
+                if (bNewTime){
                     recTimeInfo = new RecTimeInfo();
                     recTimeInfoList.add(recTimeInfo);
                 }

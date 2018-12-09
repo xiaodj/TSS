@@ -3,6 +3,7 @@ package com.tssweb.controller;
 import com.tssweb.dto.BaseDto;
 import com.tssweb.dto.RecordsDto;
 import com.tssweb.service.IRecordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.util.Map;
 @Controller
 public class RecordController {
 
+    @Autowired
     private IRecordService iRecordService;
     /**
      * 查询记录
