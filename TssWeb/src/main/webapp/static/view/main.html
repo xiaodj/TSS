@@ -16,23 +16,31 @@
         <div class="layui-header">
             <a href="main.html"><div class="layui-logo">TSS智能管理系统</div></a>
             <ul class="layui-nav layui-layout-right">
-                <li class="layui-nav-item">邓江</li>
-                <li class="layui-nav-item">退出</li>
+                <li class="layui-nav-item">
+                    <a href="#">消息<span class="layui-badge">9</span></a>
+                </li>
+                <li class="layui-nav-item">
+                    <a><i class="layui-icon layui-icon-username"></i>邓江</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">退出</a></dd>
+                    </dl>
+                </li>
             </ul>
         </div>
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
-                <ul class="layui-nav layui-nav-tree"  lay-filter="manage">
-                    <li class="layui-nav-item"><a id="pdtproId" href="javascript:;">实时监控</a></li>
-                    <li class="layui-nav-item"><a id="devmgtId" href="javascript:;">报表查询</a></li>
-                    <li class="layui-nav-item"><a id="dtmouldId" href="javascript:;">员工录入</a></li>
-                    <li class="layui-nav-item"><a id="triggerId" href="javascript:;">员工查询</a></li>
-                    <li class="layui-nav-item"><a id="appmgtId" href="javascript:;">控制中心</a></li>
+                <ul class="layui-nav layui-nav-tree"  lay-filter="main">
+                    <li class="layui-nav-item"><a id="1" href="javascript:;">实时监控</a></li>
+                    <li class="layui-nav-item"><a id="2" href="javascript:;">报表查询</a></li>
+                    <li class="layui-nav-item"><a id="3" href="javascript:;">员工录入</a></li>
+                    <li class="layui-nav-item"><a id="4" href="javascript:;">员工查询</a></li>
+                    <li class="layui-nav-item"><a id="5" href="javascript:;">控制中心</a></li>
                 </ul>
             </div>
         </div>
-        <div id="prodmanage" class="layui-body" style="margin: 15px;">
-
+        <div id="page" class="layui-body" style="margin: 15px;">
+            <table class="layui-hide" id="test"></table>
+            <div id="demo7"></div>
         </div>
     </div>
 </body>
