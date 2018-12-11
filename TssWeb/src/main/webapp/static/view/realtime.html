@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实时监控</title>
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/realtime.js"></script>
+</head>
+<body>
+<table class="layui-hide" id="realtime"></table>
+
+<script id="sexTpl" type="text/html">
+    {{#  if(d.city === '2019-09-11'){ }}
+    <span style="color: #F581B1;">{{ d.city }}</span>
+    {{#  } else { }}
+    <span style="color: #F581B1;">{{ d.city }}</span>
+    {{#  } }}
+</script>
+<script id="sexTpl1" type="text/html">
+    {{#  if(DateDiff(d.experience, getNowFormatDate()) <= 30){ }}
+    <span style="color: #F581B1;">{{ d.experience }}</span>
+    {{#  } else { }}
+    <span style="color: #F581B1;">{{ d.experience }}</span>
+    {{#  } }}
+</script>
+<script id="sexTpl2" type="text/html">
+    {{#  if(d.score === '2019-09-11'){ }}
+    <span style="color: #F581B1;">{{ d.score }}</span>
+    {{#  } else { }}
+    <span style="color: #F581B1;">{{ d.score }}</span>
+    {{#  } }}
+</script>
+</body>
+</html>

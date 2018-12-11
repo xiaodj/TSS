@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>控制中心</title>
+    <link rel="stylesheet" href="../css/tss.min.css">
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/control.js"></script>
+</head>
+<body>
+<div class="product-creat">
+    <div class="layui-card" style="margin-top:10px">
+        <div class="layui-card-header">网关设置</div>
+        <div class="layui-card-body">
+            <div class="layui-row">
+                <div class="layui-col-xs-offset2">
+                    <form class="layui-form">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">读卡速度：</label>
+                                <div class="layui-input-inline">
+                                    <input id="RFSpeed" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                </div>
+                                <label class="layui-form-label" style="text-align: left">秒/次</label>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">读卡距离：</label>
+                                <div class="layui-input-inline">
+                                    <input id="RFDistance" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                </div>
+                                <label class="layui-form-label" style="text-align: left">米</label>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">读卡状态：</label>
+                                <div class="layui-input-block">
+                                    <input name="open" type="checkbox" checked="" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"></label>
+                                <div class="layui-input-inline">
+                                    <button id="Login" class="layui-btn layui-btn-fluid" type="button">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-card">
+        <div class="layui-card-header">系统设置</div>
+        <div class="layui-card-body">
+            <div class="layui-row">
+                <div class="layui-col-xs-offset2">
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">上班时间：</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input" id="test8" type="text" placeholder=" - ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">下班时间：</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input" id="test9" type="text" placeholder=" - ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">累计时间：</label>
+                                <div class="layui-input-inline">
+                                    <input id="timeout" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                </div>
+                                <label class="layui-form-label" style="text-align: left">秒</label>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label"></label>
+                                <div class="layui-input-inline">
+                                    <button id="SysSave" class="layui-btn layui-btn-fluid" type="button">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
