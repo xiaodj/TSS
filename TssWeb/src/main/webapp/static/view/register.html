@@ -6,22 +6,27 @@
     <link rel="stylesheet" href="../css/tss.min.css">
     <link rel="stylesheet" href="../lib/layui/css/layui.css">
     <script src="../lib/layui/layui.js"></script>
-    <script>
-        layui.config({
-            base:'../js/'
-        }).use('user');
-    </script>
+    <script src="../js/common.js"></script>
+    <script src="../js/user.js"></script>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <a href="main.html"><div class="layui-logo">TSS智能管理系统</div></a>
+        <a href="login.html"><div class="layui-logo">TSS智能管理系统</div></a>
     </div>
 </div>
 <div class="reg-nav">
     <form class="layui-form" action="">
         <div class="layui-form-item" style="text-align: center; margin-top: 30px;">
             <div class="layui-inline"><h3>用户注册</h3></div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">昵称</label>
+                <div class="layui-input-inline">
+                    <input name="nickname" class="layui-input" type="text" placeholder="请输入昵称" autocomplete="off" lay-verify="required|title">
+                </div>
+            </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">

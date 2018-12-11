@@ -17,124 +17,165 @@
             <div class="layui-card">
                 <div class="layui-card-header">人员信息</div>
                 <div class="layui-card-body">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">员工编号：</label>
-                        <div class="layui-input-inline">
-                            <input id="wid" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                    <div class="layui-row">
+                        <div class="layui-col-xs10">
+                            <form class="layui-from">
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">员工编号：</label>
+                                        <div class="layui-input-inline">
+                                            <input id="wid" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">中文名：</label>
+                                        <div class="layui-input-inline">
+                                            <input id="chname" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">英文姓：</label>
+                                        <div class="layui-input-inline">
+                                            <input id="surname" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">英文名：</label>
+                                        <div class="layui-input-inline">
+                                            <input id="enname" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">厂证：</label>
+                                        <div class="layui-input-inline">
+                                            <input id="wkcard" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">CCRSID：</label>
+                                        <div class="layui-input-inline">
+                                            <input id="ccrsid" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">其它：</label>
+                                        <div class="layui-input-inline">
+                                            <input id="other" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">英文姓：</label>
-                        <div class="layui-input-inline">
-                            <input id="surname" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                        <div class="layui-col-xs2">
+                            <form class="layui-form">
+                                <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
+                                    <div class="layui-inline">
+                                        <img src="../image/000.png">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
+                                    <div class="layui-inline">
+                                        <button class="layui-btn">上传头像</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">英文名：</label>
-                        <div class="layui-input-inline">
-                            <input id="enname" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">中文名：</label>
-                        <div class="layui-input-inline">
-                            <input id="chname" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">厂证：</label>
-                        <div class="layui-input-inline">
-                            <input id="wkcard" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">CCRSID：</label>
-                        <div class="layui-input-inline">
-                            <input id="ccrsid" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">其它：</label>
-                        <div class="layui-input-inline">
-                            <input id="other" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <img src="../image/000.png">
-                    </div>
-                    <div class="layui-inline">
-                        <button class="layui-btn">上传头像</button>
                     </div>
                 </div>
             </div>
             <div class="layui-card">
                 <div class="layui-card-header">许可证信息</div>
                 <div class="layui-card-body">
-                    <div class="layui-inline">
-                        <label>许可证名称：绿卡</label>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">过期日期：</label>
-                        <div class="layui-input-inline">
-                            <input class="layui-input" id="LID1" type="text" placeholder="yyyy-MM-dd">
+                    <form class="layui-form">
+                        <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">许可证：</label>
+                                <div class="layui-input-inline">
+                                    <select name="tagname" lay-search="" lay-verify="required">
+                                        <option value="">绿卡</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">过期日期：</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input" id="LID1" type="text" placeholder="yyyy-MM-dd">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <br/>
-                    <div class="layui-inline">
-                        <label>许可证名称：密卡</label>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">过期日期：</label>
-                        <div class="layui-input-inline">
-                            <input class="layui-input" id="LID2" type="text" placeholder="yyyy-MM-dd">
+                        <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">许可证：</label>
+                                <div class="layui-input-inline">
+                                    <select name="tagname" lay-search="" lay-verify="required">
+                                        <option value="">密卡</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">过期日期：</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input" id="LID2" type="text" placeholder="yyyy-MM-dd">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <br/>
-                    <div class="layui-inline">
-                        <label>许可证名称：CP</label>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">过期日期：</label>
-                        <div class="layui-input-inline">
-                            <input class="layui-input" id="LID3" type="text" placeholder="yyyy-MM-dd">
+                        <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">许可证：</label>
+                                <div class="layui-input-inline">
+                                    <select name="tagname" lay-search="" lay-verify="required">
+                                        <option value="">CP</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">过期日期：</label>
+                                <div class="layui-input-inline">
+                                    <input class="layui-input" id="LID3" type="text" placeholder="yyyy-MM-dd">
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="layui-card">
                 <div class="layui-card-header">标签信息</div>
                 <div class="layui-card-body">
-
-                        <form class="layui-form">
-                        <div class="layui-form-item">
-                            <div class="layui-row">
-                        <div class="layui-col-xs6">
+                    <form class="layui-form">
+                        <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
                             <div class="layui-inline">
-                                <label class="layui-form-label">标签名称</label>
+                                <label class="layui-form-label">标签名称：</label>
                                 <div class="layui-input-inline">
-                                    <select name="tagname">
+                                    <select name="tagname" lay-search="" lay-verify="required">
                                         <option value="">挂牌</option>
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="layui-col-xs6">
                             <div class="layui-inline">
                                 <label class="layui-form-label">标签编码：</label>
                                 <div class="layui-input-inline">
-                                    <input id="tid" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                    <input id="RFSpeed" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
                                 </div>
                             </div>
                         </div>
-                        </div>
-                        </div>
-                        </form>
-
+                    </form>
                 </div>
             </div>
-            <div class="layui-input-inline">
-                <button class="layui-btn layui-btn-fluid" lay-filter="registerbtn" lay-submit>添加</button>
-            </div>
+            <form class="layui-form">
+                <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <button class="layui-btn layui-btn-fluid" lay-filter="registerbtn" lay-submit>添加</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </body>

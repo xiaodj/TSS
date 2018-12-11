@@ -8,8 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserEntity {
     private Integer UID;        //用户编码
+    private String NICKNAME;    //昵称
     private String USERNAME;    //用户名
     private String PASSWORD;    //密码
+
+    public String getNICKNAME() {
+        return NICKNAME;
+    }
+
+    public void setNICKNAME(String NICKNAME) {
+        this.NICKNAME = NICKNAME;
+    }
 
     public Integer getUID() {
         return UID;

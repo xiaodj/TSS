@@ -79,6 +79,7 @@ public class UserServiceImpl implements IUserService {
             loginDto.setCode(0);
             loginDto.setMessage("登录成功");
             loginDto.setUid(userEntity.getUID());
+            loginDto.setNickname(userEntity.getNICKNAME());
             return loginDto;
         }
     }

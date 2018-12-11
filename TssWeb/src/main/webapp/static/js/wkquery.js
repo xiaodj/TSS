@@ -1,8 +1,9 @@
 /**
  * Created by xiaodj on 2018/12/11.
  */
-layui.use(['table'], function () {
+layui.use(['table', 'layer'], function () {
     var table = layui.table;
+    var layer = layui.layer;
 
     var RTData = [
         {"wid":"001", "chname":"张三","surname":"Zhang","enname":"san"},
@@ -44,24 +45,18 @@ layui.use(['table'], function () {
     });
 
     //监听行工具事件
-    table.on('tool(test)', function(obj){
+    table.on('tool(wkquery)', function(obj){
         var data = obj.data;
         //console.log(obj)
         if(obj.event === 'del'){
-            layer.confirm('真的删除行么', function(index){
+            layer.confirm('是否确认删除员工'+ data.chname, function(index){
                 obj.del();
                 layer.close(index);
             });
         } else if(obj.event === 'edit'){
-            layer.prompt({
-                formType: 2
-                ,value: data.email
-            }, function(value, index){
-                obj.update({
-                    email: value
-                });
-                layer.close(index);
-            });
+            window.parent.location.href = "../view/wkupdate.html" + "?wid=" + data.wid;
+        } else if (obj.event === 'detail'){
+            window.parent.location.href = "../view/wkdetail.html" + "?wid=" + data.wid;
         }
     });
 });
