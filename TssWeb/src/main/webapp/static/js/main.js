@@ -8,8 +8,9 @@ layui.define(['layer','form', 'element', 'table', 'laypage', 'layer'],function (
     var table = layui.table;
     var laypage = layui.laypage;
     var $ = layui.$;
-    var nickname = sessionStorage.getItem("nickname");
-    $('nickname').innerHTML = sessionStorage.getItem("nickname");
+
+    //document.getElementById("nickname").innerHTML = sessionStorage.getItem("nickname");
+    $('#nickname').innerHTML = sessionStorage.getItem("nickname");
 
     //var page = document.getElementById("page");
     element.on('nav(main)', function (data) {

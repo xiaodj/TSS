@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>实时监控</title>
+    <title>记录查询</title>
     <link rel="stylesheet" href="../lib/layui/css/layui.css">
     <script src="../lib/layui/layui.js"></script>
     <script src="../js/record.js"></script>
+    <script src="../js/common.js"></script>
 </head>
 <body>
 <table class="layui-hide" id="records"></table>
@@ -36,6 +37,40 @@
             </div>
         </div>
     </div>
+</script>
+
+<script id="sexTp1" type="text/html">
+    {{#  if(DateDiff(d.city === null || d.city === "" || d.city, getNowFormatDate()) < 0){ }}
+    <span>{{ d.city + 'ｘ' }}</span>
+    {{#  } else if(DateDiff(d.city, getNowFormatDate()) >= 0 && DateDiff(d.city, getNowFormatDate()) <= 30){ }}
+    <span>{{ d.city + '**' }}</span>
+    {{#  } else if(DateDiff(d.city, getNowFormatDate()) > 30 && DateDiff(d.city, getNowFormatDate()) <= 90){ }}
+    <span>{{ d.city + '*' }}</span>
+    {{#  } else { }}
+    <span>{{ d.city }}</span>
+    {{#  } }}
+</script>
+<script id="sexTp2" type="text/html">
+    {{#  if(d.experience === null || d.experience === "" || DateDiff(d.experience, getNowFormatDate()) < 0){ }}
+    <span>{{ d.experience + 'ｘ' }}</span>
+    {{#  } else if(DateDiff(d.experience, getNowFormatDate()) >= 0 && DateDiff(d.experience, getNowFormatDate()) <= 30){ }}
+    <span>{{ d.experience + '**' }}</span>
+    {{#  } else if(DateDiff(d.experience, getNowFormatDate()) > 30 && DateDiff(d.experience, getNowFormatDate()) <= 90){ }}
+    <span>{{ d.experience + '*' }}</span>
+    {{#  } else { }}
+    <span>{{ d.experience }}</span>
+    {{#  } }}
+</script>
+<script id="sexTp3" type="text/html">
+    {{#  if(d.score === null || d.score === "" || DateDiff(d.score, getNowFormatDate()) < 0){ }}
+    <span>{{ d.score + 'ｘ' }}</span>
+    {{#  } else if(DateDiff(d.score, getNowFormatDate()) >= 0 && DateDiff(d.score, getNowFormatDate()) <= 30){ }}
+    <span>{{ d.score + '**' }}</span>
+    {{#  } else if(DateDiff(d.score, getNowFormatDate()) > 30 && DateDiff(d.score, getNowFormatDate()) <= 90){ }}
+    <span>{{ d.score + '*' }}</span>
+    {{#  } else { }}
+    <span>{{ d.score }}</span>
+    {{#  } }}
 </script>
 
 </body>
