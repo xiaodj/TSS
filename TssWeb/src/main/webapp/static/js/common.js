@@ -2,6 +2,14 @@
  * Created by xiaodj on 2018/12/11.
  */
 
+var uid = null;
+
+window.onload = function () {
+    uid = sessionStorage.getItem("uid");
+    if (uid == null)
+        window.location.href = "../view/login.html";
+}
+
 var Host = "http://localhost:8080";
 
 function DateDiff(sDate1, sDate2) {

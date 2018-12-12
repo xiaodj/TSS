@@ -1,18 +1,11 @@
 /**
  * Created by xiaodj on 2018/12/5.
  */
-layui.define(['layer','form', 'element', 'table', 'laypage', 'layer'],function (exports) {
-    var layer = layui.layer;
-    var form = layui.form;
+layui.use(['element'],function () {
     var element = layui.element;
-    var table = layui.table;
-    var laypage = layui.laypage;
     var $ = layui.$;
 
-    //document.getElementById("nickname").innerHTML = sessionStorage.getItem("nickname");
-    $('#nickname').innerHTML = sessionStorage.getItem("nickname");
-
-    //var page = document.getElementById("page");
+    document.getElementById("nickname").innerHTML = sessionStorage.getItem("nickname");
     element.on('nav(main)', function (data) {
         if (data.context.id == "realtime"){
             document.getElementById("iframe").src = 'realtime.html';
@@ -41,6 +34,4 @@ layui.define(['layer','form', 'element', 'table', 'laypage', 'layer'],function (
     // });
     //
     // table.reload('test', {data: oldData1});
-
-    exports('main', {});
 });

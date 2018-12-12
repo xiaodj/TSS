@@ -3,7 +3,7 @@
 <mapper namespace="com.tssweb.dao.IUserDao">
     <!-- 添加用户信息 -->
     <insert id="AddUser" parameterType="com.tssweb.entity.UserEntity">
-        INSERT INTO TBL_USER (USERNAME, PASSWORD) VALUES (#{USERNAME}, #{PASSWORD});
+        INSERT INTO TBL_USER (USERNAME, PASSWORD, NICKNAME) VALUES (#{USERNAME}, #{PASSWORD}, #{NICKNAME});
     </insert>
     <!-- 修改用户信息 -->
     <update id="UpdateUserByUID" parameterType="com.tssweb.entity.UserEntity">

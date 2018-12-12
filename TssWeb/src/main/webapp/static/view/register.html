@@ -7,12 +7,17 @@
     <link rel="stylesheet" href="../lib/layui/css/layui.css">
     <script src="../lib/layui/layui.js"></script>
     <script src="../js/common.js"></script>
-    <script src="../js/user.js"></script>
+    <script src="../js/register.js"></script>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <a href="login.html"><div class="layui-logo">TSS智能管理系统</div></a>
+        <a href="#"><div class="layui-logo">TSS智能管理系统</div></a>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="login.html">登录</a>
+            </li>
+        </ul>
     </div>
 </div>
 <div class="reg-nav">
@@ -22,33 +27,33 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">昵称</label>
+                <label class="layui-form-label"><span style="color: #FF0000">*</span>昵称</label>
                 <div class="layui-input-inline">
-                    <input name="nickname" class="layui-input" type="text" placeholder="请输入昵称" autocomplete="off" lay-verify="required|title">
+                    <input id="NickName" class="layui-input" type="text" placeholder="请输入昵称" autocomplete="off" lay-verify="required">
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">用户名</label>
+                <label class="layui-form-label"><span style="color: #FF0000">*</span>用户名</label>
                 <div class="layui-input-inline">
-                    <input name="username" class="layui-input" type="text" placeholder="请输入用户名" autocomplete="off" lay-verify="required|title">
+                    <input id="UserName" class="layui-input" type="text" placeholder="请输入用户名" autocomplete="off" lay-verify="required">
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">密码</label>
+                <label class="layui-form-label"><span style="color: #FF0000">*</span>密码</label>
                 <div class="layui-input-inline">
-                    <input name="password" class="layui-input" type="password" placeholder="请输入密码" autocomplete="off" >
+                    <input id="PassWord" class="layui-input" type="password" placeholder="请输入密码" autocomplete="off"  lay-verify="required">
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">确认密码</label>
+                <label class="layui-form-label"><span style="color: #FF0000">*</span>确认密码</label>
                 <div class="layui-input-inline">
-                    <input name="rpassword" class="layui-input" type="password" placeholder="请再次输入密码" autocomplete="off">
+                    <input id="RPassWord" class="layui-input" type="password" placeholder="请再次输入密码" autocomplete="off" lay-verify="required">
                 </div>
             </div>
         </div>
@@ -56,7 +61,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label"></label>
                 <div class="layui-input-inline">
-                    <button class="layui-btn layui-btn-fluid" lay-filter="registerbtn" lay-submit>提交</button>
+                    <button id="Register" class="layui-btn layui-btn-fluid" type="button">注册</button>
                 </div>
             </div>
         </div>

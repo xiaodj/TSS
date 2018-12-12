@@ -27,6 +27,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public BaseDto register(Map<String, String> var) {
+        String nickname = var.get("nickname");
         String username = var.get("username");
         String password = var.get("password");
 
@@ -39,6 +40,7 @@ public class UserServiceImpl implements IUserService {
         }
 
         userEntity = new UserEntity();
+        userEntity.setNICKNAME(nickname);
         userEntity.setUSERNAME(username);
         userEntity.setPASSWORD(password);
         if (iUserDao.AddUser(userEntity).equals(0)){
