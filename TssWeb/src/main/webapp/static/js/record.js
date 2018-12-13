@@ -1,6 +1,14 @@
 /**
  * Created by xiaodj on 2018/12/11.
  */
+var uid = null;
+
+window.onload = function () {
+    uid = sessionStorage.getItem("uid");
+    if (uid == null)
+        window.location.href = "/static/view/login.html";
+}
+
 layui.use(['table', 'laydate'], function () {
     var table = layui.table;
     var laydate = layui.laydate;

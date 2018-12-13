@@ -34,7 +34,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>/view/login.html</welcome-file>
+        <welcome-file>/static/view/login.html</welcome-file>
     </welcome-file-list>
 
 </web-app>

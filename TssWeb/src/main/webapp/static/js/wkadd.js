@@ -1,6 +1,15 @@
 /**
  * Created by xiaodj on 2018/12/11.
  */
+
+var uid = null;
+
+window.onload = function () {
+    uid = sessionStorage.getItem("uid");
+    if (uid == null)
+        window.location.href = "/static/view/login.html";
+}
+
 layui.use(['form','laydate'], function () {
     var form = layui.form;
     var laydate = layui.laydate;
@@ -16,29 +25,25 @@ layui.use(['form','laydate'], function () {
         elem: '#OutDate3'
     });
 
-    var LCName1, LCName2, LCName3;
-    form.on('select(LCName1)', function (data) {
-        LCName1 = data.elem[data.elem.selectedIndex].text;
-        form.render();
-    });
-    form.on('select(LCName2)', function (data) {
-        LCName2 = data.elem[data.elem.selectedIndex].text;
-        form.render();
-    });
-    form.on('select(LCName3)', function (data) {
-        LCName3 = data.elem[data.elem.selectedIndex].text;
-        form.render();
-    });
-    form.on('select(LCName3)', function (data) {
-        LCName3 = data.elem[data.elem.selectedIndex].text;
-        form.render();
-    });
+    // var LCName1, LCName2, LCName3;
+    // form.on('select(LCName1)', function (data) {
+    //     LCName1 = data.elem[data.elem.selectedIndex].text;
+    //     form.render();
+    // });
+    // form.on('select(LCName2)', function (data) {
+    //     LCName2 = data.elem[data.elem.selectedIndex].text;
+    //     form.render();
+    // });
+    // form.on('select(LCName3)', function (data) {
+    //     LCName3 = data.elem[data.elem.selectedIndex].text;
+    //     form.render();
+    // });
+    // form.on('select(LCName3)', function (data) {
+    //     LCName3 = data.elem[data.elem.selectedIndex].text;
+    //     form.render();
+    // });
 
     $('#WKAdd').click(function () {
-        if (LCName1 === LCName2 || LCName1 === LCName3 || LCName2 === LCName3) {
-            layer.msg("许可证有重复");
-            return false;
-        }
         var WID = $('#WID').val();
         var ChName = $('#ChName').val();
         var SurName = $('#SurName').val();
@@ -46,11 +51,11 @@ layui.use(['form','laydate'], function () {
         var WKCard = $('#WKCard').val();
         var CCRSID = $('#CCRSID').val();
         var WKOther = $('#WKOther').val();
-        //var LCName1 = $('#LCName1').val();
+        var LCName1 = $('#LCName1').val();
         var OutDate1 = $('#OutDate1').val();
-        //var LCName2 = $('#LCName2').val();
+        var LCName2 = $('#LCName2').val();
         var OutDate2 = $('#OutDate2').val();
-        //var LCName3 = $('#LCName3').val();
+        var LCName3 = $('#LCName3').val();
         var OutDate3 = $('#OutDate3').val();
         var TagName1 = $('#TagName1').val();
         var TID1 = $('#TID1').val();
@@ -72,6 +77,8 @@ layui.use(['form','laydate'], function () {
                 {"tagname":TagName1,"tid":TID1}
             ]
         };
+
+        //window.parent.WKAdd(WKAddData);
         var index;
         $.ajax({
             //async: false,
@@ -87,7 +94,7 @@ layui.use(['form','laydate'], function () {
                 if (msg.code == 0) {
                     layer.msg("员工添加成功");
                 }else if (msg.code == 1){
-                    layer.msg(msg.Message.toString());
+                    layer.msg(msg.message.toString());
                 }
             },
             complete:function () {

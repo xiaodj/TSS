@@ -1,23 +1,55 @@
 /**
  * Created by xiaodj on 2018/12/11.
  */
+var uid = null;
+
+window.onload = function () {
+    uid = sessionStorage.getItem("uid");
+    if (uid == null)
+        window.location.href = "/static/view/login.html";
+}
+
 layui.use(['table', 'layer'], function () {
     var table = layui.table;
     var layer = layui.layer;
+    var $ = layui.$;
 
-    var RTData = [
-        {"wid":"001", "chname":"张三","surname":"Zhang","enname":"san"},
-        {"wid":"002", "chname":"李四","surname":"Li","enname":"si"},
-        {"wid":"003", "chname":"王五","surname":"Wang","enname":"wu"}
-    ];
+    var index;
+    $.ajax({
+        async: false,
+        cache:false,
+        url:Host + "/v1/user/"+uid+"/workers",
+        type:"get",
+        contentType:"application/json",
+        dataType:"json",
+        data:"",
+        beforeSend:function () {
+            index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+        },
+        success:function (msg) {
+            if (msg.code == 0) {
+                sessionStorage.removeItem("member");
+                sessionStorage.setItem("member", JSON.stringify(msg.member));
+            }else if (msg.code == 1){
+                sessionStorage.removeItem("member");
+                layer.msg(msg.message.toString());
+            }
+        },
+        complete:function () {
+            layer.close(index);
+        },
+        error:function (msg) {
+            layer.msg("网络异常");
+        }
+    });
 
     table.render({
         elem: '#wkquery'
-        ,data:RTData
+        ,data:JSON.parse(sessionStorage.getItem("member"))
         ,toolbar: '#toolbar'
         ,title: '用户数据表'
         ,cols: [[
-            {field:'wid', title:'员工编号', width:"20%", edit: 'text'}
+            {field:'wid', title:'员工编号', width:"20%"}
             ,{field:'chname', title:'中文姓名', width:"20%"}
             ,{field:'surname', title:'英文姓', width:"20%"}
             ,{field:'enname', title:'英文名', width:"20%"}
@@ -27,19 +59,12 @@ layui.use(['table', 'layer'], function () {
     });
 
     //头工具栏事件
-    table.on('toolbar(test)', function(obj){
+    table.on('toolbar(wkquery)', function(obj){
         var checkStatus = table.checkStatus(obj.config.id);
         switch(obj.event){
-            case 'getCheckData':
+            case 'Query':
                 var data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
-                break;
-            case 'getCheckLength':
-                var data = checkStatus.data;
-                layer.msg('选中了：'+ data.length + ' 个');
-                break;
-            case 'isAll':
-                layer.msg(checkStatus.isAll ? '全选': '未全选');
                 break;
         };
     });
@@ -50,13 +75,38 @@ layui.use(['table', 'layer'], function () {
         //console.log(obj)
         if(obj.event === 'del'){
             layer.confirm('是否确认删除员工'+ data.chname, function(index){
-                obj.del();
+                var loading;
+                $.ajax({
+                    async: false,
+                    url:Host + "/v1/user/"+uid+"/worker/"+data.wid,
+                    type:"delete",
+                    contentType:"application/json",
+                    dataType:"json",
+                    data:"",
+                    beforeSend:function () {
+                        loading = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+                    },
+                    success:function (msg) {
+                        if (msg.code == 0) {
+                            layer.msg("删除成功");
+                            obj.del();
+                        }else if (msg.code == 1){
+                            layer.msg(msg.message.toString());
+                        }
+                    },
+                    complete:function () {
+                        layer.close(loading);
+                    },
+                    error:function (msg) {
+                        layer.msg("网络异常");
+                    }
+                });
                 layer.close(index);
             });
         } else if(obj.event === 'edit'){
-            window.parent.location.href = "../view/wkupdate.html" + "?wid=" + data.wid;
+            window.parent.location.href = "/static/view/wkupdate.html" + "?wid=" + data.wid;
         } else if (obj.event === 'detail'){
-            window.parent.location.href = "../view/wkdetail.html" + "?wid=" + data.wid;
+            window.parent.location.href = "/static/view/wkdetail.html" + "?wid=" + data.wid;
         }
     });
 });

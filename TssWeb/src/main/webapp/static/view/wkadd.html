@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>添加员工</title>
-    <link rel="stylesheet" href="../css/tss.min.css">
-    <link rel="stylesheet" href="../lib/layui/css/layui.css">
-    <script src="../lib/layui/layui.js"></script>
-    <script src="../js/common.js"></script>
-    <script src="../js/wkadd.js"></script>
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <link rel="stylesheet" href="/static/css/tss.min.css">
+    <link rel="stylesheet" href="/static/lib/layui/css/layui.css">
+    <script src="/static/lib/layui/layui.js"></script>
+    <script src="/static/js/common.js"></script>
+    <script src="/static/js/wkadd.js"></script>
 </head>
 <body>
     <div class="layui-tab layui-tab-card" style="background-color: #ffffff">
@@ -99,10 +102,7 @@
                                 <label class="layui-form-label">许可证：</label>
                                 <div class="layui-input-inline">
                                     <select id="LCName1" lay-filter="LCName1" lay-verify="required">
-                                        <option value="">请选择</option>
-                                        <option value="绿卡">绿卡</option>
-                                        <option value="密卡">密卡</option>
-                                        <option value="CP">CP</option>
+                                        <option value="绿卡" selected>绿卡</option>
                                     </select>
                                 </div>
                             </div>
@@ -117,11 +117,8 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">许可证：</label>
                                 <div class="layui-input-inline">
-                                    <select name="LCName2" lay-filter="LCName2" lay-verify="required">
-                                        <option value="">请选择</option>
-                                        <option value="绿卡">绿卡</option>
-                                        <option value="密卡">密卡</option>
-                                        <option value="CP">CP</option>
+                                    <select id="LCName2" lay-filter="LCName2" lay-verify="required">
+                                        <option value="密卡" selected>密卡</option>
                                     </select>
                                 </div>
                             </div>
@@ -136,11 +133,8 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">许可证：</label>
                                 <div class="layui-input-inline">
-                                    <select name="LCName3" lay-filter="LCName3" lay-verify="required">
-                                        <option value="">请选择</option>
-                                        <option value="绿卡">绿卡</option>
-                                        <option value="密卡">密卡</option>
-                                        <option value="CP">CP</option>
+                                    <select id="LCName3" lay-filter="LCName3" lay-verify="required">
+                                        <option value="CP" selected>CP</option>
                                     </select>
                                 </div>
                             </div>
@@ -162,7 +156,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">标签名称：</label>
                                 <div class="layui-input-inline">
-                                    <select name="TagName1" lay-search="" lay-verify="required">
+                                    <select id="TagName1" lay-filter="LCName3" lay-verify="required">
                                         <option value="挂牌" selected>挂牌</option>
                                     </select>
                                 </div>

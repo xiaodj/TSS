@@ -30,7 +30,25 @@ public class WorkerServiceImpl implements IWorkerService {
     @Transactional
     @Override
     public BaseDto addWorker(Integer uid, WorkerDto workerDto) {
-        WorkerEntity workerEntity = new WorkerEntity();
+        //判断员工是否存在
+        WorkerEntity workerEntity = iWorkerDao.GetWorkerInfo(workerDto.getWid());
+        if(workerEntity != null){
+            baseDto.setCode(1);
+            baseDto.setMessage("员工编号已存在");
+            return baseDto;
+        }
+
+        //判断标签是否已存在
+        for (TagInfo tagInfo: workerDto.getTags()) {
+            TagEntity tagEntity = iWorkerDao.GetTagInfoByTID(tagInfo.getTid());
+            if (tagEntity != null){
+                baseDto.setCode(1);
+                baseDto.setMessage("标签编号已存在");
+                return baseDto;
+            }
+        }
+
+        workerEntity = new WorkerEntity();
         workerEntity.setUID(uid);
         workerEntity.setWID(workerDto.getWid());
         workerEntity.setWKCHNAME(workerDto.getChname());
@@ -43,6 +61,7 @@ public class WorkerServiceImpl implements IWorkerService {
             workerEntity.setWKIMAGEPATH("默认路径");
         else
             workerEntity.setWKIMAGEPATH(workerDto.getImagepath());
+
         iWorkerDao.AddWorker(workerEntity);
 
         for (LicencesInfo licencesInfo: workerDto.getLicences()) {
@@ -83,7 +102,6 @@ public class WorkerServiceImpl implements IWorkerService {
             workerInfo.setChname(workerEntity.getWKCHNAME());
             workerInfo.setSurname(workerEntity.getWKSURNAME());
             workerInfo.setEnname(workerEntity.getWKENNAME());
-            workerInfo.setImagepath(workerEntity.getWKIMAGEPATH());
             workerBaseInfoList.add(workerInfo);
         }
         workersDto.setCode(0);

@@ -2,8 +2,6 @@
  * Created by xiaodj on 2018/12/5.
  */
 
-var Host = "http://localhost:8080";
-
 layui.use(['layer','form'],function () {
     var layer = layui.layer;
     var form = layui.form;
@@ -31,7 +29,7 @@ layui.use(['layer','form'],function () {
                 if (msg.code == 0) {
                     sessionStorage.setItem("uid", msg.uid);
                     sessionStorage.setItem("nickname", msg.nickname);
-                    window.location.href = "../view/main.html";
+                    window.location.href = "/static/view/main.html";
                 }else if (msg.code == 1){
                     layer.msg(msg.Message.toString());
                 }

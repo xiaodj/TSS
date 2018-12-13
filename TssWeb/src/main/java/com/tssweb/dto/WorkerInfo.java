@@ -8,7 +8,6 @@ public class WorkerInfo {
     private String surname;     //英文姓
     private String enname;      //英文名
     private String chname;      //中文姓名
-    private String imagepath;   //头像路径
 
     public String getWid() {
         return wid;
@@ -42,11 +41,4 @@ public class WorkerInfo {
         this.chname = chname;
     }
 
-    public String getImagepath() {
-        return imagepath;
-    }
-
-    public void setImagepath(String imagepath) {
-        this.imagepath = imagepath;
-    }
 }
