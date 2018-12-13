@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../css/tss.min.css">
     <link rel="stylesheet" href="../lib/layui/css/layui.css">
     <script src="../lib/layui/layui.js"></script>
-    <!--<script src="../js/common.js"></script>-->
+    <script src="../js/common.js"></script>
     <script src="../js/wkadd.js"></script>
 </head>
 <body>
@@ -98,8 +98,11 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">许可证：</label>
                                 <div class="layui-input-inline">
-                                    <select id="LCName1" lay-search="" lay-verify="required">
+                                    <select id="LCName1" lay-filter="LCName1" lay-verify="required">
+                                        <option value="">请选择</option>
                                         <option value="绿卡">绿卡</option>
+                                        <option value="密卡">密卡</option>
+                                        <option value="CP">CP</option>
                                     </select>
                                 </div>
                             </div>
@@ -114,8 +117,11 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">许可证：</label>
                                 <div class="layui-input-inline">
-                                    <select name="LCName2" lay-search="" lay-verify="required">
+                                    <select name="LCName2" lay-filter="LCName2" lay-verify="required">
+                                        <option value="">请选择</option>
+                                        <option value="绿卡">绿卡</option>
                                         <option value="密卡">密卡</option>
+                                        <option value="CP">CP</option>
                                     </select>
                                 </div>
                             </div>
@@ -130,7 +136,10 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">许可证：</label>
                                 <div class="layui-input-inline">
-                                    <select name="LCName3" lay-search="" lay-verify="required">
+                                    <select name="LCName3" lay-filter="LCName3" lay-verify="required">
+                                        <option value="">请选择</option>
+                                        <option value="绿卡">绿卡</option>
+                                        <option value="密卡">密卡</option>
                                         <option value="CP">CP</option>
                                     </select>
                                 </div>
@@ -154,7 +163,7 @@
                                 <label class="layui-form-label">标签名称：</label>
                                 <div class="layui-input-inline">
                                     <select name="TagName1" lay-search="" lay-verify="required">
-                                        <option value="">挂牌</option>
+                                        <option value="挂牌" selected>挂牌</option>
                                     </select>
                                 </div>
                             </div>
