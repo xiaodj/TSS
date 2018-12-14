@@ -17,6 +17,7 @@ layui.use(['layer','form'],function () {
         var index;
         $.ajax({
             //async: false,
+            cache:false,
             url:Host + "/v1/user/login",
             type:"post",
             contentType:"application/json",

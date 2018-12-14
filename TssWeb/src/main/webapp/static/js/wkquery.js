@@ -14,11 +14,14 @@ layui.use(['table', 'layer'], function () {
     var layer = layui.layer;
     var $ = layui.$;
 
+    var swid  = "null";
+    var ewid =  "null";
+    var tid =  "null";
     var index;
     $.ajax({
         async: false,
         cache:false,
-        url:Host + "/v1/user/"+uid+"/workers",
+        url:Host + "/v1/user/"+uid+"/workers/swid/"+swid+"/ewid/"+ewid+"/tid/"+tid,
         type:"get",
         contentType:"application/json",
         dataType:"json",
@@ -43,30 +46,50 @@ layui.use(['table', 'layer'], function () {
         }
     });
 
-    table.render({
-        elem: '#wkquery'
-        ,data:JSON.parse(sessionStorage.getItem("member"))
-        ,toolbar: '#toolbar'
-        ,title: '用户数据表'
-        ,cols: [[
-            {field:'wid', title:'员工编号', width:"20%"}
-            ,{field:'chname', title:'中文姓名', width:"20%"}
-            ,{field:'surname', title:'英文姓', width:"20%"}
-            ,{field:'enname', title:'英文名', width:"20%"}
-            ,{field: 'right', title:'操作', toolbar: '#operate', width:"20%"}
-        ]]
-        ,page: true
-    });
+    Init();
 
-    //头工具栏事件
-    table.on('toolbar(wkquery)', function(obj){
-        var checkStatus = table.checkStatus(obj.config.id);
-        switch(obj.event){
-            case 'Query':
-                var data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-                break;
-        };
+    $('#Query').click(function () {
+        swid = $('#swid').val();
+        if (swid === "")
+            swid = "null";
+        ewid = $('#ewid').val();
+        if (ewid === "")
+            ewid = "null";
+        tid = $('#tid').val();
+        if (tid === "")
+            tid = "null";
+        var loading;
+        $.ajax({
+            //async: false,
+            cache:false,
+            url:Host + "/v1/user/"+uid+"/workers/swid/"+swid+"/ewid/"+ewid+"/tid/"+tid,
+            type:"get",
+            contentType:"application/json",
+            dataType:"json",
+            data:"",
+            beforeSend:function () {
+                loading = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            success:function (msg) {
+                if (msg.code == 0) {
+                    sessionStorage.removeItem("member");
+                    sessionStorage.setItem("member", JSON.stringify(msg.member));
+                    //table.reload('wkquery');
+                    Init();
+                }else if (msg.code == 1){
+                    sessionStorage.removeItem("member");
+                    //table.reload('wkquery');
+                    Init();
+                    layer.msg(msg.message.toString());
+                }
+            },
+            complete:function () {
+                layer.close(loading);
+            },
+            error:function (msg) {
+                layer.msg("网络异常");
+            }
+        });
     });
 
     //监听行工具事件
@@ -78,6 +101,7 @@ layui.use(['table', 'layer'], function () {
                 var loading;
                 $.ajax({
                     async: false,
+                    cache:false,
                     url:Host + "/v1/user/"+uid+"/worker/"+data.wid,
                     type:"delete",
                     contentType:"application/json",
@@ -109,4 +133,21 @@ layui.use(['table', 'layer'], function () {
             window.parent.location.href = "/static/view/wkdetail.html" + "?wid=" + data.wid;
         }
     });
+
+    function Init() {
+        table.render({
+            elem: '#wkquery'
+            ,data:JSON.parse(sessionStorage.getItem("member"))
+            ,toolbar: '#toolbar'
+            ,title: '用户数据表'
+            ,cols: [[
+                {field:'wid', title:'员工编号', width:"20%"}
+                ,{field:'chname', title:'中文姓名', width:"20%"}
+                ,{field:'surname', title:'英文姓', width:"20%"}
+                ,{field:'enname', title:'英文名', width:"20%"}
+                ,{field: 'right', title:'操作', toolbar: '#operate', width:"20%"}
+            ]]
+            ,page: true
+        });
+    }
 });

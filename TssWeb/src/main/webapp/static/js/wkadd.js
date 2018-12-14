@@ -81,7 +81,8 @@ layui.use(['form','laydate'], function () {
         //window.parent.WKAdd(WKAddData);
         var index;
         $.ajax({
-            //async: false,
+            async: false,
+            cache:false,
             url:Host + "/v1/user/"+uid+"/worker",
             type:"post",
             contentType:"application/json",

@@ -23,6 +23,7 @@ layui.use(['layer','laydate', 'form'], function () {
     var index;
     $.ajax({
         async: false,
+        cache:false,
         url:Host + "/v1/user/" +uid+"/set",
         type:"get",
         contentType:"application/json",
@@ -55,11 +56,12 @@ layui.use(['layer','laydate', 'form'], function () {
     laydate.render({
         elem: '#ontime'
         ,type: 'time'
+        ,format:"HH:mm:ss"
         ,value:onstarttime + " - " + onendtime
         ,range: true
         ,done:function (value, date, endDate) {
-            onstarttime = date.hours + ":" + date.minutes + ":" + date.seconds;
-            onendtime = endDate.hours + ":" + endDate.minutes + ":" + endDate.seconds;
+            onstarttime = value.split(" - ")[0];//date.hours + ":" + date.minutes + ":" + date.seconds;
+            onendtime = value.split(" - ")[1];//endDate.hours + ":" + endDate.minutes + ":" + endDate.seconds;
         }
     });
 
@@ -67,11 +69,12 @@ layui.use(['layer','laydate', 'form'], function () {
     laydate.render({
         elem: '#offtime'
         ,type: 'time'
+        ,format:"HH:mm:ss"
         ,value:offstarttime + " - " + offendtime
         ,range: true
         ,done:function (value, date, endDate) {
-            offstarttime = date.hours + ":" + date.minutes + ":" + date.seconds;
-            offendtime = endDate.hours + ":" + endDate.minutes + ":" + endDate.seconds;
+            offstarttime = value.split(" - ")[0];//date.hours + ":" + date.minutes + ":" + date.seconds;
+            offendtime = value.split(" - ")[1];//endDate.hours + ":" + endDate.minutes + ":" + endDate.seconds;
         }
     });
     
@@ -87,7 +90,8 @@ layui.use(['layer','laydate', 'form'], function () {
 
         var index;
         $.ajax({
-            async: false,
+            //async: false,
+            cache:false,
             url:Host + "/v1/user/" +uid+"/set",
             type:"put",
             contentType:"application/json",

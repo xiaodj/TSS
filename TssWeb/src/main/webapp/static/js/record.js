@@ -34,13 +34,13 @@ layui.use(['layer','table', 'laydate'], function () {
         toolbar: '#toolbar',
         data:RTData,
         cols: [[
-            {field:'date', width:'8%', title: '日期'}
+            {field:'date', width:'11%', title: '日期'}
             ,{field:'wid', width:'6%', title: '编号'}
-            ,{field:'chname', width:'10%', title: '中文姓名'}
+            ,{field:'chname', width:'9%', title: '中文姓名'}
             ,{field:'surname', width:'8%', title: '英文姓'}
             ,{field:'enname', width:'8%', title: '英文名'}
-            ,{field:'intime', width:'12%', title: '进入时间'}
-            ,{field:'outtime', width:'12%', title: '离开时间'}
+            ,{field:'intime', width:'11%', title: '进入时间'}
+            ,{field:'outtime', width:'11%', title: '离开时间'}
             ,{field:'city', width:'12%', templet: '#sexTp1', title: '绿卡到期日期'}
             ,{field:'experience', width:'12%', templet: '#sexTp2', title: '密卡到期日期'}
             ,{field:'score', width:'12%', templet: '#sexTp3', title: 'CP到期日期'}

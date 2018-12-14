@@ -25,7 +25,8 @@ layui.use(['layer','form'],function () {
 
         var index;
         $.ajax({
-            //async: false,
+            async: false,
+            cache:false,
             url:Host + "/v1/user/register",
             type:"post",
             contentType:"application/json",

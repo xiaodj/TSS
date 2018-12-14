@@ -29,6 +29,7 @@ layui.use(['form','laydate'], function () {
     var index;
     $.ajax({
         async: false,
+        cache:false,
         url:Host + "/v1/user/"+uid+"/worker/"+wid,
         type:"get",
         contentType:"application/json",

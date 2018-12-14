@@ -16,7 +16,7 @@ public interface IWorkerService {
     /**
      * 查询员工基本信息
      */
-    public WorkersDto getWorkers(Integer uid);
+    public WorkersDto getWorkers(Integer uid, String swid, String ewid, String tid);
 
     /**
      * 查询员工详细信息

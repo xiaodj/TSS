@@ -28,6 +28,7 @@ layui.use(['form','laydate'], function () {
     var index;
     $.ajax({
         async: false,
+        cache:false,
         url:Host + "/v1/user/"+uid+"/worker/"+wid,
         type:"get",
         contentType:"application/json",
@@ -108,7 +109,8 @@ layui.use(['form','laydate'], function () {
 
         var index;
         $.ajax({
-            //async: false,
+            async: false,
+            cache:false,
             url:Host + "/v1/user/"+uid+"/worker/"+wid,
             type:"put",
             contentType:"application/json",

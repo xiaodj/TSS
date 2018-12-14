@@ -57,10 +57,11 @@ public class WorkerController {
     /**
      * 获取员工基本信息
      */
-    @RequestMapping(value = "/v1/user/{uid}/workers", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/user/{uid}/workers/swid/{swid}/ewid/{ewid}/tid/{tid}", method = RequestMethod.GET)
     public @ResponseBody
-    WorkersDto GetWorkers(@PathVariable("uid") Integer uid){
-        return iWorkerService.getWorkers(uid);
+    WorkersDto GetWorkers(@PathVariable("uid") Integer uid,@PathVariable("swid") String swid,
+                                     @PathVariable("ewid") String ewid, @PathVariable("tid") String tid){
+        return iWorkerService.getWorkers(uid, swid, ewid, tid);
     }
 
     /**

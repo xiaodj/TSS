@@ -15,8 +15,19 @@
         SELECT * FROM TBL_WORKER WHERE WID=#{WID};
     </select>
     <!-- 通过用户编码获取员工信息集合 -->
-    <select id="GetWorkersInfo" parameterType="java.lang.Integer" resultType="com.tssweb.entity.WorkerEntity">
-        SELECT * FROM TBL_WORKER WHERE UID=#{UID};
+    <select id="GetWorkersInfo" resultType="com.tssweb.entity.WorkerEntity">
+        SELECT * FROM TBL_WORKER WHERE UID=#{uid}
+        <choose>
+            <when test="swid != 'null'">
+                AND WID &gt;= #{swid}
+            </when>
+            <when test="ewid != 'null'">
+                AND WID &lt;= #{ewid}
+            </when>
+            <when test="tid != 'null'">
+                AND TID = #{tid}
+            </when>
+        </choose>
     </select>
     <!-- 通过员工编码删除员工信息 -->
     <delete id="DeleteWorkerByWID" parameterType="java.lang.String">

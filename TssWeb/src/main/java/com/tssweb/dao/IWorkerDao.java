@@ -3,6 +3,7 @@ package com.tssweb.dao;
 import com.tssweb.entity.LicenceEntity;
 import com.tssweb.entity.TagEntity;
 import com.tssweb.entity.WorkerEntity;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public interface IWorkerDao {
     /**
      * 通过用户编码获取员工信息集合
      */
-    public List<WorkerEntity> GetWorkersInfo(Integer uid);
+    public List<WorkerEntity> GetWorkersInfo(@Param("uid") Integer uid, @Param("swid") String swid, @Param("ewid") String ewid, @Param("tid") String tid);
 
     /**
      * 通过员工编码删除员工信息
