@@ -68,6 +68,7 @@ layui.use(['form','laydate'], function () {
         $('#outdate3').val(data.licences[2].lcdate);
         $('#tagname1').val(data.tags[0].tagname);
         $('#tid1').val(data.tags[0].tid);
+        form.render('select', 'lcname1');
     }
 
     $('#Save').click(function () {
@@ -83,8 +84,8 @@ layui.use(['form','laydate'], function () {
         var LCName2 = $('#lcname2').val();
         var OutDate2 = $('#outdate2').val();
         var LCName3 = $('#lcname3').val();
-        var OutDate3 = $('#Outdate3').val();
-        var TagName1 = $('#tagName1').val();
+        var OutDate3 = $('#outdate3').val();
+        var TagName1 = $('#tagname1').val();
         var TID1 = $('#tid1').val();
 
         var WKUpdateData = {

@@ -97,11 +97,11 @@ public class UserServiceImpl implements IUserService {
         }else{
             userSetDto.setCode(0);
             userSetDto.setMessage("成功获取到用户设置信息");
-            userSetDto.setOnStartTime(userSetEntity.getONSTARTTIME());
-            userSetDto.setOnEndTime(userSetEntity.getONENDTIME());
-            userSetDto.setOffStartTime(userSetEntity.getOFFSTARTTIME());
-            userSetDto.setOffEndTime(userSetEntity.getOFFENDTIME());
-            userSetDto.setTimeOut(userSetEntity.getTIMEOUT());
+            userSetDto.setOnstarttime(userSetEntity.getONSTARTTIME());
+            userSetDto.setOnendtime(userSetEntity.getONENDTIME());
+            userSetDto.setOffstarttime(userSetEntity.getOFFSTARTTIME());
+            userSetDto.setOffendtime(userSetEntity.getOFFENDTIME());
+            userSetDto.setTimeout(userSetEntity.getTIMEOUT());
             return userSetDto;
         }
     }

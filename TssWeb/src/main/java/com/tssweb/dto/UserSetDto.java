@@ -4,49 +4,49 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserSetDto extends BaseDto {
-    private String OnStartTime;     //上班区间的起始时间
-    private String OnEndTime;       //上班区间的结束时间
-    private String OffStartTime;    //下班区间的起始时间
-    private String OffEndTime;      //下班区间的结束时间
-    private Integer TimeOut;        //离开的条件
+    private String onstarttime;     //上班区间的起始时间
+    private String onendtime;       //上班区间的结束时间
+    private String offstarttime;    //下班区间的起始时间
+    private String offendtime;      //下班区间的结束时间
+    private Integer timeout;        //离开的条件
 
-    public String getOnStartTime() {
-        return OnStartTime;
+    public String getOnstarttime() {
+        return onstarttime;
     }
 
-    public void setOnStartTime(String onStartTime) {
-        OnStartTime = onStartTime;
+    public void setOnstarttime(String onstarttime) {
+        this.onstarttime = onstarttime;
     }
 
-    public String getOnEndTime() {
-        return OnEndTime;
+    public String getOnendtime() {
+        return onendtime;
     }
 
-    public void setOnEndTime(String onEndTime) {
-        OnEndTime = onEndTime;
+    public void setOnendtime(String onendtime) {
+        this.onendtime = onendtime;
     }
 
-    public String getOffStartTime() {
-        return OffStartTime;
+    public String getOffstarttime() {
+        return offstarttime;
     }
 
-    public void setOffStartTime(String offStartTime) {
-        OffStartTime = offStartTime;
+    public void setOffstarttime(String offstarttime) {
+        this.offstarttime = offstarttime;
     }
 
-    public String getOffEndTime() {
-        return OffEndTime;
+    public String getOffendtime() {
+        return offendtime;
     }
 
-    public void setOffEndTime(String offEndTime) {
-        OffEndTime = offEndTime;
+    public void setOffendtime(String offendtime) {
+        this.offendtime = offendtime;
     }
 
-    public Integer getTimeOut() {
-        return TimeOut;
+    public Integer getTimeout() {
+        return timeout;
     }
 
-    public void setTimeOut(Integer timeOut) {
-        TimeOut = timeOut;
+    public void setTimeout(Integer timeout) {
+        this.timeout = timeout;
     }
 }

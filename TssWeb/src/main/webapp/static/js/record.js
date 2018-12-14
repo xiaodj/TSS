@@ -3,13 +3,14 @@
  */
 var uid = null;
 
-window.onload = function () {
-    uid = sessionStorage.getItem("uid");
-    if (uid == null)
-        window.location.href = "/static/view/login.html";
-}
+// window.onload = function () {
+//     uid = sessionStorage.getItem("uid");
+//     if (uid == null)
+//         window.location.href = "/static/view/login.html";
+// }
 
-layui.use(['table', 'laydate'], function () {
+layui.use(['layer','table', 'laydate'], function () {
+    var layer = layui.layer;
     var table = layui.table;
     var laydate = layui.laydate;
 
@@ -47,9 +48,14 @@ layui.use(['table', 'laydate'], function () {
         ,page: true
     });
 
+
     //日期范围
     laydate.render({
-        elem: '#test6'
+        elem: '#daterange'
+        ,value:GetDateStr(-7).valueOf() + " - " + getNowFormatDate().valueOf()
         ,range: true
+        ,done:function (date, endDate) {
+
+        }
     });
 });

@@ -69,6 +69,7 @@ layui.use(['form','laydate'], function () {
         $('#outdate3').val(data.licences[2].lcdate);
         $('#tagname1').val(data.tags[0].tagname);
         $('#tid1').val(data.tags[0].tid);
+        form.render();
     }
 
     function getQueryString(name) {

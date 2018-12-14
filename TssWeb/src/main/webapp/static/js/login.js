@@ -42,4 +42,13 @@ layui.use(['layer','form'],function () {
             }
         });
     });
+
+    $("body").bind("keypress",function(e){
+        var theEvent = e || window.event;
+        var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+        if (code == 13) {
+            e.preventDefault();
+            $("#Login").click();
+        }
+    });
 });

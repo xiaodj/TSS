@@ -28,6 +28,11 @@ layui.use(['layer','element'],function () {
             document.getElementById("iframe").src = '/static/view/control.html';
         }
     });
+    
+    $('#exit').click(function () {
+        sessionStorage.removeItem("uid");
+        window.location.href = "/static/view/login.html";
+    });
 
     // //添加一行
     // var oldData = table.cache["test"];
