@@ -15,7 +15,7 @@
 <body>
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <a href="main.html"><div class="layui-logo">TSS智能管理系统</div></a>
+        <a href="/static/view/main.html"><div class="layui-logo">TSS智能管理系统</div></a>
     </div>
 </div>
 <div class="layui-tab layui-tab-card" style="background-color: #ffffff">
@@ -101,7 +101,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">许可证：</label>
                             <div class="layui-input-inline">
-                                <select name="tagname" lay-search="" lay-verify="required">
+                                <select id="lcname1" lay-filter="lcname1" lay-verify="required">
                                     <option value="">绿卡</option>
                                 </select>
                             </div>
@@ -109,7 +109,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">过期日期：</label>
                             <div class="layui-input-inline">
-                                <input class="layui-input" id="LID1" type="text" placeholder="yyyy-MM-dd">
+                                <input class="layui-input" id="outdate1" type="text" placeholder="yyyy-mm-dd">
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">许可证：</label>
                             <div class="layui-input-inline">
-                                <select name="tagname" lay-search="" lay-verify="required">
+                                <select id="lcname2" lay-filter="lcname2" lay-verify="required">
                                     <option value="">密卡</option>
                                 </select>
                             </div>
@@ -125,7 +125,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">过期日期：</label>
                             <div class="layui-input-inline">
-                                <input class="layui-input" id="LID2" type="text" placeholder="yyyy-MM-dd">
+                                <input class="layui-input" id="outdate2" type="text" placeholder="yyyy-mm-dd">
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">许可证：</label>
                             <div class="layui-input-inline">
-                                <select name="tagname" lay-search="" lay-verify="required">
+                                <select id="lcname3" lay-filter="lcname3" lay-verify="required">
                                     <option value="">CP</option>
                                 </select>
                             </div>
@@ -141,7 +141,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">过期日期：</label>
                             <div class="layui-input-inline">
-                                <input class="layui-input" id="LID3" type="text" placeholder="yyyy-MM-dd">
+                                <input class="layui-input" id="outdate3" type="text" placeholder="yyyy-mm-dd">
                             </div>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">标签名称：</label>
                             <div class="layui-input-inline">
-                                <select name="tagname" lay-search="" lay-verify="required">
+                                <select id="tagname1" lay-filter="tagame1" lay-verify="required">
                                     <option value="">挂牌</option>
                                 </select>
                             </div>
@@ -164,7 +164,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">标签编码：</label>
                             <div class="layui-input-inline">
-                                <input id="RFSpeed" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                                <input id="tid1" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
                             </div>
                         </div>
                     </div>

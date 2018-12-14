@@ -16,13 +16,13 @@ layui.use(['form','laydate'], function () {
     var $ = layui.$;
 
     laydate.render({
-        elem: '#LID1'
+        elem: '#outdate1'
     });
     laydate.render({
-        elem: '#LID2'
+        elem: '#outdate2'
     });
     laydate.render({
-        elem: '#LID3'
+        elem: '#outdate3'
     });
 
     var wid = getQueryString("wid");
@@ -39,7 +39,7 @@ layui.use(['form','laydate'], function () {
         },
         success:function (msg) {
             if (msg.code == 0) {
-                layer.msg(JSON.stringify(msg));
+                Show(msg);
             }else if (msg.code == 1){
                 layer.msg(msg.message.toString());
             }
@@ -52,7 +52,24 @@ layui.use(['form','laydate'], function () {
         }
     });
 
-    //
+    //赋值到对应的控件上
+    function Show(data) {
+        $('#wid').val(data.wid);
+        $('#chname').val(data.chname);
+        $('#surname').val(data.surname);
+        $('#enname').val(data.enname);
+        $('#wkcard').val(data.wkcard);
+        $('#ccrsid').val(data.ccrsid);
+        $('#other').val(data.other);
+        $('#lcname1').val(data.licences[0].lcname);
+        $('#outdate1').val(data.licences[0].lcdate);
+        $('#lcname2').val(data.licences[1].lcname);
+        $('#outdate2').val(data.licences[1].lcdate);
+        $('#lcname3').val(data.licences[2].lcname);
+        $('#outdate3').val(data.licences[2].lcdate);
+        $('#tagname1').val(data.tags[0].tagname);
+        $('#tid1').val(data.tags[0].tid);
+    }
 
     function getQueryString(name) {
         var result = window.location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "i"));

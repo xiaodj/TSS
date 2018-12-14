@@ -15,13 +15,13 @@ layui.use(['form','laydate'], function () {
     var $ = layui.$;
 
     laydate.render({
-        elem: '#LID1'
+        elem: '#outdate1'
     });
     laydate.render({
-        elem: '#LID2'
+        elem: '#outdate2'
     });
     laydate.render({
-        elem: '#LID3'
+        elem: '#outdate3'
     });
 
     var wid = getQueryString("wid");
@@ -38,7 +38,7 @@ layui.use(['form','laydate'], function () {
         },
         success:function (msg) {
             if (msg.code == 0) {
-                layer.msg(JSON.stringify(msg));
+                Show(msg);
             }else if (msg.code == 1){
                 layer.msg(msg.message.toString());
             }
@@ -49,6 +49,87 @@ layui.use(['form','laydate'], function () {
         error:function (msg) {
             layer.msg("网络异常");
         }
+    });
+
+    //赋值到对应的控件上
+    function Show(data) {
+        $('#wid').val(data.wid);
+        $('#chname').val(data.chname);
+        $('#surname').val(data.surname);
+        $('#enname').val(data.enname);
+        $('#wkcard').val(data.wkcard);
+        $('#ccrsid').val(data.ccrsid);
+        $('#other').val(data.other);
+        $('#lcname1').val(data.licences[0].lcname);
+        $('#outdate1').val(data.licences[0].lcdate);
+        $('#lcname2').val(data.licences[1].lcname);
+        $('#outdate2').val(data.licences[1].lcdate);
+        $('#lcname3').val(data.licences[2].lcname);
+        $('#outdate3').val(data.licences[2].lcdate);
+        $('#tagname1').val(data.tags[0].tagname);
+        $('#tid1').val(data.tags[0].tid);
+    }
+
+    $('#Save').click(function () {
+        var WID = $('#wid').val();
+        var ChName = $('#chname').val();
+        var SurName = $('#surname').val();
+        var ENName = $('#enname').val();
+        var WKCard = $('#wkcard').val();
+        var CCRSID = $('#ccrsid').val();
+        var WKOther = $('#other').val();
+        var LCName1 = $('#lcname1').val();
+        var OutDate1 = $('#outdate1').val();
+        var LCName2 = $('#lcname2').val();
+        var OutDate2 = $('#outdate2').val();
+        var LCName3 = $('#lcname3').val();
+        var OutDate3 = $('#Outdate3').val();
+        var TagName1 = $('#tagName1').val();
+        var TID1 = $('#tid1').val();
+
+        var WKUpdateData = {
+            "wid":WID,
+            "chname":ChName,
+            "surname":SurName,
+            "enname":ENName,
+            "wkcard":WKCard,
+            "ccrsid":CCRSID,
+            "other":WKOther,
+            "licences":[
+                {"lcname":LCName1,"lcdate":OutDate1},
+                {"lcname":LCName2,"lcdate":OutDate2},
+                {"lcname":LCName3,"lcdate":OutDate3}
+            ],
+            "tags":[
+                {"tagname":TagName1,"tid":TID1}
+            ]
+        };
+
+        var index;
+        $.ajax({
+            //async: false,
+            url:Host + "/v1/user/"+uid+"/worker/"+wid,
+            type:"put",
+            contentType:"application/json",
+            dataType:"json",
+            data:JSON.stringify(WKUpdateData),
+            beforeSend:function () {
+                index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            success:function (msg) {
+                if (msg.code == 0) {
+                    layer.msg("修改成功");
+                }else if (msg.code == 1){
+                    layer.msg(msg.message.toString());
+                }
+            },
+            complete:function () {
+                layer.close(index);
+            },
+            error:function (msg) {
+                layer.msg("网络异常");
+            }
+        });
     });
 
     function getQueryString(name) {
