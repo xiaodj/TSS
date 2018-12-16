@@ -12,34 +12,30 @@
     <script src="../js/wkquery.js"></script>
 </head>
 <body>
-
-<table class="layui-hide" id="wkquery" lay-filter="wkquery"></table>
-
-<script id="toolbar" type="text/html">
-            <div class="layui-inline">
-                <label>员工编号：</label>
-                <div class="layui-input-inline">
-                    <input id="swid" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
-                </div>
-                <label>至</label>
-                <div class="layui-input-inline">
-                    <input id="ewid" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
-                </div>
-                <label>标签编号：</label>
-                <div class="layui-input-inline">
-                    <input id="tid" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
-                </div>
-                <div class="layui-input-inline">
-                    <button class="layui-btn layui-btn-fluid" type="button" id="Query">查询</button>
-                </div>
+    <table class="layui-hide" id="wkquery" lay-filter="wkquery"></table>
+    <script id="toolbar" type="text/html">
+        <div class="layui-inline">
+            <label>员工编号：</label>
+            <div class="layui-input-inline">
+                <input id="swid" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
             </div>
-</script>
-
-<script id="operate" type="text/html">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">详情</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
-
+            <label>至</label>
+            <div class="layui-input-inline">
+                <input id="ewid" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+            </div>
+            <label>标签编号：</label>
+            <div class="layui-input-inline">
+                <input id="tid" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+            </div>
+            <div class="layui-input-inline">
+                <button class="layui-btn layui-btn-fluid" lay-event="Query">查询</button>
+            </div>
+        </div>
+    </script>
+    <script id="operate" type="text/html">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">详情</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
 </body>
 </html>

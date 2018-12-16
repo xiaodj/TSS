@@ -30,10 +30,11 @@ layui.use(['layer','table', 'laydate'], function () {
     ];
 
     table.render({
-        elem: '#records',
-        toolbar: '#toolbar',
-        data:RTData,
-        cols: [[
+        elem: '#records'
+        ,toolbar: '#toolbar'
+        ,defaultToolbar: [/*'filter', 'print', 'exports'*/]
+        ,data:RTData
+        ,cols: [[
             {field:'date', width:'11%', title: '日期'}
             ,{field:'wid', width:'6%', title: '编号'}
             ,{field:'chname', width:'9%', title: '中文姓名'}
