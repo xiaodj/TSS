@@ -131,12 +131,13 @@ layui.use(['table', 'layer'], function () {
                     },
                     success:function (msg) {
                         if (msg.code == 0) {
-                            sessionStorage.removeItem("member");
+                            //sessionStorage.removeItem("member");
                             sessionStorage.setItem("member", JSON.stringify(msg.member));
-                            //wktable.reload();
+                            wktable.reload({data:JSON.parse(sessionStorage.getItem("member"))});
                         }else if (msg.code == 1){
-                            sessionStorage.removeItem("member");
-                            //wktable.reload();
+                            //sessionStorage.removeItem("member");
+                            sessionStorage.setItem("member", "[]");
+                            wktable.reload({data:JSON.parse(sessionStorage.getItem("member"))});
                             layer.msg(msg.message.toString());
                         }
                     },
