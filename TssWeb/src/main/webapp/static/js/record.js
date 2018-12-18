@@ -3,11 +3,11 @@
  */
 var uid = null;
 
-// window.onload = function () {
-//     uid = sessionStorage.getItem("uid");
-//     if (uid == null)
-//         window.location.href = "/static/view/login.html";
-// }
+window.onload = function () {
+    uid = sessionStorage.getItem("uid");
+    if (uid == null)
+        window.location.href = "../view/login.html";
+}
 
 layui.use(['layer','table', 'laydate'], function () {
     var layer = layui.layer;

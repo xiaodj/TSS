@@ -6,10 +6,10 @@
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
     <META HTTP-EQUIV="Expires" CONTENT="0">
-    <link rel="stylesheet" href="/static/lib/layui/css/layui.css">
-    <script src="/static/lib/layui/layui.js"></script>
-    <script src="/static/js/common.js"></script>
-    <script src="/static/js/realtime.js"></script>
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/realtime.js"></script>
 </head>
 <body>
 <table class="layui-hide" id="realtime"></table>
@@ -37,7 +37,7 @@
     {{#  } }}
 </script>
 <script id="sexTpl2" type="text/html">
-    {{#  if(d.score === null || d.score === "" || DateDiff(d.score, getNowFormatDate()) < 0){ }}
+    {{#  if(DateDiff(d.score, getNowFormatDate()) < 0){ }}
     <span style="background-color: #FF0000;">{{ d.score }}</span>
     {{#  } else if(DateDiff(d.score, getNowFormatDate()) >= 0 && DateDiff(d.score, getNowFormatDate()) <= 30){ }}
     <span style="background-color: #FF9900;">{{ d.score }}</span>

@@ -14,20 +14,20 @@
     </mvc:annotation-driven>
 
     <!-- 视图解析-->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/"/>
         <property name="suffix" value=".jsp"/>
-    </bean>
+    </bean>-->
     <!-- html视图解析器, 必须先配置freemarkerConfig(需要freemarker库),注意html是没有prefix前缀属性的-->
-    <!--<bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">-->
+    <bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <!-- 属性 templateLoaderPath 需要spring-context-support库-->
-        <!--<property name="templateLoaderPath" value="/views"/>
+        <property name="templateLoaderPath" value="/views"/>
     </bean>
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="suffix" value=".html"/>
         <property name="order" value="0"/>
         <property name="contentType" value="text/html;charset=UTF-8"/>
-    </bean>-->
+    </bean>
 
     <!-- 扫描web请求控制器 -->
     <context:component-scan base-package="com.tssweb.controller"/>

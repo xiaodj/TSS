@@ -31,11 +31,9 @@ layui.use(['table', 'layer'], function () {
         },
         success:function (msg) {
             if (msg.code == 0) {
-                sessionStorage.removeItem("member");
                 sessionStorage.setItem("member", JSON.stringify(msg.member));
             }else if (msg.code == 1){
-                sessionStorage.removeItem("member");
-                layer.msg(msg.message.toString());
+                sessionStorage.setItem("member", "[]");
             }
         },
         complete:function () {
@@ -45,48 +43,6 @@ layui.use(['table', 'layer'], function () {
             layer.msg("网络异常");
         }
     });
-
-    // $('#Query').click(function () {
-    //     swid = $('#swid').val();
-    //     if (swid === "")
-    //         swid = "null";
-    //     ewid = $('#ewid').val();
-    //     if (ewid === "")
-    //         ewid = "null";
-    //     tid = $('#tid').val();
-    //     if (tid === "")
-    //         tid = "null";
-    //     var loading;
-    //     $.ajax({
-    //         //async: false,
-    //         cache:false,
-    //         url:Host + "/v1/user/"+uid+"/workers/swid/"+swid+"/ewid/"+ewid+"/tid/"+tid,
-    //         type:"get",
-    //         contentType:"application/json",
-    //         dataType:"json",
-    //         data:"",
-    //         beforeSend:function () {
-    //             loading = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
-    //         },
-    //         success:function (msg) {
-    //             if (msg.code == 0) {
-    //                 //sessionStorage.removeItem("member");
-    //                 sessionStorage.setItem("member", JSON.stringify(msg.member));
-    //                 wktable.reload();
-    //             }else if (msg.code == 1){
-    //                 sessionStorage.removeItem("member");
-    //                 wktable.reload();
-    //                 layer.msg(msg.message.toString());
-    //             }
-    //         },
-    //         complete:function () {
-    //             layer.close(loading);
-    //         },
-    //         error:function (msg) {
-    //             layer.msg("网络异常");
-    //         }
-    //     });
-    // });
 
     var wktable = table.render({
         elem: '#wkquery'
@@ -188,9 +144,9 @@ layui.use(['table', 'layer'], function () {
                 layer.close(index);
             });
         } else if(obj.event === 'edit'){
-            window.location.href = "/static/view/wkupdate.html" + "?wid=" + data.wid;
+            window.location.href = "../view/wkupdate.html" + "?wid=" + data.wid;
         } else if (obj.event === 'detail'){
-            window.location.href = "/static/view/wkdetail.html" + "?wid=" + data.wid;
+            window.location.href = "../view/wkdetail.html" + "?wid=" + data.wid;
         }
     });
 

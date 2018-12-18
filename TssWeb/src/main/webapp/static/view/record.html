@@ -31,7 +31,7 @@
 </script>
 
 <script id="sexTp1" type="text/html">
-    {{#  if(DateDiff(d.city === null || d.city === "" || d.city, getNowFormatDate()) < 0){ }}
+    {{#  if(DateDiff(d.city, getNowFormatDate()) < 0){ }}
     <span>{{ d.city + 'ｘ' }}</span>
     {{#  } else if(DateDiff(d.city, getNowFormatDate()) >= 0 && DateDiff(d.city, getNowFormatDate()) <= 30){ }}
     <span>{{ d.city + '**' }}</span>
@@ -42,7 +42,7 @@
     {{#  } }}
 </script>
 <script id="sexTp2" type="text/html">
-    {{#  if(d.experience === null || d.experience === "" || DateDiff(d.experience, getNowFormatDate()) < 0){ }}
+    {{#  if(DateDiff(d.experience, getNowFormatDate()) < 0){ }}
     <span>{{ d.experience + 'ｘ' }}</span>
     {{#  } else if(DateDiff(d.experience, getNowFormatDate()) >= 0 && DateDiff(d.experience, getNowFormatDate()) <= 30){ }}
     <span>{{ d.experience + '**' }}</span>
@@ -53,7 +53,7 @@
     {{#  } }}
 </script>
 <script id="sexTp3" type="text/html">
-    {{#  if(d.score === null || d.score === "" || DateDiff(d.score, getNowFormatDate()) < 0){ }}
+    {{#  if(DateDiff(d.score, getNowFormatDate()) < 0){ }}
     <span>{{ d.score + 'ｘ' }}</span>
     {{#  } else if(DateDiff(d.score, getNowFormatDate()) >= 0 && DateDiff(d.score, getNowFormatDate()) <= 30){ }}
     <span>{{ d.score + '**' }}</span>
