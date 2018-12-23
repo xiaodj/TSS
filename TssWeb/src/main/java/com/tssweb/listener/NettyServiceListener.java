@@ -11,7 +11,7 @@ import javax.servlet.ServletContextListener;
 public class NettyServiceListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        new Thread(new NettyService(8808)).start();
+        new Thread(new NettyService(10240)).start();
     }
 
     @Override
