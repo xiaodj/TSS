@@ -15,9 +15,9 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <!-- 添加自定义监听器 -->
-    <!--<listener>
+    <listener>
         <listener-class>com.tssweb.listener.NettyServiceListener</listener-class>
-    </listener>-->
+    </listener>
 
     <servlet>
     <servlet-name>spring-mvc</servlet-name>

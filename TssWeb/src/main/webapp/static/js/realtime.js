@@ -14,8 +14,8 @@ layui.use('table', function(){
 
        var RTData = [
            {"username":"张三", "sex":"08:02:11","city":"2018-12-11","experience":"2019-03-17", "score":"2019-02-10"},
-           {"username":"李四", "sex":"08:02:11","city":"2019-01-11","experience":"2018-11-11", "score":null},
-           {"username":"王五", "sex":"08:02:11","city":"2019-05-11","experience":"2019-01-10", "score":null}
+           {"username":"李四", "sex":"08:02:11","city":"2019-01-11","experience":"2018-11-11", "score":""},
+           {"username":"王五", "sex":"08:02:11","city":"2019-05-11","experience":"2019-01-10", "score":""}
        ];
 
     table.render({

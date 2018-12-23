@@ -14,7 +14,6 @@ import java.util.Map;
 /**
  * Created by xiaodj on 2018/11/27.
  */
-@Component
 public class WebSocketInterceptor extends HttpSessionHandshakeInterceptor{
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
