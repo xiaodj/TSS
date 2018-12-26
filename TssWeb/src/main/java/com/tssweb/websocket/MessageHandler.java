@@ -16,27 +16,22 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class MessageHandler implements WebSocketHandler {
     public static final String USER_KEY = "current_user";
-    private static final Map<String, WebSocketSession> userMap;
+    private static final Map<Integer, WebSocketSession> userMap;  //保存用户ID 对应 session
     static {
-        userMap = new ConcurrentHashMap<String, WebSocketSession>();
+        userMap = new ConcurrentHashMap<Integer, WebSocketSession>();
     }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         System.out.print("连接成功");
-//       String userId = this.getUserId(session);
-//        if (StringUtils.isNoneBlank(userId)) {
-//            userMap.put(userId, session);
-//            session.sendMessage(new TextMessage("建立WebSocket连接成功！"));
-//        }
     }
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
-        String msg = message.toString();
-        String userId = this.getUserId(session);
-        System.err.println("该"+userId+"用户发送的消息是："+msg);
-        message = new TextMessage("服务端已经接收到消息，msg="+msg);
-        session.sendMessage(message);
+//        String msg = message.toString();
+//        String userId = this.getUserId(session);
+//        System.err.println("该"+userId+"用户发送的消息是："+msg);
+//        message = new TextMessage("服务端已经接收到消息，msg="+msg);
+//        session.sendMessage(message);
     }
 
     @Override
@@ -48,13 +43,6 @@ public class MessageHandler implements WebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
         System.out.print("连接关闭");
-//        String userId = this.getUserId(session);
-//        if(StringUtils.isNoneBlank(userId)){
-//            userMap.remove(userId);
-//            System.err.println("该" + userId +"用户已成功关闭");
-//        }else{
-//            System.err.println("关闭时，获取用户id为空");
-//        }
     }
 
     @Override
@@ -62,8 +50,8 @@ public class MessageHandler implements WebSocketHandler {
         return false;
     }
 
-    public void sendMessageToUser(String userId,String contents) {
-        WebSocketSession session = userMap.get(userId);
+    public void sendMessageToUser(Integer uid, String contents) {
+        WebSocketSession session = userMap.get(uid);
         if(session !=null && session.isOpen()) {
             try {
                 TextMessage message = new TextMessage(contents);

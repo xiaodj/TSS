@@ -24,12 +24,12 @@ layui.use(['layer','element'],function () {
 
     //连接建立时触发该消息
     websocket.onopen = function(evnt){
-        alert("连接成功");
+        $('#msg').addClass("layui-bg-green");
     }
 
     //服务端关闭连接时触发该消息
     websocket.onclose = function (evnt) {
-        alert("关闭成功");
+        $('#msg').removeClass("layui-bg-green");
     }
 
     //网络发生错误时触发该消息
@@ -38,8 +38,8 @@ layui.use(['layer','element'],function () {
     }
 
     //接收服务端发送的消息时触发该消息
-    websocket.onmessage = function(evnt){
-        alert("接收到消息：" + evnt.data);
+    websocket.onmessage = function(data){
+        sessionStorage.setItem("realTimeData", JSON.stringify(data));
     }
 
     //发送消息

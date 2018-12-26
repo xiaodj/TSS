@@ -41,6 +41,10 @@
     <select id="GetLicenceInfoByWID" parameterType="java.lang.String" resultType="com.tssweb.entity.LicenceEntity">
         SELECT * FROM TBL_LICENCE WHERE WID=#{WID};
     </select>
+    <!-- 根据标签编码获取许可证信息 -->
+    <select id="GetLicenceInfoByTID" parameterType="java.lang.String" resultType="com.tssweb.entity.LicenceEntity">
+        SELECT * FROM TBL_LICENCE WHERE WID=(SELECT WID FROM TBL_TAG WHERE TID=#{TID});
+    </select>
     <!-- 新增许可证信息 -->
     <insert id="AddLicenceInfo" parameterType="com.tssweb.entity.LicenceEntity">
         INSERT INTO TBL_LICENCE (LCNAME, LCDATE, WID)
