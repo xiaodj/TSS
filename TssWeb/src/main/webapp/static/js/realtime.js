@@ -7,6 +7,7 @@ window.onload = function () {
     uid = sessionStorage.getItem("uid");
     if (uid == null)
         window.location.href = "../view/login.html";
+    sessionStorage.setItem("realTimeData", "[]");
 }
 
 layui.use('table', function(){

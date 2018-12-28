@@ -88,7 +88,15 @@ public class WorkerServiceImpl implements IWorkerService {
     @Transactional
     @Override
     public WorkersDto getWorkers(Integer uid, String swid, String ewid, String tid) {
-        List<WorkerEntity> workerEntityList = iWorkerDao.GetWorkersInfo(uid, swid, ewid, tid);
+
+        List<WorkerEntity> workerEntityList = new ArrayList<WorkerEntity>();
+        if (swid.isEmpty() && ewid.isEmpty() && !tid.isEmpty())
+            workerEntityList = iWorkerDao.GetWorkersInfoByTid(uid, tid);
+        if (!swid.isEmpty() && !ewid.isEmpty() && tid.isEmpty())
+            workerEntityList = iWorkerDao.GetWorkersInfoByWid(uid, swid, ewid);
+        if (!swid.isEmpty() && !ewid.isEmpty() && !tid.isEmpty())
+            workerEntityList = iWorkerDao.GetWorkersInfoByWidAndTid(uid, swid, ewid, tid);
+
         if (workerEntityList.size() == 0){
             workersDto.setCode(1);
             workersDto.setMessage("未获取到用户信息");

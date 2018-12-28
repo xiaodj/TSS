@@ -15,19 +15,14 @@
         SELECT * FROM TBL_WORKER WHERE WID=#{WID};
     </select>
     <!-- 通过用户编码获取员工信息集合 -->
-    <select id="GetWorkersInfo" resultType="com.tssweb.entity.WorkerEntity">
-        SELECT * FROM TBL_WORKER WHERE UID=#{uid}
-        <choose>
-            <when test="swid != 'null'">
-                AND WID &gt;= #{swid}
-            </when>
-            <when test="ewid != 'null'">
-                AND WID &lt;= #{ewid}
-            </when>
-            <when test="tid != 'null'">
-                AND TID = #{tid}
-            </when>
-        </choose>
+    <select id="GetWorkersInfoByTid" resultType="com.tssweb.entity.WorkerEntity">
+        SELECT * FROM TBL_WORKER where UID = #{uid} and WID = #{wid};
+    </select>
+    <select id="GetWorkersInfoByWid" resultType="com.tssweb.entity.WorkerEntity">
+        <![CDATA[SELECT * FROM TBL_WORKER WHERE UID=#{uid} AND WID >= #{swid} AND WID <= #{ewid};]]>
+    </select>
+    <select id="GetWorkersInfoByWidAndTid" resultType="com.tssweb.entity.WorkerEntity">
+        <![CDATA[SELECT * FROM TBL_WORKER WHERE UID=#{uid} AND WID >= #{swid} AND WID <= #{ewid} AND TID = #{tid};]]>
     </select>
     <!-- 通过员工编码删除员工信息 -->
     <delete id="DeleteWorkerByWID" parameterType="java.lang.String">

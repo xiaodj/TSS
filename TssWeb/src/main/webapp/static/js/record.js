@@ -7,6 +7,7 @@ window.onload = function () {
     uid = sessionStorage.getItem("uid");
     if (uid == null)
         window.location.href = "../view/login.html";
+    sessionStorage.setItem("recordData", "[]");
 }
 
 layui.use(['layer','table', 'laydate'], function () {
@@ -50,11 +51,20 @@ layui.use(['layer','table', 'laydate'], function () {
     });
 
 
-    //日期范围
+    //查询的开始日期
     laydate.render({
-        elem: '#daterange'
-        ,value:GetDateStr(-7).valueOf() + " - " + getNowFormatDate().valueOf()
-        ,range: true
+        elem: '#startdate'
+        //,value:GetDateStr(-7).valueOf() + " - " + getNowFormatDate().valueOf()
+        //,range: true
+        ,done:function (date, endDate) {
+
+        }
+    });
+    //查询的截至日期
+    laydate.render({
+        elem: '#enddate'
+        //,value:GetDateStr(-7).valueOf() + " - " + getNowFormatDate().valueOf()
+        //,range: true
         ,done:function (date, endDate) {
 
         }

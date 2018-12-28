@@ -29,8 +29,9 @@ public interface IWorkerDao {
     /**
      * 通过用户编码获取员工信息集合
      */
-    public List<WorkerEntity> GetWorkersInfo(@Param("uid") Integer uid, @Param("swid") String swid, @Param("ewid") String ewid, @Param("tid") String tid);
-
+    public List<WorkerEntity> GetWorkersInfoByTid(@Param("uid") Integer uid, @Param("tid") String tid);
+    public List<WorkerEntity> GetWorkersInfoByWid(@Param("uid") Integer uid, @Param("swid") String swid, @Param("ewid") String ewid);
+    public List<WorkerEntity> GetWorkersInfoByWidAndTid(@Param("uid") Integer uid, @Param("swid") String swid, @Param("ewid") String ewid, @Param("tid") String tid);
     /**
      * 通过员工编码删除员工信息
      */

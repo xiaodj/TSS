@@ -7,42 +7,13 @@ window.onload = function () {
     uid = sessionStorage.getItem("uid");
     if (uid == null)
         window.location.href = "/static/view/login.html";
+    sessionStorage.setItem("member", "[]");
 }
 
 layui.use(['table', 'layer'], function () {
     var table = layui.table;
     var layer = layui.layer;
     var $ = layui.$;
-
-    var swid  = "null";
-    var ewid =  "null";
-    var tid =  "null";
-    var index;
-    $.ajax({
-        async: false,
-        cache:false,
-        url:Host + "/v1/user/"+uid+"/workers/swid/"+swid+"/ewid/"+ewid+"/tid/"+tid,
-        type:"get",
-        contentType:"application/json",
-        dataType:"json",
-        data:"",
-        beforeSend:function () {
-            index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
-        },
-        success:function (msg) {
-            if (msg.code == 0) {
-                sessionStorage.setItem("member", JSON.stringify(msg.member));
-            }else if (msg.code == 1){
-                sessionStorage.setItem("member", "[]");
-            }
-        },
-        complete:function () {
-            layer.close(index);
-        },
-        error:function (msg) {
-            layer.msg("网络异常");
-        }
-    });
 
     var wktable = table.render({
         elem: '#wkquery'
@@ -62,22 +33,35 @@ layui.use(['table', 'layer'], function () {
 
     //头工具栏事件
     table.on('toolbar(wkquery)', function(obj){
+        var wkurl = "";
         switch(obj.event){
             case 'Query':
                 swid = $('#swid').val();
-                if (swid === "")
-                    swid = "null";
                 ewid = $('#ewid').val();
-                if (ewid === "")
-                    ewid = "null";
                 tid = $('#tid').val();
-                if (tid === "")
-                    tid = "null";
+                if (tid == ""){
+                    if (swid != "" && ewid != ""){
+                        wkurl = Host + "/v1/user/"+uid+"/workers/wid/"+swid+"/"+ewid;
+                    }else {
+                        layer.msg("员工编号范围任何一个不能为空");
+                        return;
+                    }
+                }else{
+                    if (swid != "" && ewid != ""){
+                        wkurl = Host + "/v1/user/"+uid+"/workers/tid/"+tid;
+                    }else if (swid == "" && ewid == ""){
+                        wkurl = Host + "/v1/user/"+uid+"/workers/wid/"+swid+"/"+ewid+"/tid/"+tid;
+                    }else {
+                        layer.msg("员工编号范围任何一个不能为空");
+                        return;
+                    }
+                }
+
                 var loading;
                 $.ajax({
                     //async: false,
                     cache:false,
-                    url:Host + "/v1/user/"+uid+"/workers/swid/"+swid+"/ewid/"+ewid+"/tid/"+tid,
+                    url:wkurl,
                     type:"get",
                     contentType:"application/json",
                     dataType:"json",
@@ -87,11 +71,9 @@ layui.use(['table', 'layer'], function () {
                     },
                     success:function (msg) {
                         if (msg.code == 0) {
-                            //sessionStorage.removeItem("member");
                             sessionStorage.setItem("member", JSON.stringify(msg.member));
                             wktable.reload({data:JSON.parse(sessionStorage.getItem("member"))});
                         }else if (msg.code == 1){
-                            //sessionStorage.removeItem("member");
                             sessionStorage.setItem("member", "[]");
                             wktable.reload({data:JSON.parse(sessionStorage.getItem("member"))});
                             layer.msg(msg.message.toString());

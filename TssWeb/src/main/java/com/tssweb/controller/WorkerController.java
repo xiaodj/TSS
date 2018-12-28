@@ -57,12 +57,22 @@ public class WorkerController {
     /**
      * 获取员工基本信息
      */
-    @RequestMapping(value = "/v1/user/{uid}/workers/swid/{swid}/ewid/{ewid}/tid/{tid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/user/{uid}/workers/tid/{tid}", method = RequestMethod.GET)
+    public @ResponseBody WorkersDto GetWorkersByTid(@PathVariable("uid") Integer uid,@PathVariable("tid") String tid){
+        return iWorkerService.getWorkers(uid, "", "", tid);
+    }
+    @RequestMapping(value = "/v1/user/{uid}/workers/wid/{swid}/{ewid}", method = RequestMethod.GET)
+    public @ResponseBody WorkersDto GetWorkersByWid(@PathVariable("uid") Integer uid
+            ,@PathVariable("swid") String swid, @PathVariable("ewid") String ewid){
+        return iWorkerService.getWorkers(uid, swid, ewid, "");
+    }
+    @RequestMapping(value = "/v1/user/{uid}/workers/swid/{swid}/{ewid}/tid/{tid}", method = RequestMethod.GET)
     public @ResponseBody
-    WorkersDto GetWorkers(@PathVariable("uid") Integer uid,@PathVariable("swid") String swid,
-                                     @PathVariable("ewid") String ewid, @PathVariable("tid") String tid){
+    WorkersDto GetWorkersByWidsTid(@PathVariable("uid") Integer uid,@PathVariable("swid") String swid,
+                          @PathVariable("ewid") String ewid, @PathVariable("tid") String tid){
         return iWorkerService.getWorkers(uid, swid, ewid, tid);
     }
+
 
     /**
      * 上传员工头像
