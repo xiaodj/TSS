@@ -32,7 +32,7 @@ layui.use(['layer','form'],function () {
                     sessionStorage.setItem("nickname", msg.nickname);
                     window.location.href = "/static/view/main.html";
                 }else if (msg.code == 1){
-                    layer.msg(msg.Message.toString());
+                    layer.msg(msg.message.toString());
                 }
             },
             complete:function () {

@@ -4,8 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="spring-mybatis.xml"/>
-
+    <import resource="classpath:spring/spring-mybatis.xml"/>
     <!-- 主要用于扫描一些包 -->
     <context:component-scan base-package="com.tssweb.websocket"/>
 

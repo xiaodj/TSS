@@ -3,6 +3,7 @@
  */
 
 var Host = "http://localhost:8080";
+var wsHost = "ws://localhost:8080";
 
 function DateDiff(sDate1, sDate2) {
     var  aDate,  oDate1,  oDate2,  iDays;

@@ -6,10 +6,10 @@
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
     <META HTTP-EQUIV="Expires" CONTENT="0">
-    <link rel="stylesheet" href="/static/lib/layui/css/layui.css">
-    <script src="/static/lib/layui/layui.js"></script>
-    <script src="/static/js/common.js"></script>
-    <script src="/static/js/main.js"></script>
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/main.js"></script>
 </head>
 <body>
     <div class="layui-layout layui-layout-admin">
@@ -17,7 +17,7 @@
             <a href="main.html"><div class="layui-logo">TSS智能管理系统</div></a>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
-                    <a href="#">消息<span class="layui-badge">9</span></a>
+                    <a href="#">消息<span id="msg" class="layui-badge-dot"></span></a>
                 </li>
                 <li class="layui-nav-item">
                     <a href="#">
@@ -36,7 +36,7 @@
                     <li class="layui-nav-item layui-this"><a id="realtime" href="javascript:;">实时监控</a></li>
                     <li class="layui-nav-item"><a id="recordquery" href="javascript:;">记录查询</a></li>
                     <li class="layui-nav-item"><a id="workeradd" href="javascript:;">员工录入</a></li>
-                    <li class="layui-nav-item"><a id="workerquery" href="javascript:;">员工查询</a></li>
+                    <li class="layui-nav-item"><a id="workerquery" href="javascript:;">员工信息</a></li>
                     <li class="layui-nav-item"><a id="controlcentre" href="javascript:;">控制中心</a></li>
                 </ul>
             </div>

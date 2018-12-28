@@ -6,45 +6,51 @@
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
     <META HTTP-EQUIV="Expires" CONTENT="0">
-    <link rel="stylesheet" href="/static/lib/layui/css/layui.css">
-    <script src="/static/lib/layui/layui.js"></script>
-    <script src="/static/js/common.js"></script>
-    <script src="/static/js/realtime.js"></script>
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+    <script src="../lib/layui/layui.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/realtime.js"></script>
 </head>
 <body>
 <table class="layui-hide" id="realtime"></table>
 
-<script id="sexTpl" type="text/html">
-    {{#  if(DateDiff(d.city === null || d.city === "" || d.city, getNowFormatDate()) < 0){ }}
-    <span style="background-color: #FF0000;">{{ d.city }}</span>
-    {{#  } else if(DateDiff(d.city, getNowFormatDate()) >= 0 && DateDiff(d.city, getNowFormatDate()) <= 30){ }}
-    <span style="background-color: #FF9900;">{{ d.city }}</span>
-    {{#  } else if(DateDiff(d.city, getNowFormatDate()) > 30 && DateDiff(d.city, getNowFormatDate()) <= 90){ }}
-    <span style="background-color: #FFFF00;">{{ d.city }}</span>
+<script id="Licel" type="text/html">
+    {{#  if(DateDiff(d.lc1 === null || d.lc1 === ""){ }}
+    <span></span>
+    {{#  } else if(d.lc1, getNowFormatDate()) < 0){ }}
+    <span style="background-color: #FF0000;">{{ d.lc1 }}</span>
+    {{#  } else if(DateDiff(d.lc1, getNowFormatDate()) >= 0 && DateDiff(d.lc1, getNowFormatDate()) <= 30){ }}
+    <span style="background-color: #FF9900;">{{ d.lc1 }}</span>
+    {{#  } else if(DateDiff(d.lc1, getNowFormatDate()) > 30 && DateDiff(d.lc1, getNowFormatDate()) <= 90){ }}
+    <span style="background-color: #FFFF00;">{{ d.lc1 }}</span>
     {{#  } else { }}
-    <span style="background-color: #00FF00;">{{ d.city }}</span>
+    <span style="background-color: #00FF00;">{{ d.lc1 }}</span>
     {{#  } }}
 </script>
-<script id="sexTpl1" type="text/html">
-    {{#  if(d.experience === null || d.experience === "" || DateDiff(d.experience, getNowFormatDate()) < 0){ }}
-    <span style="background-color: #FF0000;">{{ d.experience }}</span>
-    {{#  } else if(DateDiff(d.experience, getNowFormatDate()) >= 0 && DateDiff(d.experience, getNowFormatDate()) <= 30){ }}
-    <span style="background-color: #FF9900;">{{ d.experience }}</span>
-    {{#  } else if(DateDiff(d.experience, getNowFormatDate()) > 30 && DateDiff(d.experience, getNowFormatDate()) <= 90){ }}
-    <span style="background-color: #FFFF00;">{{ d.experience }}</span>
+<script id="Lice2" type="text/html">
+    {{#  if(d.lc2 === null || d.lc2 === ""){ }}
+    <span></span>
+    {{#  } else if(DateDiff(d.lc2, getNowFormatDate()) < 0){ }}
+    <span style="background-color: #FF0000;">{{ d.lc2 }}</span>
+    {{#  } else if(DateDiff(d.lc2, getNowFormatDate()) >= 0 && DateDiff(d.lc2, getNowFormatDate()) <= 30){ }}
+    <span style="background-color: #FF9900;">{{ d.lc2 }}</span>
+    {{#  } else if(DateDiff(d.lc2, getNowFormatDate()) > 30 && DateDiff(d.lc2, getNowFormatDate()) <= 90){ }}
+    <span style="background-color: #FFFF00;">{{ d.lc2 }}</span>
     {{#  } else { }}
-    <span style="background-color: #00FF00;">{{ d.experience }}</span>
+    <span style="background-color: #00FF00;">{{ d.lc2 }}</span>
     {{#  } }}
 </script>
-<script id="sexTpl2" type="text/html">
-    {{#  if(d.score === null || d.score === "" || DateDiff(d.score, getNowFormatDate()) < 0){ }}
-    <span style="background-color: #FF0000;">{{ d.score }}</span>
-    {{#  } else if(DateDiff(d.score, getNowFormatDate()) >= 0 && DateDiff(d.score, getNowFormatDate()) <= 30){ }}
-    <span style="background-color: #FF9900;">{{ d.score }}</span>
-    {{#  } else if(DateDiff(d.score, getNowFormatDate()) > 30 && DateDiff(d.score, getNowFormatDate()) <= 90){ }}
-    <span style="background-color: #FFFF00;">{{ d.score }}</span>
+<script id="Lice3" type="text/html">
+    {{#  if(d.lc3 === null || d.lc3 === ""){ }}
+    <span></span>
+    {{#  } else if(DateDiff(d.lc3, getNowFormatDate()) < 0){ }}
+    <span style="background-color: #FF0000;">{{ d.lc3 }}</span>
+    {{#  } else if(DateDiff(d.lc3, getNowFormatDate()) >= 0 && DateDiff(d.lc3, getNowFormatDate()) <= 30){ }}
+    <span style="background-color: #FF9900;">{{ d.lc3 }}</span>
+    {{#  } else if(DateDiff(d.lc3, getNowFormatDate()) > 30 && DateDiff(d.lc3, getNowFormatDate()) <= 90){ }}
+    <span style="background-color: #FFFF00;">{{ d.lc3 }}</span>
     {{#  } else { }}
-    <span style="background-color: #00FF00;">{{ d.score }}</span>
+    <span style="background-color: #00FF00;">{{ d.lc3 }}</span>
     {{#  } }}
 </script>
 </body>

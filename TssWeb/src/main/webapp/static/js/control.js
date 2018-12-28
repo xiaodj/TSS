@@ -6,7 +6,7 @@ var uid = null;
 window.onload = function () {
     uid = sessionStorage.getItem("uid");
     if (uid == null)
-        window.location.href = "/static/view/login.html";
+        window.location.href = "../view/login.html";
 }
 
 layui.use(['layer','laydate', 'form'], function () {
@@ -40,7 +40,7 @@ layui.use(['layer','laydate', 'form'], function () {
                 offendtime = msg.offendtime;
                 $('#timeout').val(msg.timeout);
             }else if (msg.code == 1){
-                layer.msg(msg.Message.toString());
+                layer.msg(msg.message.toString());
             }
         },
         complete:function () {

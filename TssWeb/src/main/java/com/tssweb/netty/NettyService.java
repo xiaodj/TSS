@@ -34,7 +34,7 @@ public class NettyService implements Runnable {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             //注册handler
-                            socketChannel.pipeline().addLast(new NettyServiceHandler());
+                            socketChannel.pipeline().addLast(new NettyInHandler());
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)

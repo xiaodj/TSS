@@ -47,6 +47,10 @@ public interface IWorkerDao {
     public List<LicenceEntity> GetLicenceInfoByWID(String wid);
 
     /**
+     * 根据标签获取许可证信息
+     */
+    public List<LicenceEntity> GetLicenceInfoByTID(String tid);
+    /**
      * 新增许可证信息
      */
     public Integer AddLicenceInfo(LicenceEntity licenceEntity);
