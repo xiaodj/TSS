@@ -1,20 +1,32 @@
 package com.tssweb.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by xiaodj on 2018/11/27.
  */
 public class NettyService implements Runnable {
 
+    private static Map<String, ChannelHandlerContext> channelMap;
     private int iport;  //端口号
+    static {
+        channelMap = new HashMap<String, ChannelHandlerContext>();
+    }
+
+    public static Map<String, ChannelHandlerContext> getChannelMap() {
+        return channelMap;
+    }
+
+    public static void setChannelMap(Map<String, ChannelHandlerContext> channelMap) {
+        NettyService.channelMap = channelMap;
+    }
 
     public NettyService(int port){
         this.iport = port;

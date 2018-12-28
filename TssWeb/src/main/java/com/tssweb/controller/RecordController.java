@@ -21,10 +21,20 @@ public class RecordController {
      * 查询记录
      * @author 邓江
      */
-    @RequestMapping(value = "/v1/user/{uid}/records/startdate/{sdt}/enddate/{edt}", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/user/{uid}/records/date/{sdt}/{edt}", method = RequestMethod.GET)
     public @ResponseBody
     RecordsDto GetRecords(@PathVariable("uid") Integer uid, @PathVariable("sdt") String sdt, @PathVariable("edt") String edt){
-        return iRecordService.getRecords(uid, sdt, edt);
+        return iRecordService.getRecords(uid, "", sdt, edt);
+    }
+
+    /**
+     * 查询记录
+     * @author 邓江
+     */
+    @RequestMapping(value = "/v1/user/{uid}/worker/{wid}/records", method = RequestMethod.GET)
+    public @ResponseBody
+    RecordsDto GetRecords(@PathVariable("uid") Integer uid, @PathVariable("wid") String wid){
+        return iRecordService.getRecords(uid, wid, "", "");
     }
 
     /**

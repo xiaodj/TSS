@@ -15,14 +15,20 @@
         SELECT * FROM TBL_WORKER WHERE WID=#{WID};
     </select>
     <!-- 通过用户编码获取员工信息集合 -->
-    <select id="GetWorkersInfoByTid" resultType="com.tssweb.entity.WorkerEntity">
-        SELECT * FROM TBL_WORKER where UID = #{uid} and WID = #{wid};
+    <resultMap id="WorkerByTig" type="com.tssweb.entity.WorkerEntity">
+        <result property="WID" column="WID"/>
+        <result property="WKCHNAME" column="WKCHNAME"/>
+        <result property="WKSURNAME" column="WKSURNAME"/>
+        <result property="WKENNAME" column="WKENNAME"/>
+    </resultMap>
+    <select id="GetWorkersInfoByTid" resultMap="WorkerByTig">
+        select w.WID, w.WKCHNAME, w.WKSURNAME, w.WKENNAME from TBL_WORKER w left join TBL_TAG t on w.WID = t.WID where w.UID = #{uid} and t.TID = #{tid}
     </select>
-    <select id="GetWorkersInfoByWid" resultType="com.tssweb.entity.WorkerEntity">
-        <![CDATA[SELECT * FROM TBL_WORKER WHERE UID=#{uid} AND WID >= #{swid} AND WID <= #{ewid};]]>
+    <select id="GetWorkersInfoByWid" resultMap="WorkerByTig">
+        <![CDATA[SELECT w.WID, w.WKCHNAME, w.WKSURNAME, w.WKENNAME FROM TBL_WORKER w WHERE w.UID=#{uid} AND w.WID >= #{swid} AND w.WID <= #{ewid};]]>
     </select>
-    <select id="GetWorkersInfoByWidAndTid" resultType="com.tssweb.entity.WorkerEntity">
-        <![CDATA[SELECT * FROM TBL_WORKER WHERE UID=#{uid} AND WID >= #{swid} AND WID <= #{ewid} AND TID = #{tid};]]>
+    <select id="GetWorkersInfoByWidAndTid" resultMap="WorkerByTig">
+        <![CDATA[SELECT w.WID, w.WKCHNAME, w.WKSURNAME, w.WKENNAME FROM TBL_WORKER w left join TBL_TAG t on w.WID = t.WID WHERE w.UID=#{uid} AND w.WID >= #{swid} AND w.WID <= #{ewid} AND t.TID = #{tid};]]>
     </select>
     <!-- 通过员工编码删除员工信息 -->
     <delete id="DeleteWorkerByWID" parameterType="java.lang.String">

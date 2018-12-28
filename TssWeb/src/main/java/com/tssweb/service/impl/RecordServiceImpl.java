@@ -30,19 +30,6 @@ public class RecordServiceImpl implements IRecordService {
 
     @Transactional
     @Override
-    public RecordsDto getRecords(Integer uid, String sdt, String edt) {
-
-        List<RecordEntity> recordEntityList = iRecordDao.GetRecordsByDate(sdt, edt);
-        if (recordEntityList.size() == 0){
-            recordsDto.setCode(1);
-            recordsDto.setMessage("未获取到相关记录信息");
-            return recordsDto;
-        }
-        return dealRecords(recordEntityList);
-    }
-
-    @Transactional
-    @Override
     public RecordsDto getRecords(Integer uid, String wid, String sdt, String edt) {
         List<RecordEntity> recordEntityList = iRecordDao.GetRecordsByDateAndWID(sdt, edt, wid);
         if (recordEntityList.size() == 0){

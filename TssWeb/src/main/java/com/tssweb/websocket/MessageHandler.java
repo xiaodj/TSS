@@ -50,11 +50,11 @@ public class MessageHandler implements WebSocketHandler {
         return false;
     }
 
-    public void sendMessageToUser(Integer uid, String contents) {
+    public void sendMessageToUser(Integer uid, String msg) {
         WebSocketSession session = userMap.get(uid);
         if(session !=null && session.isOpen()) {
             try {
-                TextMessage message = new TextMessage(contents);
+                TextMessage message = new TextMessage(msg);
                 session.sendMessage(message);
             } catch (IOException e) {
                 e.printStackTrace();

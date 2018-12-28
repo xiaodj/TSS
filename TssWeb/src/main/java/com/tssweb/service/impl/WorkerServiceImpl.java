@@ -19,7 +19,6 @@ public class WorkerServiceImpl implements IWorkerService {
 
     @Autowired
     private IWorkerDao iWorkerDao;
-
     @Autowired
     private BaseDto baseDto;
     @Autowired

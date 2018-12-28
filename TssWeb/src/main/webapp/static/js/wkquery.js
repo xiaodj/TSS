@@ -47,9 +47,9 @@ layui.use(['table', 'layer'], function () {
                         return;
                     }
                 }else{
-                    if (swid != "" && ewid != ""){
+                    if (swid == "" && ewid == ""){
                         wkurl = Host + "/v1/user/"+uid+"/workers/tid/"+tid;
-                    }else if (swid == "" && ewid == ""){
+                    }else if (swid != "" && ewid != ""){
                         wkurl = Host + "/v1/user/"+uid+"/workers/wid/"+swid+"/"+ewid+"/tid/"+tid;
                     }else {
                         layer.msg("员工编号范围任何一个不能为空");

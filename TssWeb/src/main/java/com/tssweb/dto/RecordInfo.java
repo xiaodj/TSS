@@ -7,7 +7,15 @@ import java.util.List;
 @Component
 public class RecordInfo {
     private String date;
-    private List<RecWorkerInfo> workers;
+    private String wid;
+    private String chname;
+    private String surname;
+    private String enname;
+    private String intime;
+    private String outtime;
+    private String lc1;
+    private String lc2;
+    private String lc3;
 
     public String getDate() {
         return date;
@@ -17,11 +25,75 @@ public class RecordInfo {
         this.date = date;
     }
 
-    public List<RecWorkerInfo> getWorkers() {
-        return workers;
+    public String getWid() {
+        return wid;
     }
 
-    public void setWorkers(List<RecWorkerInfo> workers) {
-        this.workers = workers;
+    public void setWid(String wid) {
+        this.wid = wid;
+    }
+
+    public String getChname() {
+        return chname;
+    }
+
+    public void setChname(String chname) {
+        this.chname = chname;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getEnname() {
+        return enname;
+    }
+
+    public void setEnname(String enname) {
+        this.enname = enname;
+    }
+
+    public String getIntime() {
+        return intime;
+    }
+
+    public void setIntime(String intime) {
+        this.intime = intime;
+    }
+
+    public String getOuttime() {
+        return outtime;
+    }
+
+    public void setOuttime(String outtime) {
+        this.outtime = outtime;
+    }
+
+    public String getLc1() {
+        return lc1;
+    }
+
+    public void setLc1(String lc1) {
+        this.lc1 = lc1;
+    }
+
+    public String getLc2() {
+        return lc2;
+    }
+
+    public void setLc2(String lc2) {
+        this.lc2 = lc2;
+    }
+
+    public String getLc3() {
+        return lc3;
+    }
+
+    public void setLc3(String lc3) {
+        this.lc3 = lc3;
     }
 }

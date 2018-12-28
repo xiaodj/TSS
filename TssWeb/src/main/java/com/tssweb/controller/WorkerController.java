@@ -66,7 +66,7 @@ public class WorkerController {
             ,@PathVariable("swid") String swid, @PathVariable("ewid") String ewid){
         return iWorkerService.getWorkers(uid, swid, ewid, "");
     }
-    @RequestMapping(value = "/v1/user/{uid}/workers/swid/{swid}/{ewid}/tid/{tid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/user/{uid}/workers/wid/{swid}/{ewid}/tid/{tid}", method = RequestMethod.GET)
     public @ResponseBody
     WorkersDto GetWorkersByWidsTid(@PathVariable("uid") Integer uid,@PathVariable("swid") String swid,
                           @PathVariable("ewid") String ewid, @PathVariable("tid") String tid){
