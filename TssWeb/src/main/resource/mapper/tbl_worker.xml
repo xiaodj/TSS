@@ -30,6 +30,26 @@
     <select id="GetWorkersInfoByWidAndTid" resultMap="WorkerByTig">
         <![CDATA[SELECT w.WID, w.WKCHNAME, w.WKSURNAME, w.WKENNAME FROM TBL_WORKER w left join TBL_TAG t on w.WID = t.WID WHERE w.UID=#{uid} AND w.WID >= #{swid} AND w.WID <= #{ewid} AND t.TID = #{tid};]]>
     </select>
+    <resultMap id="Workers" type="com.tssweb.entity.WorkersEntity">
+        <result property="WID" column="WID"/>
+        <result property="WKCHNAME" column="WKCHNAME"/>
+        <result property="WKSURNAME" column="WKSURNAME"/>
+        <result property="WKENNAME" column="WKENNAME"/>
+        <result property="WKCARD" column="WKCARD"/>
+        <result property="WKCCRSID" column="WKCCRSID"/>
+        <result property="WKOTHER" column="WKOTHER"/>
+        <result property="WKIMAGEPATH" column="WKIMAGEPATH"/>
+        <result property="UID" column="UID"/>
+        <collection property="licenceEntities" ofType="com.tssweb.entity.LicenceEntity">
+            <result property="LID" column="LID"/>
+            <result property="LCNAME" column="LCNAME"/>
+            <result property="LCDATE" column="LCDATE"/>
+            <result property="WID" column="WID"/>
+        </collection>
+    </resultMap>
+    <select id="GetWorkersInfo" resultMap="Workers">
+        SELECT * FROM TBL_WORKER wk left join TBL_LICENCE lc ON wk.WID = lc.WID
+    </select>
     <!-- 通过员工编码删除员工信息 -->
     <delete id="DeleteWorkerByWID" parameterType="java.lang.String">
         DELETE FROM TBL_WORKER WHERE WID=#{WID};

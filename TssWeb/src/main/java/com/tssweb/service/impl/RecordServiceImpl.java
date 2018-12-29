@@ -3,10 +3,7 @@ package com.tssweb.service.impl;
 import com.tssweb.dao.IRecordDao;
 import com.tssweb.dao.IWorkerDao;
 import com.tssweb.dto.*;
-import com.tssweb.entity.LicenceEntity;
-import com.tssweb.entity.RecordEntity;
-import com.tssweb.entity.TagEntity;
-import com.tssweb.entity.WorkerEntity;
+import com.tssweb.entity.*;
 import com.tssweb.service.IRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,10 +25,31 @@ public class RecordServiceImpl implements IRecordService {
     @Autowired
     private RecordsDto recordsDto;
 
+    private static Map<String, WorkersEntity> workersEntityMap;
+
+    static {
+        workersEntityMap = new HashMap<String, WorkersEntity>();
+    }
+
     @Transactional
     @Override
     public RecordsDto getRecords(Integer uid, String wid, String sdt, String edt) {
-        List<RecordEntity> recordEntityList = iRecordDao.GetRecordsByDateAndWID(sdt, edt, wid);
+
+        if (workersEntityMap.size() <= 0){
+            List<WorkersEntity> workersEntityList = iWorkerDao.GetWorkersInfo();
+            for (WorkersEntity workersEntity:workersEntityList) {
+                workersEntityMap.put(workersEntity.getWID(), workersEntity);
+            }
+        }
+
+        List<RecordEntity> recordEntityList = new ArrayList<RecordEntity>();
+        if (!wid.isEmpty() && sdt.isEmpty() && edt.isEmpty())
+            recordEntityList = iRecordDao.GetRecordsByWID(wid);
+        if (wid.isEmpty() && !sdt.isEmpty() && !edt.isEmpty())
+            recordEntityList = iRecordDao.GetRecordsByDate(sdt, edt);
+        if (!wid.isEmpty() && !sdt.isEmpty() && !edt.isEmpty())
+            recordEntityList = iRecordDao.GetRecordsByDateAndWID(sdt, edt, wid);;
+
         if (recordEntityList.size() == 0){
             recordsDto.setCode(1);
             recordsDto.setMessage("未获取到相关记录信息");
@@ -43,74 +61,19 @@ public class RecordServiceImpl implements IRecordService {
     private RecordsDto dealRecords(List<RecordEntity> recordEntityList){
 
         List<RecordInfo> recordInfoList = new ArrayList<RecordInfo>();
-        List<RecWorkerInfo> recWorkerInfoList = null;
-        List<RecTimeInfo> recTimeInfoList = null;
-        RecTimeInfo recTimeInfo = null;
-
-        String strDate = "";    //临时保存记录日期
-        String strWID="";       //临时保存员工编号
-        boolean bNewTime = true;    //需要新建一个Time主要用于out状态的判断
-
-        Map<String, WorkerDto> workerMap = new HashMap<String, WorkerDto>();//临时保存已经获取过的员工信息
+        RecordInfo recordInfo = null;
+        RecordEntity recordEntityTemp = null;
         for (Integer index = 0; index < recordEntityList.size(); index++){
             RecordEntity recordEntity = recordEntityList.get(index);
-            if (!workerMap.containsKey(recordEntity.getWID())){
-                WorkerEntity workerEntity = iWorkerDao.GetWorkerInfo(recordEntity.getWID());
-                List<LicenceEntity> licenceEntityList = iWorkerDao.GetLicenceInfoByWID(recordEntity.getWID());
-                WorkerDto workerDto = new WorkerDto();
-                workerDto.setChname(workerEntity.getWKCHNAME());
-                workerDto.setSurname(workerEntity.getWKSURNAME());
-                workerDto.setEnname(workerEntity.getWKENNAME());
-                List<LicencesInfo> licencesInfoList = new ArrayList<LicencesInfo>();
-                for (LicenceEntity licenceEntity: licenceEntityList) {
-                    LicencesInfo licencesInfo = new LicencesInfo();
-                    licencesInfo.setLcname(licenceEntity.getLCNAME());
-                    licencesInfo.setLcdate(licenceEntity.getLCDATE());
-                    licencesInfoList.add(licencesInfo);
-                }
-                workerDto.setLicences(licencesInfoList);
-                workerMap.put(recordEntity.getWID(), workerDto);
+            if (recordEntity == null){
+                recordEntityTemp = recordEntity;
+                recordInfo = new RecordInfo();
+                recordInfo.setDate(recordEntity.getRCDATE());   //
+                continue;
             }
 
-            //根据日期不同
-            if (!recordEntity.getRCDATE().equals(strDate)){
-                strDate = recordEntity.getRCDATE();
-                RecordInfo recordInfo = new RecordInfo();
-                recordInfo.setDate(recordEntity.getRCDATE());
-                recWorkerInfoList = new ArrayList<RecWorkerInfo>();
-                recordInfo.setWorkers(recWorkerInfoList);
-                recordInfoList.add(recordInfo);
-            }
 
-            //根据员工编号不同
-            if (!recordEntity.getWID().equals(strWID)){
-                strWID = recordEntity.getWID();
-                RecWorkerInfo recWorkerInfo = new RecWorkerInfo();
-                WorkerDto workerDto = workerMap.get(recordEntity.getWID());
-                recWorkerInfo.setWid(recordEntity.getWID());
-                recWorkerInfo.setChname(workerDto.getChname());
-                recWorkerInfo.setSurname(workerDto.getSurname());
-                recWorkerInfo.setEnname(workerDto.getEnname());
-                recWorkerInfo.setLicences(workerDto.getLicences());
-                recTimeInfoList = new ArrayList<RecTimeInfo>();
-                recWorkerInfo.setTimes(recTimeInfoList);
-                recWorkerInfoList.add(recWorkerInfo);
 
-                bNewTime = true;
-            }
-
-            if (recordEntity.getTAGSTATE() == 0){
-                recTimeInfo = new RecTimeInfo();
-                recTimeInfoList.add(recTimeInfo);
-                recTimeInfo.setIntime(recordEntity.getRCTIME());
-                bNewTime = false;
-            }else{
-                if (bNewTime){
-                    recTimeInfo = new RecTimeInfo();
-                    recTimeInfoList.add(recTimeInfo);
-                }
-                recTimeInfo.setOuttime(recordEntity.getRCTIME());
-            }
         }
 
         recordsDto.setCode(0);

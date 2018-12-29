@@ -41,7 +41,7 @@ public class RecordController {
      * 查询记录
      * @author 邓江
      */
-    @RequestMapping(value = "/v1/user/{uid}/worker/{wid}/records/startdate/{sdt}/enddate/{edt}", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/user/{uid}/worker/{wid}/records/date/{sdt}/{edt}", method = RequestMethod.GET)
     public @ResponseBody
     RecordsDto GetRecords(@PathVariable("uid") Integer uid, @PathVariable("wid") String wid,
                           @PathVariable("sdt") String sdt, @PathVariable("edt") String edt){
