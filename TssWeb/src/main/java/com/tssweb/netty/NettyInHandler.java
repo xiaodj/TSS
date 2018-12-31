@@ -3,12 +3,14 @@ package com.tssweb.netty;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import org.springframework.stereotype.Component;
 
 import static com.tssweb.netty.DataEngine.msgQueue;
 
 /**
  * Created by xiaodj on 2018/11/27.
  */
+@Component
 public class NettyInHandler extends ChannelInboundHandlerAdapter {
 
     @Override
@@ -35,8 +37,8 @@ public class NettyInHandler extends ChannelInboundHandlerAdapter {
         buf.readBytes(req);
         if (req.length < 30)    //小于30的长度，自动上传的数据是不完整的
             return;
-        //线程同步
         msgQueue.offer(req);
+        buf.release();
     }
 
     @Override
@@ -52,17 +54,4 @@ public class NettyInHandler extends ChannelInboundHandlerAdapter {
        cause.printStackTrace();
        ctx.close();
     }
-
-    //校验位
-//    public Boolean judgeCheckSum(byte[] msgBytes){
-//        byte iSum = 0;
-//        for (int i = 0; i < msgBytes.length - 1; i++)
-//        {
-//            iSum += msgBytes[i];
-//        }
-//        byte iCheck = msgBytes[msgBytes.length - 1];
-//        if ((~iSum + 1) != iCheck)
-//            return false;
-//        return true;
-//    }
 }

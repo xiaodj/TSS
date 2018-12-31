@@ -3,7 +3,10 @@ package com.tssweb.service;
 import com.tssweb.dto.BaseDto;
 import com.tssweb.dto.WorkerDto;
 import com.tssweb.dto.WorkersDto;
+import com.tssweb.entity.WorkerEntity;
+import com.tssweb.entity.WorkersEntity;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IWorkerService {
@@ -37,5 +40,4 @@ public interface IWorkerService {
      * 上传员工头像ico图标
      */
     public BaseDto putHeadico(Map<String, String> var);
-
 }

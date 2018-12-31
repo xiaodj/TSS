@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -18,6 +19,8 @@ public class UserController {
 
     @Autowired
     private IUserService iUserService;
+    @Autowired
+    private BaseDto baseDto;
 
     /**
      * 注册接口
@@ -33,8 +36,21 @@ public class UserController {
      * @author 邓江
      */
     @RequestMapping(value = "/v1/user/login", method = RequestMethod.POST)
-    public @ResponseBody LoginDto login(@RequestBody Map<String, String> param){
-        return iUserService.login(param);
+    public @ResponseBody LoginDto login(@RequestBody Map<String, String> param, HttpSession session){
+        LoginDto loginDto = iUserService.login(param);
+        session.setAttribute("UID", loginDto.getUid());
+        return loginDto;
+    }
+
+    /**
+     * 退出
+     */
+    @RequestMapping(value = "/v1/user/{uid}/exit", method = RequestMethod.POST)
+    public @ResponseBody BaseDto loginOut(@PathVariable("uid") Integer uid, HttpSession session){
+        session.removeAttribute("UID");
+        baseDto.setCode(0);
+        baseDto.setMessage("退出成功");
+        return baseDto;
     }
 
     /**

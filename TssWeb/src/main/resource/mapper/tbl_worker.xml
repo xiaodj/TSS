@@ -50,6 +50,9 @@
     <select id="GetWorkersInfo" resultMap="Workers">
         SELECT * FROM TBL_WORKER wk left join TBL_LICENCE lc ON wk.WID = lc.WID
     </select>
+    <select id="GetWorkersByTid" resultMap="Workers">
+        SELECT * FROM TBL_TAG tg left join TBL_WORKER wk ON wk.WID = tg.WID  left join TBL_LICENCE lc ON wk.WID = lc.WID WHERE tg.TID = #{tid}
+    </select>
     <!-- 通过员工编码删除员工信息 -->
     <delete id="DeleteWorkerByWID" parameterType="java.lang.String">
         DELETE FROM TBL_WORKER WHERE WID=#{WID};

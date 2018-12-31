@@ -7,7 +7,7 @@ var uid = null;
 window.onload = function () {
     uid = sessionStorage.getItem("uid");
     if (uid == null)
-        window.location.href = "../view/login.html";
+        window.parent.location.href = "../view/login.html";
 }
 
 layui.use(['form','laydate'], function () {

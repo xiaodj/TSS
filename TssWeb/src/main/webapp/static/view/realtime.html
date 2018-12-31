@@ -13,11 +13,10 @@
 </head>
 <body>
 <table class="layui-hide" id="realtime"></table>
-
 <script id="Licel" type="text/html">
-    {{#  if(DateDiff(d.lc1 === null || d.lc1 === ""){ }}
+    {{#  if(d.lc1 === null || d.lc1 === ""){ }}
     <span></span>
-    {{#  } else if(d.lc1, getNowFormatDate()) < 0){ }}
+    {{#  } else if(DateDiff(d.lc1, getNowFormatDate()) < 0){ }}
     <span style="background-color: #FF0000;">{{ d.lc1 }}</span>
     {{#  } else if(DateDiff(d.lc1, getNowFormatDate()) >= 0 && DateDiff(d.lc1, getNowFormatDate()) <= 30){ }}
     <span style="background-color: #FF9900;">{{ d.lc1 }}</span>

@@ -4,11 +4,29 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserSetDto extends BaseDto {
+    private String sensitivity;     //灵敏度值
+    private String tagstatus;       //标签识别状态
     private String onstarttime;     //上班区间的起始时间
     private String onendtime;       //上班区间的结束时间
     private String offstarttime;    //下班区间的起始时间
     private String offendtime;      //下班区间的结束时间
     private Integer timeout;        //离开的条件
+
+    public String getSensitivity() {
+        return sensitivity;
+    }
+
+    public void setSensitivity(String sensitivity) {
+        this.sensitivity = sensitivity;
+    }
+
+    public String getTagstatus() {
+        return tagstatus;
+    }
+
+    public void setTagstatus(String tagstatus) {
+        this.tagstatus = tagstatus;
+    }
 
     public String getOnstarttime() {
         return onstarttime;

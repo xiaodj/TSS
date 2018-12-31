@@ -30,16 +30,23 @@ layui.use(['layer','element'],function () {
     //服务端关闭连接时触发该消息
     websocket.onclose = function (evnt) {
         $('#msg').removeClass("layui-bg-green");
+        sessionStorage.clear();
+        sessionStorage.setItem("realTimeData", "[]");
+        nframe.window.Refresh();
     }
 
     //网络发生错误时触发该消息
     websocket.onerror = function (evnt) {
-        alert("发生错误");
+        $('#msg').removeClass("layui-bg-green");
+        sessionStorage.clear();
+        sessionStorage.setItem("realTimeData", "[]");
+        nframe.window.Refresh();
     }
 
     //接收服务端发送的消息时触发该消息
-    websocket.onmessage = function(data){
-        sessionStorage.setItem("realTimeData", JSON.stringify(data));
+    websocket.onmessage = function(evnt){
+        sessionStorage.setItem("realTimeData", evnt.data);
+        nframe.window.Refresh();
     }
 
     //发送消息
@@ -69,8 +76,33 @@ layui.use(['layer','element'],function () {
     });
     
     $('#exit').click(function () {
-        sessionStorage.removeItem("uid");
-        window.location.href = "../view/login.html";
+        var index;
+        $.ajax({
+            //async: false,
+            cache:false,
+            url:Host + "/v1/user/" + uid + "/exit",
+            type:"post",
+            contentType:"application/json",
+            dataType:"json",
+            data:"",
+            beforeSend:function () {
+                index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            success:function (msg) {
+                if (msg.code == 0) {
+                    sessionStorage.clear();
+                    window.location.href = "../view/login.html";
+                }else if (msg.code == 1){
+                    layer.msg(msg.message.toString());
+                }
+            },
+            complete:function () {
+                layer.close(index);
+            },
+            error:function (msg) {
+                layer.msg("网络异常");
+            }
+        });
     });
 
     // //添加一行

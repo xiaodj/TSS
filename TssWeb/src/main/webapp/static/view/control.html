@@ -15,87 +15,99 @@
 <body>
 <div class="product-creat">
     <div class="layui-card" style="margin-top:10px">
-        <div class="layui-card-header">网关设置</div>
+        <div class="layui-card-header">系统设置</div>
         <div class="layui-card-body">
-            <form class="layui-form">
+            <div class="layui-form">
                 <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
                     <div class="layui-inline">
-                        <label class="layui-form-label">读卡速度：</label>
+                        <label class="layui-form-label">灵敏度：</label>
                         <div class="layui-input-inline">
-                            <input id="RFSpeed" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
-                        </div>
-                        <label class="layui-form-label" style="text-align: left">秒/次</label>
-                    </div>
-                </div>
-                <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">读卡距离：</label>
-                        <div class="layui-input-inline">
-                            <input id="RFDistance" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
-                        </div>
-                        <label class="layui-form-label" style="text-align: left">米</label>
-                    </div>
-                </div>
-                <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">读卡状态：</label>
-                        <div class="layui-input-inline" style="text-align: left">
-                            <input name="open" type="checkbox" checked="" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+                            <select id="RFDistance" lay-filter="RFDistance" lay-verify="required">
+                                <option value="0" selected>0</option>
+                                <option value="1" >1</option>
+                                <option value="2" >2</option>
+                                <option value="3" >3</option>
+                                <option value="4" >4</option>
+                                <option value="5" >5</option>
+                                <option value="6" >6</option>
+                                <option value="7" >7</option>
+                                <option value="8" >8</option>
+                                <option value="9" >9</option>
+                                <option value="10" >10</option>
+                                <option value="11" >11</option>
+                                <option value="12" >12</option>
+                                <option value="13" >13</option>
+                                <option value="14" >14</option>
+                                <option value="15" >15</option>
+                                <option value="16" >16</option>
+                                <option value="17" >17</option>
+                                <option value="18" >18</option>
+                                <option value="19" >19</option>
+                                <option value="20" >20</option>
+                                <option value="21" >21</option>
+                                <option value="22" >22</option>
+                                <option value="23" >23</option>
+                                <option value="24" >24</option>
+                                <option value="25" >25</option>
+                                <option value="26" >26</option>
+                                <option value="27" >27</option>
+                                <option value="28" >28</option>
+                                <option value="29" >29</option>
+                                <option value="30" >30</option>
+                                <option value="31" >31</option>
+                            </select>
                         </div>
                         <label class="layui-form-label" style="text-align: left"></label>
                     </div>
                 </div>
                 <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
                     <div class="layui-inline">
+                        <label class="layui-form-label">标签识别：</label>
+                        <div class="layui-input-inline" style="text-align: left">
+                            <select id="TagStatus" lay-filter="TagStatus" lay-verify="required">
+                                <option value="0" selected>关</option>
+                                <option value="1" >开</option>
+                            </select>
+                        </div>
+                        <label class="layui-form-label" style="text-align: left"></label>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">上班时间：</label>
                         <div class="layui-input-inline">
-                            <button id="Login" class="layui-btn layui-btn-fluid" type="button">保存</button>
+                            <input class="layui-input" id="ontime" type="text" placeholder=" - ">
+                        </div>
+                        <label class="layui-form-label" style="text-align: left"></label>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">下班时间：</label>
+                        <div class="layui-input-inline">
+                            <input class="layui-input" id="offtime" type="text" placeholder=" - ">
+                        </div>
+                        <label class="layui-form-label" style="text-align: left"></label>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">累计时间：</label>
+                        <div class="layui-input-inline">
+                            <input id="timeout" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
+                        </div>
+                        <label class="layui-form-label" style="text-align: left">秒</label>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <button id="SysSave" class="layui-btn layui-btn-fluid" type="button">保存</button>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-    <div class="layui-card">
-        <div class="layui-card-header">系统设置</div>
-        <div class="layui-card-body">
-                    <div class="layui-form">
-                        <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">上班时间：</label>
-                                <div class="layui-input-inline">
-                                    <input class="layui-input" id="ontime" type="text" placeholder=" - ">
-                                </div>
-                                <label class="layui-form-label" style="text-align: left"></label>
-                            </div>
-                        </div>
-                        <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">下班时间：</label>
-                                <div class="layui-input-inline">
-                                    <input class="layui-input" id="offtime" type="text" placeholder=" - ">
-                                </div>
-                                <label class="layui-form-label" style="text-align: left"></label>
-                            </div>
-                        </div>
-                        <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">累计时间：</label>
-                                <div class="layui-input-inline">
-                                    <input id="timeout" class="layui-input" type="text" autocomplete="off" required lay-verify="required">
-                                </div>
-                                <label class="layui-form-label" style="text-align: left">秒</label>
-                            </div>
-                        </div>
-                        <div class="layui-form-item" style="text-align: center; margin-top: 20px;">
-                            <div class="layui-inline">
-                                <div class="layui-input-inline">
-                                    <button id="SysSave" class="layui-btn layui-btn-fluid" type="button">保存</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
     </div>
 </div>
 </body>

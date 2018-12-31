@@ -1,10 +1,13 @@
 package com.tssweb.entity;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 /**
  * Created by xiaodj on 2018/12/29.
  */
+@Component
 public class WorkersEntity {
     private String  WID;            //员工编码
     private String  WKCHNAME;       //员工中文姓名

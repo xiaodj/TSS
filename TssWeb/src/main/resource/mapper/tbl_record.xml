@@ -20,4 +20,8 @@
     <insert id="AddRecord" parameterType="com.tssweb.entity.RecordEntity">
         INSERT INTO TBL_RECORD (WID, RCDATE, RCTIME, TAGSTATE) VALUES (#{WID}, #{RCDATE}, #{RCTIME}, #{TAGSTATE});
     </insert>
+    <!-- 删除员工记录 -->
+    <delete id="DeleteRecordByWID">
+        DELETE FROM TBL_RECORD WHERE WID=#{wid};
+    </delete>
 </mapper>

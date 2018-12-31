@@ -15,4 +15,14 @@ public interface IHardwareService {
      * 修改硬件设置信息
      */
     public BaseDto putHardwareInfo(Integer uid, Map<String, String> var);
+
+    /**
+     * 修改灵敏度设置
+     */
+    public BaseDto putDeviceSensitivity(Integer uid, Map<String, String> var);
+
+    /**
+     * 修改标签识别状态
+     */
+    public BaseDto putDeviceTagIdentify(Integer uid, Map<String, String> var);
 }

@@ -6,7 +6,7 @@ var uid = null;
 window.onload = function () {
     uid = sessionStorage.getItem("uid");
     if (uid == null)
-        window.location.href = "/static/view/login.html";
+        window.parent.location.href = "/static/view/login.html";
     sessionStorage.setItem("member", "[]");
 }
 

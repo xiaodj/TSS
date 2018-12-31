@@ -38,6 +38,13 @@ public interface IWorkerDao {
      * 获取所有员工的基本信息
      */
     public List<WorkersEntity> GetWorkersInfo();
+
+    /**
+     * 根据标签获取员工基本信息以及许可证信息
+     * @param tid
+     * @return
+     */
+    public WorkersEntity GetWorkersByTid(@Param("tid") String tid);
     /**
      * 通过员工编码删除员工信息
      */

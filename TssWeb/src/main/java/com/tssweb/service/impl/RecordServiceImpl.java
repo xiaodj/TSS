@@ -65,20 +65,80 @@ public class RecordServiceImpl implements IRecordService {
         RecordEntity recordEntityTemp = null;
         for (Integer index = 0; index < recordEntityList.size(); index++){
             RecordEntity recordEntity = recordEntityList.get(index);
-            if (recordEntity == null){
+            if (recordEntityTemp == null){
+                WorkersEntity workersEntity = workersEntityMap.get(recordEntity.getWID());
+                if (workersEntity == null)
+                    continue;
                 recordEntityTemp = recordEntity;
                 recordInfo = new RecordInfo();
                 recordInfo.setDate(recordEntity.getRCDATE());   //
+                recordInfo.setWid(recordEntity.getWID());
+                if (recordEntity.getTAGSTATE() == 0)
+                    recordInfo.setIntime(recordEntity.getRCTIME());
+                else
+                    recordInfo.setOuttime(recordEntity.getRCTIME());
+
+                recordInfo.setChname(workersEntity.getWKCHNAME());
+                recordInfo.setSurname(workersEntity.getWKSURNAME());
+                recordInfo.setEnname(workersEntity.getWKENNAME());
+                for (LicenceEntity licenceEntity:workersEntity.getLicenceEntities()) {
+                    if (licenceEntity.getLCNAME().equals("绿卡")){
+                        recordInfo.setLc1(licenceEntity.getLCDATE());
+                    }else if (licenceEntity.getLCNAME().equals("密卡")){
+                        recordInfo.setLc2(licenceEntity.getLCDATE());
+                    }else if (licenceEntity.getLCNAME().equals("CP")){
+                        recordInfo.setLc3(licenceEntity.getLCDATE());
+                    }
+                }
+                recordInfoList.add(recordInfo);
                 continue;
             }
 
+            //不同日期 或者 不同员工 或者  状态为离开  或者 状态相同
+            if (!recordEntity.getRCDATE().equals(recordEntityTemp.getRCDATE())
+                    || !recordEntity.getWID().equals(recordEntityTemp.getWID())
+                    || recordEntityTemp.getTAGSTATE().equals(1)
+                    || recordEntity.getTAGSTATE().equals(recordEntityTemp.getTAGSTATE())){
+                WorkersEntity workersEntity = workersEntityMap.get(recordEntity.getWID());
+                if (workersEntity == null)
+                    continue;
+                recordEntityTemp = recordEntity;
+                recordInfo = new RecordInfo();
+                recordInfo.setDate(recordEntity.getRCDATE());   //
+                recordInfo.setWid(recordEntity.getWID());
+                if (recordEntity.getTAGSTATE() == 0)
+                    recordInfo.setIntime(recordEntity.getRCTIME());
+                else
+                    recordInfo.setOuttime(recordEntity.getRCTIME());
 
-
+                recordInfo.setChname(workersEntity.getWKCHNAME());
+                recordInfo.setSurname(workersEntity.getWKSURNAME());
+                recordInfo.setEnname(workersEntity.getWKENNAME());
+                for (LicenceEntity licenceEntity:workersEntity.getLicenceEntities()) {
+                    if (licenceEntity.getLCNAME().equals("绿卡")){
+                        recordInfo.setLc1(licenceEntity.getLCDATE());
+                    }else if (licenceEntity.getLCNAME().equals("密卡")){
+                        recordInfo.setLc2(licenceEntity.getLCDATE());
+                    }else if (licenceEntity.getLCNAME().equals("CP")){
+                        recordInfo.setLc3(licenceEntity.getLCDATE());
+                    }
+                }
+                recordInfoList.add(recordInfo);
+            }else{
+                recordInfo.setOuttime(recordEntity.getRCTIME());
+                recordEntityTemp = recordEntity;
+            }
         }
 
-        recordsDto.setCode(0);
-        recordsDto.setMessage("成功获取记录信息");
-        recordsDto.setRecords(recordInfoList);
+        if (recordInfoList.size() == 0){
+            recordsDto.setCode(1);
+            recordsDto.setMessage("未获取到相关记录信息");
+        }else {
+            recordsDto.setCode(0);
+            recordsDto.setMessage("成功获取记录信息");
+            recordsDto.setRecords(recordInfoList);
+        }
+
         return recordsDto;
     }
 }

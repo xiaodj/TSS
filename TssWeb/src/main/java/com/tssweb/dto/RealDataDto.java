@@ -1,6 +1,14 @@
 package com.tssweb.dto;
 
-public class RealDataDto {
+import org.springframework.stereotype.Component;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@Component
+public class RealDataDto implements Comparable<RealDataDto>{
     private String username;
     private String intime;
     private String lc1;
@@ -45,5 +53,19 @@ public class RealDataDto {
 
     public void setLc3(String lc3) {
         this.lc3 = lc3;
+    }
+
+    @Override
+    public int compareTo(RealDataDto o) {
+        DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+        try {
+            Date date1 = timeFormat.parse(this.intime);
+            Date date2 = timeFormat.parse(o.intime);
+            if (date1.getTime() >= date2.getTime())
+                return 1;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

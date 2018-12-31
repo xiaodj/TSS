@@ -6,7 +6,7 @@ var uid = null;
 window.onload = function () {
     uid = sessionStorage.getItem("uid");
     if (uid == null)
-        window.location.href = "../view/login.html";
+        window.parent.location.href = "../view/login.html";
 }
 
 layui.use(['layer','laydate', 'form'], function () {
@@ -34,6 +34,9 @@ layui.use(['layer','laydate', 'form'], function () {
         },
         success:function (msg) {
             if (msg.code == 0) {
+                $('#RFDistance').val(msg.sensitivity);
+                $('#TagStatus').val(msg.tagstatus);
+                form.render();
                 onstarttime = msg.onstarttime;
                 onendtime = msg.onendtime;
                 offstarttime = msg.offstarttime;
@@ -105,6 +108,69 @@ layui.use(['layer','laydate', 'form'], function () {
                     layer.msg("用户设置成功");
                 }else if (msg.code == 1){
                     layer.msg(msg.Message.toString());
+                }
+            },
+            complete:function () {
+                layer.close(index);
+            },
+            error:function (msg) {
+                layer.msg("网络异常");
+            }
+        });
+    });
+
+    form.on('select(TagStatus)', function (data) {
+        var tagData = {
+            "tagidentify":data.value
+        };
+        var index;
+        $.ajax({
+            //async: false,
+            cache:false,
+            url:Host + "/v1/user/" +uid+"/device/tagidentify",
+            type:"put",
+            contentType:"application/json",
+            dataType:"json",
+            data:JSON.stringify(tagData),
+            beforeSend:function () {
+                index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            success:function (msg) {
+                if (msg.code == 0) {
+                    layer.msg("标签识别状态更改成功");
+                }else if (msg.code == 1){
+                    layer.msg(msg.message.toString());
+                }
+            },
+            complete:function () {
+                layer.close(index);
+            },
+            error:function (msg) {
+                layer.msg("网络异常");
+            }
+        });
+    });
+    form.on('select(RFDistance)', function (data) {
+        var senData = {
+            "sensitivity":data.value
+        };
+        var index;
+        $.ajax({
+            //async: false,
+            cache:false,
+            url:Host + "/v1/user/" +uid+"/device/sensitivity",
+            type:"put",
+            contentType:"application/json",
+            dataType:"json",
+            data:JSON.stringify(senData),
+            beforeSend:function () {
+                index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            },
+            success:function (msg) {
+                if (msg.code == 0) {
+                    layer.msg("灵敏度成功");
+                }else if (msg.code == 1){
+                    layer.msg(msg.message.toString());
                 }
             },
             complete:function () {

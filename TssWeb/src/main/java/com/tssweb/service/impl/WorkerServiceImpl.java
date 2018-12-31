@@ -1,10 +1,12 @@
 package com.tssweb.service.impl;
 
+import com.tssweb.dao.IRecordDao;
 import com.tssweb.dao.IWorkerDao;
 import com.tssweb.dto.*;
 import com.tssweb.entity.LicenceEntity;
 import com.tssweb.entity.TagEntity;
 import com.tssweb.entity.WorkerEntity;
+import com.tssweb.entity.WorkersEntity;
 import com.tssweb.service.IWorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ public class WorkerServiceImpl implements IWorkerService {
 
     @Autowired
     private IWorkerDao iWorkerDao;
+    @Autowired
+    private IRecordDao iRecordDao;
     @Autowired
     private BaseDto baseDto;
     @Autowired
@@ -215,6 +219,7 @@ public class WorkerServiceImpl implements IWorkerService {
         iWorkerDao.DeleteWorkerByWID(wid);
         iWorkerDao.DeleteLicenceByWID(wid);
         iWorkerDao.DeleteTagByWID(wid);
+        iRecordDao.DeleteRecordByWID(wid);
         baseDto.setCode(0);
         baseDto.setMessage("删除用户成功");
         return baseDto;

@@ -14,15 +14,16 @@ import java.util.Map;
 /**
  * Created by xiaodj on 2018/11/27.
  */
+@Component
 public class WebSocketInterceptor extends HttpSessionHandshakeInterceptor{
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
-        System.out.println("Before Handshake");
-//        if (request instanceof ServletServerHttpRequest) {
-//            ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-//            String userId = servletRequest .getServletRequest().getParameter("userId");
-//            attributes.put(MessageHandler.USER_KEY,userId);
-//        }
+        if (request instanceof ServletServerHttpRequest) {
+            ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
+            HttpSession session = servletRequest .getServletRequest().getSession();
+            Integer uid = (Integer) session.getAttribute("UID");
+            attributes.put("uid",uid);
+        }
         return true;
     }
 

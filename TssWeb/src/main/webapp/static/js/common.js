@@ -8,9 +8,9 @@ var wsHost = "ws://localhost:8080";
 function DateDiff(sDate1, sDate2) {
     var  aDate,  oDate1,  oDate2,  iDays;
     aDate  =  sDate1.split("-");
-    oDate1  =  new  Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0]);    //转换为12-18-2002格式
+    oDate1  =  new  Date(aDate[0]  +  '-'  +  aDate[1]  +  '-'  +  aDate[2]);    //转换为12-18-2002格式
     aDate  =  sDate2.split("-");
-    oDate2  =  new  Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0]);
+    oDate2  =  new  Date(aDate[0]  +  '-'  +  aDate[1]  +  '-'  +  aDate[2]);
     if (oDate1 < oDate2)
         return -1;
     else

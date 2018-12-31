@@ -27,4 +27,9 @@ public interface IRecordDao {
      * 新增记录
      */
     public Integer AddRecord(RecordEntity recordEntity);
+
+    /**
+     * 删除员工记录
+     */
+    public Integer DeleteRecordByWID(@Param("wid") String wid);
 }

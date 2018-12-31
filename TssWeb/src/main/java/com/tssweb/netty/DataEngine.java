@@ -4,11 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.tssweb.dao.IRecordDao;
 import com.tssweb.dao.IWorkerDao;
 import com.tssweb.dto.RealDataDto;
-import com.tssweb.entity.LicenceEntity;
-import com.tssweb.entity.RecordEntity;
-import com.tssweb.entity.WorkerEntity;
+import com.tssweb.entity.*;
+import com.tssweb.service.impl.RecordServiceImpl;
+import com.tssweb.service.impl.WorkerServiceImpl;
+import com.tssweb.utils.SpringContextHolder;
 import com.tssweb.websocket.MessageHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -21,10 +21,8 @@ public class DataEngine implements Runnable{
     static public final Map<String, CacheData> dataMap; //检测到的缓存数据
     static public final Queue<byte[]> msgQueue;             //保存从读卡器接收到的待处理消息
 
-    @Autowired
-    private IWorkerDao iWorkerDao;
-    @Autowired
-    private IRecordDao iRecordDao;
+    private IWorkerDao iWorkerDao = SpringContextHolder.getBean(IWorkerDao.class);
+    private IRecordDao iRecordDao = SpringContextHolder.getBean(IRecordDao.class);
 
     static {
         dataMap = new HashMap<String, CacheData>();
@@ -49,22 +47,56 @@ public class DataEngine implements Runnable{
                 continue;
 
             if (iFlag == 0) {
+                //读取sn  暂时不读取
+                iSeparator1 = iSeparator2;
                 iFlag = 1;
                 continue;
             }
 
             try {
-                String tagid = new String(bytes, iSeparator1, iSeparator2-1-iSeparator1, "ASCII");
+                String tagtype = new String(bytes, iSeparator1 + 5, 2,"ASCII");
+                String tagid4 = new String(bytes, iSeparator1 + 7, 2,"ASCII");
+                String tagid3 = new String(bytes, iSeparator1 + 9, 2,"ASCII");
+                String tagid2 = new String(bytes, iSeparator1 + 11, 2,"ASCII");
+                String tagid1 = new String(bytes, iSeparator1 + 13, 2,"ASCII");
+                String tagid = tagtype + tagid1 + tagid2 + tagid3 + tagid4;
+                if (!(tagid instanceof String))
+                    continue;
                 Date date = new Date();
-                if(dataMap.containsKey(tagid)) {
-                    CacheData cacheData = dataMap.get(tagid);
-                    if (cacheData.getStartdate() != null && cacheData.getUpdate() != null){
-                        cacheData.setUpdate(date);
+                synchronized (dataMap){
+                    if(dataMap.containsKey(tagid)) {
+                        CacheData cacheData = dataMap.get(tagid);
+                        if (cacheData.getStartdate() != null && cacheData.getUpdate() != null){
+                            cacheData.setUpdate(date);
+                        }else{
+                            cacheData.setStartdate(date);
+                            cacheData.setUpdate(date);
+                            RecordEntity recordEntity = new RecordEntity();
+                            recordEntity.setWID(cacheData.getWid());
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                            recordEntity.setRCDATE(dateFormat.format(date));
+                            recordEntity.setRCTIME(timeFormat.format(date));
+                            recordEntity.setTAGSTATE(0);
+                            iRecordDao.AddRecord(recordEntity);
+                            //推送
+                            bSendFlag = true;
+                        }
                     }else{
+                        CacheData cacheData = new CacheData();
+                        //通过tagid 获取员工信息
+                        WorkersEntity workersEntity = iWorkerDao.GetWorkersByTid(tagid);
+                        if (workersEntity == null)
+                            continue;
+                        uid = workersEntity.getUID();
+                        cacheData.setWid(workersEntity.getWID());
+                        cacheData.setUsername(workersEntity.getWKCHNAME());
+                        cacheData.setLcList(workersEntity.getLicenceEntities());
                         cacheData.setStartdate(date);
                         cacheData.setUpdate(date);
+                        dataMap.put(tagid, cacheData);
                         RecordEntity recordEntity = new RecordEntity();
-                        recordEntity.setWID(tagid);
+                        recordEntity.setWID(workersEntity.getWID());
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
                         recordEntity.setRCDATE(dateFormat.format(date));
@@ -74,28 +106,6 @@ public class DataEngine implements Runnable{
                         //推送
                         bSendFlag = true;
                     }
-                }else{
-                    CacheData cacheData = new CacheData();
-                    //通过tagid 获取员工信息
-                    WorkerEntity workerEntity = iWorkerDao.GetWorkerInfoByTID(tagid);
-                    //通过wid 获取许可证信息
-                    List<LicenceEntity> licenceEntities = iWorkerDao.GetLicenceInfoByWID(workerEntity.getWID());
-                    uid = workerEntity.getUID();
-                    cacheData.setUsername(workerEntity.getWKCHNAME());
-                    cacheData.setLcList(licenceEntities);
-                    cacheData.setStartdate(date);
-                    cacheData.setUpdate(date);
-                    dataMap.put(tagid, cacheData);
-                    RecordEntity recordEntity = new RecordEntity();
-                    recordEntity.setWID(tagid);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                    recordEntity.setRCDATE(dateFormat.format(date));
-                    recordEntity.setRCTIME(timeFormat.format(date));
-                    recordEntity.setTAGSTATE(0);
-                    iRecordDao.AddRecord(recordEntity);
-                    //推送
-                    bSendFlag = true;
                 }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -121,19 +131,29 @@ public class DataEngine implements Runnable{
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
                 realDataDto.setIntime(timeFormat.format(cacheData.getStartdate()));
                 for (LicenceEntity licenceEntity: cacheData.getLcList()) {
-                    if (licenceEntity.getLCNAME() == "绿卡到期日期")
+                    if (licenceEntity.getLCNAME().equals("绿卡"))
                         realDataDto.setLc1(licenceEntity.getLCDATE());
-                    else if (licenceEntity.getLCNAME() == "密卡到期日期")
+                    else if (licenceEntity.getLCNAME().equals("密卡"))
                         realDataDto.setLc2(licenceEntity.getLCDATE());
-                    else if (licenceEntity.getLCNAME() == "CP到期日期")
+                    else if (licenceEntity.getLCNAME().equals("CP"))
                         realDataDto.setLc3(licenceEntity.getLCDATE());
                 }
                 realDataDtoList.add(realDataDto);
             }
             //推送
+            Collections.sort(realDataDtoList);
             MessageHandler messageHandler = new MessageHandler();
             messageHandler.sendMessageToUser(uid, JSONObject.toJSONString(realDataDtoList));
+            bSendFlag = false;
         }
+    }
+
+    static public byte CheckSum(byte[] bytes, int len){
+        byte bcheck = 0;
+        for (Integer i = 0;i < len; i++){
+            bcheck += bytes[i];
+        }
+        return (byte) (~bcheck + 1);
     }
 
     @Override

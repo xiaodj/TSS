@@ -2,6 +2,7 @@ package com.tssweb.websocket;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
@@ -11,7 +12,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 /**
  * Created by xiaodj on 2018/11/27.
  */
-
+@Component
 @Configuration
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
