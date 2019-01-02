@@ -17,6 +17,10 @@ public class HardwareController {
 
     @Autowired
     private IHardwareService iHardwareService;
+    @Autowired
+    private HardwareSetDto hardwareSetDto;
+    @Autowired
+    private BaseDto baseDto;
 
     /**
      * 获取硬件设置信息 /api/system/update
@@ -24,7 +28,13 @@ public class HardwareController {
     @RequestMapping(value = "/v1/user/{uid}/hardware/set", method = RequestMethod.GET)
     public @ResponseBody
     HardwareSetDto GetHardwareInfo(@PathVariable("uid") Integer uid){
-        return iHardwareService.getHardwareInfo(uid);
+        try{
+            hardwareSetDto = iHardwareService.getHardwareInfo(uid);
+        }catch (Exception e){
+            hardwareSetDto.setCode(1);
+            hardwareSetDto.setMessage("服务异常");
+        }
+        return hardwareSetDto;
     }
 
     /**
@@ -32,7 +42,13 @@ public class HardwareController {
      */
     @RequestMapping(value = "/v1/user/{uid}/hardware/set", method = RequestMethod.PUT)
     public @ResponseBody BaseDto PutHardwareInfo(@PathVariable("uid") Integer uid, @RequestBody Map<String, String> param){
-        return iHardwareService.putHardwareInfo(uid, param);
+        try{
+            baseDto = iHardwareService.putHardwareInfo(uid, param);
+        }catch (Exception e){
+            baseDto.setCode(1);
+            baseDto.setMessage("服务异常");
+        }
+        return baseDto;
     }
 
     /**
@@ -40,7 +56,13 @@ public class HardwareController {
      */
     @RequestMapping(value = "/v1/user/{uid}/device/sensitivity", method = RequestMethod.PUT)
     public @ResponseBody BaseDto PutSensitivity(@PathVariable("uid") Integer uid, @RequestBody Map<String, String> param){
-        return iHardwareService.putDeviceSensitivity(uid, param);
+        try{
+            baseDto = iHardwareService.putDeviceSensitivity(uid, param);
+        }catch (Exception e){
+            baseDto.setCode(1);
+            baseDto.setMessage("服务异常");
+        }
+        return baseDto;
     }
 
     /**
@@ -48,6 +70,12 @@ public class HardwareController {
      */
     @RequestMapping(value = "/v1/user/{uid}/device/tagidentify", method = RequestMethod.PUT)
     public @ResponseBody BaseDto PutTagIdentify(@PathVariable("uid") Integer uid, @RequestBody Map<String, String> param){
-        return iHardwareService.putDeviceTagIdentify(uid, param);
+        try{
+            baseDto = iHardwareService.putDeviceTagIdentify(uid, param);
+        }catch (Exception e){
+            baseDto.setCode(1);
+            baseDto.setMessage("服务异常");
+        }
+        return baseDto;
     }
 }

@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public class NettyService implements Runnable {
 
+    //public static boolean bCmd = false;
     private static Map<String, ChannelHandlerContext> channelMap;
     private int iport;  //端口号
     static {
@@ -39,7 +40,7 @@ public class NettyService implements Runnable {
         //监听连接线程
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         //处理消息线程
-        EventLoopGroup workerGroup = new NioEventLoopGroup(4);
+        EventLoopGroup workerGroup = new NioEventLoopGroup(1);
         try {
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(bossGroup, workerGroup)
@@ -55,6 +56,7 @@ public class NettyService implements Runnable {
 
             // 绑定端口，开始接收进来的连接 
             ChannelFuture future = bootstrap.bind(iport).sync();
+            System.out.print("bind port:" + iport);
             // 等待服务器socket关闭
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {

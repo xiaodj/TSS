@@ -25,7 +25,7 @@ public class OutTask extends TimerTask {
     private IRecordDao iRecordDao = SpringContextHolder.getBean(IRecordDao.class);
     private IUserDao   iUserDao = SpringContextHolder.getBean(IUserDao.class);
 
-    static private Integer timeout;
+    static public Integer timeout;
 
     public OutTask(){
         UserSetEntity userSetEntity = iUserDao.GetUserSetInfoByUID(1);

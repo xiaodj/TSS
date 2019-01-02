@@ -18,11 +18,6 @@
     <listener>
         <listener-class>com.tssweb.listener.NettyServiceListener</listener-class>
     </listener>
-    <!-- <servlet>
-        <servlet-name>NettStartServlet</servlet-name>
-        <servlet-class>com.tssweb.servlet.NettyStart</servlet-class>
-        <load-on-startup>9</load-on-startup>
-    </servlet> -->
     
     <servlet>
     <servlet-name>spring-mvc</servlet-name>
@@ -33,10 +28,6 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
     </servlet>
-    <!--<servlet-mapping>
-        <servlet-name>NettStartServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
-    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>spring-mvc</servlet-name>
         <url-pattern>/</url-pattern>

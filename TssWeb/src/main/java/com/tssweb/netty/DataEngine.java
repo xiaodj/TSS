@@ -14,12 +14,15 @@ import org.springframework.stereotype.Component;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Component
 public class DataEngine implements Runnable{
     static public Integer uid;
     static public final Map<String, CacheData> dataMap; //检测到的缓存数据
     static public final Queue<byte[]> msgQueue;             //保存从读卡器接收到的待处理消息
+    static public final Queue<Boolean> cmdQueue;
 
     private IWorkerDao iWorkerDao = SpringContextHolder.getBean(IWorkerDao.class);
     private IRecordDao iRecordDao = SpringContextHolder.getBean(IRecordDao.class);
@@ -27,10 +30,12 @@ public class DataEngine implements Runnable{
     static {
         dataMap = new HashMap<String, CacheData>();
         msgQueue = new LinkedList<byte[]>();
+        cmdQueue = new LinkedList<Boolean>();
     }
 
     //解析处理数据
     public void RecordHandle(byte[] bytes){
+
         if (bytes[0] != 0x02 || bytes[1] != 0x2C)   //非自动上传数据
             return;
 

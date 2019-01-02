@@ -18,13 +18,25 @@ public class WorkerController {
 
     @Autowired
     private IWorkerService iWorkerService;
-
+    @Autowired
+    private BaseDto baseDto;
+    @Autowired
+    private WorkerDto workerDto;
+    @Autowired
+    private WorkersDto workersDto;
     /**
      * 添加员工信息
      */
     @RequestMapping(value = "/v1/user/{uid}/worker", method = RequestMethod.POST)
     public @ResponseBody BaseDto AddWorker(@PathVariable("uid") Integer uid, @RequestBody WorkerDto workerDto){
-        return iWorkerService.addWorker(uid, workerDto);
+        try{
+            baseDto = iWorkerService.addWorker(uid, workerDto);
+        }catch (Exception e){
+            baseDto.setCode(1);
+            baseDto.setMessage("服务发生异常");
+        }
+
+        return baseDto;
     }
 
     /**
@@ -32,7 +44,13 @@ public class WorkerController {
      */
     @RequestMapping(value = "/v1/user/{uid}/worker/{wid}", method = RequestMethod.DELETE)
     public @ResponseBody BaseDto DeleteWorker(@PathVariable("uid") Integer uid, @PathVariable("wid") String wid){
-        return iWorkerService.deleteWorker(uid, wid);
+        try{
+            baseDto = iWorkerService.deleteWorker(uid, wid);
+        }catch (Exception e){
+            baseDto.setCode(1);
+            baseDto.setMessage("服务发生异常");
+        }
+        return baseDto;
     }
 
     /**
@@ -42,7 +60,13 @@ public class WorkerController {
     public @ResponseBody BaseDto PutWorker(@PathVariable("uid") Integer uid,
                                            @PathVariable("wid") String wid,
                                            @RequestBody WorkerDto workerDto){
-        return iWorkerService.putWorker(uid, wid, workerDto);
+        try{
+            baseDto = iWorkerService.putWorker(uid, wid, workerDto);
+        }catch (Exception e){
+            baseDto.setCode(1);
+            baseDto.setMessage("服务发生异常");
+        }
+        return baseDto;
     }
 
     /**
@@ -51,7 +75,13 @@ public class WorkerController {
     @RequestMapping(value = "/v1/user/{uid}/worker/{wid}", method = RequestMethod.GET)
     public @ResponseBody
     WorkerDto GetWorker(@PathVariable("uid") Integer uid, @PathVariable("wid") String wid){
-        return iWorkerService.getWorker(uid, wid);
+        try{
+            workerDto = iWorkerService.getWorker(uid, wid);
+        }catch (Exception e){
+            workerDto.setCode(1);
+            workerDto.setMessage("服务发生异常");
+        }
+        return workerDto;
     }
 
     /**
@@ -59,18 +89,36 @@ public class WorkerController {
      */
     @RequestMapping(value = "/v1/user/{uid}/workers/tid/{tid}", method = RequestMethod.GET)
     public @ResponseBody WorkersDto GetWorkersByTid(@PathVariable("uid") Integer uid,@PathVariable("tid") String tid){
-        return iWorkerService.getWorkers(uid, "", "", tid);
+        try{
+            workersDto = iWorkerService.getWorkers(uid, "", "", tid);
+        }catch (Exception e){
+            workersDto.setCode(1);
+            workersDto.setMessage("服务发生异常");
+        }
+        return workersDto;
     }
     @RequestMapping(value = "/v1/user/{uid}/workers/wid/{swid}/{ewid}", method = RequestMethod.GET)
     public @ResponseBody WorkersDto GetWorkersByWid(@PathVariable("uid") Integer uid
             ,@PathVariable("swid") String swid, @PathVariable("ewid") String ewid){
-        return iWorkerService.getWorkers(uid, swid, ewid, "");
+        try{
+            workersDto = iWorkerService.getWorkers(uid, swid, ewid, "");
+        }catch (Exception e){
+            workersDto.setCode(1);
+            workersDto.setMessage("服务发生异常");
+        }
+        return workersDto;
     }
     @RequestMapping(value = "/v1/user/{uid}/workers/wid/{swid}/{ewid}/tid/{tid}", method = RequestMethod.GET)
     public @ResponseBody
     WorkersDto GetWorkersByWidsTid(@PathVariable("uid") Integer uid,@PathVariable("swid") String swid,
                           @PathVariable("ewid") String ewid, @PathVariable("tid") String tid){
-        return iWorkerService.getWorkers(uid, swid, ewid, tid);
+        try{
+            workersDto = iWorkerService.getWorkers(uid, swid, ewid, tid);
+        }catch (Exception e){
+            workersDto.setCode(1);
+            workersDto.setMessage("服务发生异常");
+        }
+        return workersDto;
     }
 
 

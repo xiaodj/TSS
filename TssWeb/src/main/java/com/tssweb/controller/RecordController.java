@@ -17,6 +17,8 @@ public class RecordController {
 
     @Autowired
     private IRecordService iRecordService;
+    @Autowired
+    private RecordsDto recordsDto;
     /**
      * 查询记录
      * @author 邓江
@@ -24,7 +26,13 @@ public class RecordController {
     @RequestMapping(value = "/v1/user/{uid}/records/date/{sdt}/{edt}", method = RequestMethod.GET)
     public @ResponseBody
     RecordsDto GetRecords(@PathVariable("uid") Integer uid, @PathVariable("sdt") String sdt, @PathVariable("edt") String edt){
-        return iRecordService.getRecords(uid, "", sdt, edt);
+        try{
+            recordsDto = iRecordService.getRecords(uid, "", sdt, edt);
+        }catch (Exception e){
+            recordsDto.setCode(1);
+            recordsDto.setMessage("服务异常");
+        }
+        return recordsDto;
     }
 
     /**
@@ -34,7 +42,13 @@ public class RecordController {
     @RequestMapping(value = "/v1/user/{uid}/worker/{wid}/records", method = RequestMethod.GET)
     public @ResponseBody
     RecordsDto GetRecords(@PathVariable("uid") Integer uid, @PathVariable("wid") String wid){
-        return iRecordService.getRecords(uid, wid, "", "");
+        try{
+            recordsDto = iRecordService.getRecords(uid, wid, "", "");
+        }catch (Exception e){
+            recordsDto.setCode(1);
+            recordsDto.setMessage("服务异常");
+        }
+        return recordsDto;
     }
 
     /**
@@ -45,6 +59,12 @@ public class RecordController {
     public @ResponseBody
     RecordsDto GetRecords(@PathVariable("uid") Integer uid, @PathVariable("wid") String wid,
                           @PathVariable("sdt") String sdt, @PathVariable("edt") String edt){
-        return iRecordService.getRecords(uid, wid, sdt, edt);
+        try{
+            recordsDto = iRecordService.getRecords(uid, wid, sdt, edt);
+        }catch (Exception e){
+            recordsDto.setCode(1);
+            recordsDto.setMessage("服务异常");
+        }
+        return recordsDto;
     }
 }

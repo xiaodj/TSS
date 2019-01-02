@@ -16,26 +16,11 @@ layui.use(['layer','table', 'laydate'], function () {
     var laydate = layui.laydate;
     var $ = layui.$;
 
-    // var RTData = [
-    //     {"date":"2018-12-10","wid":"001","chname":"张三","surname":"Zhang","enname":"San","intime":"08:06:00","outtime":"11:30:00","lc1":null,"lc2":"2019-03-17","lc3":"2019-02-10",},
-    //     {"date":"2018-12-10","wid":"001","chname":"张三","surname":"Zhang","enname":"San","intime":"13:10:00","outtime":"17:32:00","lc1":"2018-12-11","lc2":"2019-04-17","lc3":"2019-02-10",},
-    //     {"date":"2018-12-10","wid":"002","chname":"李四","surname":"Li","enname":"Si","intime":"08:20:00","outtime":"17:20:00","lc1":"2019-01-11","lc2":"2018-11-11","lc3":"2018-11-11",},
-    //     {"date":"2018-12-10","wid":"003","chname":"王五","surname":"Wang","enname":"Wu","intime":"08:35:00","outtime":"17:55:00","lc1":"2019-05-11","lc2":"2019-01-10","lc3":"2019-04-17",},
-    //     {"date":"2018-12-11","wid":"001","chname":"张三","surname":"Zhang","enname":"San","intime":"08:06:00","outtime":"17:32:00","lc1":"2018-12-11","lc2":"2019-03-17","lc3":"2019-02-10",},
-    //     {"date":"2018-12-11","wid":"002","chname":"李四","surname":"Li","enname":"Si","intime":"08:20:00","outtime":"17:20:00","lc1":"2019-01-11","lc2":"2018-11-11","lc3":null,},
-    //     {"date":"2018-12-11","wid":"003","chname":"王五","surname":"Wang","enname":"Wu","intime":"08:35:00","outtime":"11:30:00","lc1":"2019-05-11","lc2":"2019-01-10","lc3":null,},
-    //     {"date":"2018-12-11","wid":"003","chname":"王五","surname":"Wang","enname":"Wu","intime":"13:10:00","outtime":"17:55:00","lc1":"2019-05-11","lc2":"2019-01-10","lc3":null,},
-    //     {"date":"2018-12-12","wid":"002","chname":"李四","surname":"Li","enname":"Si","intime":"08:06:00","outtime":"11:30:00","lc1":"2019-01-11","lc2":"2018-11-11","lc3":null,},
-    //     {"date":"2018-12-12","wid":"002","chname":"李四","surname":"Li","enname":"Si","intime":"13:10:00","outtime":"15:32:00","lc1":"2019-01-11","lc2":"2018-11-11","lc3":null,},
-    //     {"date":"2018-12-12","wid":"002","chname":"李四","surname":"Li","enname":"Si","intime":"15:50:00","outtime":"17:32:00","lc1":"2019-01-11","lc2":"2018-11-11","lc3":null,},
-    //     {"date":"2018-12-12","wid":"003","chname":"王五","surname":"Wang","enname":"Wu","intime":"08:35:00","outtime":"17:55:00","lc1":"2019-05-11","lc2":"2019-01-10","lc3":null,}
-    // ];
-
     var recordTable = table.render({
         elem: '#records'
         ,data:JSON.parse(sessionStorage.getItem("recordData"))
         ,toolbar: '#toolbar'
-        ,defaultToolbar: [/*'filter', 'print', 'exports'*/]
+        ,defaultToolbar: [/*'filter', 'print',*/ 'exports']
         ,cols: [[
             {field:'date', width:'11%', title: '日期'}
             ,{field:'wid', width:'6%', title: '编号'}
@@ -54,7 +39,7 @@ layui.use(['layer','table', 'laydate'], function () {
     //查询的开始日期
     laydate.render({
         elem: '#startdate'
-        //,value:GetDateStr(-7).valueOf() + " - " + getNowFormatDate().valueOf()
+        ,value:GetDateStr(-30).valueOf()
         //,range: true
         ,done:function (date, endDate) {
 
@@ -63,7 +48,7 @@ layui.use(['layer','table', 'laydate'], function () {
     //查询的截至日期
     laydate.render({
         elem: '#enddate'
-        //,value:GetDateStr(-7).valueOf() + " - " + getNowFormatDate().valueOf()
+        ,value:getNowFormatDate().valueOf()
         //,range: true
         ,done:function (date, endDate) {
 

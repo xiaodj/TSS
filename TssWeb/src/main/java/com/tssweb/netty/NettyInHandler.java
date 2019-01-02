@@ -5,6 +5,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import static com.tssweb.netty.DataEngine.msgQueue;
 
 /**
@@ -12,7 +15,7 @@ import static com.tssweb.netty.DataEngine.msgQueue;
  */
 @Component
 public class NettyInHandler extends ChannelInboundHandlerAdapter {
-
+    //private Lock cmdLock = new ReentrantLock();
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
@@ -35,6 +38,13 @@ public class NettyInHandler extends ChannelInboundHandlerAdapter {
         ByteBuf buf = (ByteBuf)msg;
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
+        if (req[0] == 0x0B && req[1] == 0x64){  //命令的回复
+            if(req[3] == 0x00)
+                DataEngine.cmdQueue.offer(true);
+            else
+                DataEngine.cmdQueue.offer(false);
+            return;
+        }
         if (req.length < 30)    //小于30的长度，自动上传的数据是不完整的
             return;
         msgQueue.offer(req);
@@ -49,9 +59,11 @@ public class NettyInHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        super.exceptionCaught(ctx, cause);
+        //super.exceptionCaught(ctx, cause);
         //出现异常
-       cause.printStackTrace();
+       //cause.printStackTrace();
        ctx.close();
+       NettyService.getChannelMap().remove("1");
+       //cmdLock.unlock();   //释放锁
     }
 }

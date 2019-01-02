@@ -9,6 +9,7 @@ import com.tssweb.entity.HardwareSetEntity;
 import com.tssweb.entity.UserEntity;
 import com.tssweb.entity.UserSetEntity;
 import com.tssweb.service.IUserService;
+import com.tssweb.timer.OutTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,7 +79,7 @@ public class UserServiceImpl implements IUserService {
             return loginDto;
         }
 
-        if (!userEntity.getPASSWORD().equals(password)){
+        if (!userEntity.getPASSWORD().equalsIgnoreCase(password)){
             loginDto.setCode(1);
             loginDto.setMessage("用户名与密码不匹配");
             return loginDto;
@@ -86,7 +87,7 @@ public class UserServiceImpl implements IUserService {
             loginDto.setCode(0);
             loginDto.setMessage("登录成功");
             loginDto.setUid(userEntity.getUID());
-            loginDto.setNickname(userEntity.getNICKNAME());
+            loginDto.setNickname(userEntity.getUSERNAME()); //根据需求将主页显示的名称为登陆的用户名
             return loginDto;
         }
     }
@@ -140,7 +141,7 @@ public class UserServiceImpl implements IUserService {
             userSetEntity.setTIMEOUT(Integer.valueOf(var.get("timeout")));
             iUserDao.UpdateUserSetByUID(userSetEntity);
         }
-
+        OutTask.timeout = Integer.valueOf(var.get("timeout"));
         baseDto.setCode(0);
         baseDto.setMessage("修改设置信息成功");
         return baseDto;

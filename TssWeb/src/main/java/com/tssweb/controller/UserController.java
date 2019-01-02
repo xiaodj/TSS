@@ -21,6 +21,8 @@ public class UserController {
     private IUserService iUserService;
     @Autowired
     private BaseDto baseDto;
+    @Autowired
+    private UserSetDto userSetDto;
 
     /**
      * 注册接口
@@ -28,7 +30,13 @@ public class UserController {
      */
     @RequestMapping(value = "/v1/user/register", method = RequestMethod.POST)
     public @ResponseBody BaseDto register(@RequestBody Map<String, String> param){
-        return iUserService.register(param);
+        try{
+            baseDto = iUserService.register(param);
+        }catch (Exception e){
+            baseDto.setCode(1);
+            baseDto.setMessage("服务异常");
+        }
+        return baseDto;
     }
 
     /**
@@ -60,7 +68,14 @@ public class UserController {
     @RequestMapping(value = "/v1/user/{uid}/set", method = RequestMethod.GET)
     public @ResponseBody
     UserSetDto GetSetInfo(@PathVariable("uid") Integer uid){
-        return iUserService.getSetInfo(uid);
+        try{
+            userSetDto = iUserService.getSetInfo(uid);
+        }catch (Exception e){
+            userSetDto.setCode(1);
+            userSetDto.setMessage("服务异常");
+        }
+
+        return userSetDto;
     }
 
     /**
@@ -69,6 +84,12 @@ public class UserController {
      */
     @RequestMapping(value = "/v1/user/{uid}/set", method = RequestMethod.PUT)
     public @ResponseBody BaseDto PutSetInfo(@PathVariable("uid") Integer uid, @RequestBody Map<String, String> param){
-        return iUserService.putSetInfo(uid, param);
+        try{
+            baseDto = iUserService.putSetInfo(uid, param);
+        }catch (Exception e){
+            baseDto.setCode(1);
+            baseDto.setMessage("服务异常");
+        }
+        return baseDto;
     }
 }

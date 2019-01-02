@@ -36,11 +36,11 @@
     <script id="Lice1" type="text/html">
         {{#  if(d.lc1 === null || d.lc1 === ""){ }}
         <span></span>
-        {{#  } else if(DateDiff(d.lc1, getNowFormatDate()) < 0){ }}
+        {{#  } else if(DateDiff(d.lc1, d.date) < 0){ }}
         <span>{{ d.lc1 + 'ｘ' }}</span>
-        {{#  } else if(DateDiff(d.lc1, getNowFormatDate()) >= 0 && DateDiff(d.lc1, getNowFormatDate()) <= 30){ }}
+        {{#  } else if(DateDiff(d.lc1, d.date) >= 0 && DateDiff(d.lc1, d.date) <= 30){ }}
         <span>{{ d.lc1 + '*' }}</span>
-        {{#  } else if(DateDiff(d.lc1, getNowFormatDate()) > 30 && DateDiff(d.lc1, getNowFormatDate()) <= 90){ }}
+        {{#  } else if(DateDiff(d.lc1, d.date) > 30 && DateDiff(d.lc1, d.date) <= 90){ }}
         <span>{{ d.lc1 + '**' }}</span>
         {{#  } else { }}
         <span>{{ d.lc1 }}</span>
@@ -49,11 +49,11 @@
     <script id="Lice2" type="text/html">
         {{#  if(d.lc2 === null || d.lc2 === ""){ }}
         <span></span>
-        {{#  } else if(DateDiff(d.lc2, getNowFormatDate()) < 0){ }}
+        {{#  } else if(DateDiff(d.lc2, d.date) < 0){ }}
         <span>{{ d.lc2 + 'ｘ' }}</span>
-        {{#  } else if(DateDiff(d.lc2, getNowFormatDate()) >= 0 && DateDiff(d.lc2, getNowFormatDate()) <= 30){ }}
+        {{#  } else if(DateDiff(d.lc2, d.date) >= 0 && DateDiff(d.lc2, d.date) <= 30){ }}
         <span>{{ d.lc2 + '*' }}</span>
-        {{#  } else if(DateDiff(d.lc2, getNowFormatDate()) > 30 && DateDiff(d.lc2, getNowFormatDate()) <= 90){ }}
+        {{#  } else if(DateDiff(d.lc2, d.date) > 30 && DateDiff(d.lc2, d.date) <= 90){ }}
         <span>{{ d.lc2 + '**' }}</span>
         {{#  } else { }}
         <span>{{ d.lc2 }}</span>
@@ -62,11 +62,11 @@
     <script id="Lice3" type="text/html">
         {{#  if(d.lc3 === null || d.lc3 === ""){ }}
         <span></span>
-        {{#  } else if(DateDiff(d.lc3, getNowFormatDate()) < 0){ }}
+        {{#  } else if(DateDiff(d.lc3, d.date) < 0){ }}
         <span>{{ d.lc3 + 'ｘ' }}</span>
-        {{#  } else if(DateDiff(d.lc3, getNowFormatDate()) >= 0 && DateDiff(d.lc3, getNowFormatDate()) <= 30){ }}
+        {{#  } else if(DateDiff(d.lc3, d.date) >= 0 && DateDiff(d.lc3, d.date) <= 30){ }}
         <span>{{ d.lc3 + '*' }}</span>
-        {{#  } else if(DateDiff(d.lc3, getNowFormatDate()) > 30 && DateDiff(d.lc3, getNowFormatDate()) <= 90){ }}
+        {{#  } else if(DateDiff(d.lc3, d.date) > 30 && DateDiff(d.lc3, d.date) <= 90){ }}
         <span>{{ d.lc3 + '**' }}</span>
         {{#  } else { }}
         <span>{{ d.lc3 }}</span>
