@@ -60,7 +60,7 @@ public class NettyService implements Runnable {
             // 等待服务器socket关闭
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
