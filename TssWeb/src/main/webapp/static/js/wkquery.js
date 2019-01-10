@@ -76,14 +76,16 @@ layui.use(['table', 'layer'], function () {
                         }else if (msg.code == 1){
                             sessionStorage.setItem("member", "[]");
                             wktable.reload({data:JSON.parse(sessionStorage.getItem("member"))});
-                            layer.msg(msg.message.toString());
+                            //layer.msg(msg.message.toString());
+                            Message(msg.message.toString());
                         }
                     },
                     complete:function () {
                         layer.close(loading);
                     },
                     error:function (msg) {
-                        layer.msg("网络异常");
+                        //layer.msg("网络异常");
+                        Message("网络异常");
                     }
                 });
                 break;
@@ -110,17 +112,20 @@ layui.use(['table', 'layer'], function () {
                     },
                     success:function (msg) {
                         if (msg.code == 0) {
-                            layer.msg("删除成功");
+                            //layer.msg("删除成功");
+                            Message("删除成功");
                             obj.del();
                         }else if (msg.code == 1){
-                            layer.msg(msg.message.toString());
+                            //layer.msg(msg.message.toString());
+                            Message(msg.message.toString());
                         }
                     },
                     complete:function () {
                         layer.close(loading);
                     },
                     error:function (msg) {
-                        layer.msg("网络异常");
+                        //layer.msg("网络异常");
+                        Message("网络异常");
                     }
                 });
                 layer.close(index);
@@ -132,5 +137,11 @@ layui.use(['table', 'layer'], function () {
         }
     });
 
-
+    function Message(data) {
+        layer.open({
+            title: '提示'
+            ,content: '<div style="text-align: center">'+ data +'</div>'
+            ,btnAlign: 'c' //按钮居中
+        });
+    }
 });

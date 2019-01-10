@@ -21,11 +21,12 @@ layui.use('table', function(){
         data:JSON.parse(sessionStorage.getItem("realTimeData")),
         cols: [[
             {field:'id', width:'10%', title: '序号', type:'numbers'}
+            ,{field:'wid', width:'6%', title: '编号'}
             ,{field:'username', width:'15%', title: '姓名'}
             ,{field:'intime', width:'15%', title: '进入时间', sort: false}
-            ,{field:'lc1', width:'20%', templet: '#Licel', title: '绿卡到期日期'}
-            ,{field:'lc2', width:'20%', templet: '#Lice2', title: '密卡到期日期'}
-            ,{field:'lc3', width:'20%', templet: '#Lice3', title: 'CP到期日期'}
+            ,{field:'lc1', width:'18%', templet: '#Licel', title: '绿卡到期日期'}
+            ,{field:'lc2', width:'18%', templet: '#Lice2', title: '密卡到期日期'}
+            ,{field:'lc3', width:'18%', templet: '#Lice3', title: 'CP到期日期'}
         ]]
         ,page: true
     });

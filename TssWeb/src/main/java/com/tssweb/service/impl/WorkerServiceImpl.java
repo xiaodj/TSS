@@ -7,6 +7,7 @@ import com.tssweb.entity.LicenceEntity;
 import com.tssweb.entity.TagEntity;
 import com.tssweb.entity.WorkerEntity;
 import com.tssweb.entity.WorkersEntity;
+import com.tssweb.netty.DataEngine;
 import com.tssweb.service.IWorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.tssweb.netty.DataEngine.dataMap;
 
 @Service
 public class WorkerServiceImpl implements IWorkerService {
@@ -177,9 +180,11 @@ public class WorkerServiceImpl implements IWorkerService {
         return workerDto;
     }
 
-    @Transactional
+    //@Transactional
     @Override
     public BaseDto putWorker(Integer uid, String wid, WorkerDto workerDto) {
+        List<TagEntity> tagEntityList = iWorkerDao.GetTagsInfoByWID(wid);
+
         WorkerEntity workerEntity = new WorkerEntity();
         workerEntity.setWID(wid);
         workerEntity.setWKCHNAME(workerDto.getChname());
@@ -208,6 +213,14 @@ public class WorkerServiceImpl implements IWorkerService {
             iWorkerDao.AddTag(tagEntity);
         }
 
+        synchronized (dataMap) {
+            DataEngine dataEngine = new DataEngine();
+            for (TagEntity tagEntity : tagEntityList) {
+                String tid = tagEntity.getTID();
+                dataEngine.CatchUpdateByTid(tid, workerDto);
+            }
+        }
+
         baseDto.setCode(0);
         baseDto.setMessage("修改用户成功");
         return baseDto;
@@ -216,10 +229,39 @@ public class WorkerServiceImpl implements IWorkerService {
     @Transactional
     @Override
     public BaseDto deleteWorker(Integer uid, String wid) {
-        iWorkerDao.DeleteWorkerByWID(wid);
-        iWorkerDao.DeleteLicenceByWID(wid);
-        iWorkerDao.DeleteTagByWID(wid);
-        iRecordDao.DeleteRecordByWID(wid);
+        List<TagEntity> tagEntityList = iWorkerDao.GetTagsInfoByWID(wid);
+
+        if(iWorkerDao.DeleteWorkerByWID(wid) < 0){
+            baseDto.setCode(1);
+            baseDto.setMessage("删除用户失败");
+            return baseDto;
+        }
+
+        if(iWorkerDao.DeleteTagByWID(wid) < 0){
+            baseDto.setCode(1);
+            baseDto.setMessage("删除用户失败");
+            return baseDto;
+        }
+
+        if(iWorkerDao.DeleteLicenceByWID(wid) < 0){
+            baseDto.setCode(1);
+            baseDto.setMessage("删除用户失败");
+            return baseDto;
+        }
+        synchronized (dataMap) {
+            DataEngine dataEngine = new DataEngine();
+            for (TagEntity tagEntity : tagEntityList) {
+                String tid = tagEntity.getTID();
+                dataEngine.CatchRemoveTID(tid);
+            }
+
+            if(iRecordDao.DeleteRecordByWID(wid) < 0){
+                baseDto.setCode(1);
+                baseDto.setMessage("删除用户失败");
+                return baseDto;
+            }
+        }
+
         baseDto.setCode(0);
         baseDto.setMessage("删除用户成功");
         return baseDto;

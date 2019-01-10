@@ -35,6 +35,7 @@ public class RecordServiceImpl implements IRecordService {
     @Override
     public RecordsDto getRecords(Integer uid, String wid, String sdt, String edt) {
 
+        workersEntityMap.clear();
         if (workersEntityMap.size() <= 0){
             List<WorkersEntity> workersEntityList = iWorkerDao.GetWorkersInfo();
             for (WorkersEntity workersEntity:workersEntityList) {

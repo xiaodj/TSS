@@ -26,10 +26,15 @@ public class OutTask extends TimerTask {
     private IUserDao   iUserDao = SpringContextHolder.getBean(IUserDao.class);
 
     static public Integer timeout;
+    static public Map<Integer, Integer> tmOutMap;
 
     public OutTask(){
-        UserSetEntity userSetEntity = iUserDao.GetUserSetInfoByUID(1);
-        timeout = userSetEntity.getTIMEOUT();
+        List<UserSetEntity> userSetEntityList = iUserDao.GetUserSetInfo();
+        if (userSetEntityList.size() <= 0)
+            timeout = 60;
+        for (UserSetEntity userSetEntity:userSetEntityList) {
+            timeout = userSetEntity.getTIMEOUT();
+        }
     }
 
     public static Integer getTimeout() {
@@ -69,6 +74,7 @@ public class OutTask extends TimerTask {
                     bSendFlag = true;
                 } else {
                     RealDataDto realDataDto = new RealDataDto();
+                    realDataDto.setWid(cacheData.getWid());
                     realDataDto.setUsername(cacheData.getUsername());
                     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
                     realDataDto.setIntime(timeFormat.format(cacheData.getStartdate()));

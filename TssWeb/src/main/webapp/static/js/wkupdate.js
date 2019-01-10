@@ -41,14 +41,16 @@ layui.use(['form','laydate'], function () {
             if (msg.code == 0) {
                 Show(msg);
             }else if (msg.code == 1){
-                layer.msg(msg.message.toString());
+                //layer.msg(msg.message.toString());
+                Message(msg.message.toString());
             }
         },
         complete:function () {
             layer.close(index);
         },
         error:function (msg) {
-            layer.msg("网络异常");
+            //layer.msg("网络异常");
+            Message("网络异常");
         }
     });
 
@@ -121,16 +123,19 @@ layui.use(['form','laydate'], function () {
             },
             success:function (msg) {
                 if (msg.code == 0) {
-                    layer.msg("修改成功");
+                    //layer.msg("修改成功");
+                    Message("修改成功");
                 }else if (msg.code == 1){
-                    layer.msg(msg.message.toString());
+                    //layer.msg(msg.message.toString());
+                    Message(msg.message.toString());
                 }
             },
             complete:function () {
                 layer.close(index);
             },
             error:function (msg) {
-                layer.msg("网络异常");
+                //layer.msg("网络异常");
+                Message("网络异常");
             }
         });
     });
@@ -141,5 +146,13 @@ layui.use(['form','laydate'], function () {
             return "";
         }
         return result[1];
+    }
+
+    function Message(data) {
+        layer.open({
+            title: '提示'
+            ,content: '<div style="text-align: center">'+ data +'</div>'
+            ,btnAlign: 'c' //按钮居中
+        });
     }
 });

@@ -9,11 +9,20 @@ import java.util.Date;
 
 @Component
 public class RealDataDto implements Comparable<RealDataDto>{
+    private String wid;
     private String username;
     private String intime;
     private String lc1;
     private String lc2;
     private String lc3;
+
+    public String getWid() {
+        return wid;
+    }
+
+    public void setWid(String wid) {
+        this.wid = wid;
+    }
 
     public String getUsername() {
         return username;

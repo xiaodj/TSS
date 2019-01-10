@@ -4,6 +4,8 @@ import com.tssweb.entity.UserEntity;
 import com.tssweb.entity.UserSetEntity;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface IUserDao {
 
@@ -21,6 +23,11 @@ public interface IUserDao {
      * 根据用户名获取用户信息
      */
     public UserEntity GetUserByUserName(String username);
+
+    /**
+     * 获取所有用户设置信息
+     */
+    public List<UserSetEntity> GetUserSetInfo();
 
     /**
      * 通过用户编码获取用户设置信息

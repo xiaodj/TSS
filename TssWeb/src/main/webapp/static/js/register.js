@@ -37,17 +37,28 @@ layui.use(['layer','form'],function () {
             },
             success:function (msg) {
                 if (msg.code == 0) {
-                    layer.msg("注册成功, 请点击右上角登陆进行跳转");
+                    //layer.msg("注册成功, 请点击右上角登陆进行跳转");
+                    Message("注册成功, 请点击右上角登陆进行跳转");
                 }else if (msg.code == 1){
-                    layer.msg(msg.message.toString());
+                    //layer.msg(msg.message.toString());
+                    Message(msg.message.toString());
                 }
             },
             complete:function () {
                 layer.close(index);
             },
             error:function (msg) {
-                layer.msg("网络异常");
+                //layer.msg("网络异常");
+                Message("网络异常");
             }
         });
     });
+
+    function Message(data) {
+        layer.open({
+            title: '提示'
+            ,content: '<div style="text-align: center">'+ data +'</div>'
+            ,btnAlign: 'c' //按钮居中
+        });
+    }
 });

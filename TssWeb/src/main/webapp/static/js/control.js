@@ -1,19 +1,15 @@
 /**
  * Created by xiaodj on 2018/12/11.
  */
-var uid = null;
-
-window.onload = function () {
-    uid = sessionStorage.getItem("uid");
-    if (uid == null)
-        window.parent.location.href = "../view/login.html";
-}
-
 layui.use(['layer','laydate', 'form'], function () {
     var layer = layui.layer;
     var form = layui.form;
     var laydate = layui.laydate;
     var $ = layui.$;
+
+    var uid = sessionStorage.getItem("uid");
+    if (uid == null)
+        window.parent.location.href = "../view/login.html";
 
     var onstarttime = "";
     var onendtime = "";
@@ -26,7 +22,7 @@ layui.use(['layer','laydate', 'form'], function () {
         cache:false,
         url:Host + "/v1/user/" +uid+"/set",
         type:"get",
-        contentType:"application/json",
+        //contentType:"application/json",
         dataType:"json",
         data:"",
         beforeSend:function () {
@@ -43,17 +39,19 @@ layui.use(['layer','laydate', 'form'], function () {
                 offendtime = msg.offendtime;
                 $('#timeout').val(msg.timeout);
             }else if (msg.code == 1){
-                layer.msg(msg.message.toString());
+                //layer.msg(msg.message.toString());
+                Message(msg.message.toString());
             }
         },
         complete:function () {
             layer.close(index);
         },
         error:function (msg) {
-            layer.msg("网络异常");
+            //layer.msg("网络异常");
+            console.log(uid);
+            Message("网络异常");
         }
     });
-
 
     //时间范围
     laydate.render({
@@ -105,16 +103,19 @@ layui.use(['layer','laydate', 'form'], function () {
             },
             success:function (msg) {
                 if (msg.code == 0) {
-                    layer.msg("用户设置成功");
+                    //layer.msg("用户设置成功");
+                    Message("用户设置成功");
                 }else if (msg.code == 1){
-                    layer.msg(msg.Message.toString());
+                    //layer.msg(msg.Message.toString());
+                    Message(msg.Message.toString());
                 }
             },
             complete:function () {
                 layer.close(index);
             },
             error:function (msg) {
-                layer.msg("网络异常");
+                //layer.msg("网络异常");
+                Message("网络异常");
             }
         });
     });
@@ -137,16 +138,19 @@ layui.use(['layer','laydate', 'form'], function () {
             },
             success:function (msg) {
                 if (msg.code == 0) {
-                    layer.msg("标签识别状态更改成功");
+                    //layer.msg("标签识别状态更改成功");
+                    Message("标签识别状态更改成功");
                 }else if (msg.code == 1){
-                    layer.msg(msg.message.toString());
+                    //layer.msg(msg.message.toString());
+                    Message(msg.message.toString());
                 }
             },
             complete:function () {
                 layer.close(index);
             },
             error:function (msg) {
-                layer.msg("网络异常");
+                //layer.msg("网络异常");
+                Message("网络异常");
             }
         });
     });
@@ -168,17 +172,28 @@ layui.use(['layer','laydate', 'form'], function () {
             },
             success:function (msg) {
                 if (msg.code == 0) {
-                    layer.msg("灵敏度成功");
+                    //layer.msg("灵敏度成功");
+                    Message("灵敏度更改成功");
                 }else if (msg.code == 1){
-                    layer.msg(msg.message.toString());
+                    //layer.msg(msg.message.toString());
+                    Message(msg.message.toString());
                 }
             },
             complete:function () {
                 layer.close(index);
             },
             error:function (msg) {
-                layer.msg("网络异常");
+                //layer.msg("网络异常");
+                Message("网络异常");
             }
         });
     });
+
+    function Message(data) {
+        layer.open({
+            title: '提示'
+            ,content: '<div style="text-align: center">'+ data +'</div>'
+            ,btnAlign: 'c' //按钮居中
+        });
+    }
 });

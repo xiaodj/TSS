@@ -3,7 +3,9 @@ package com.tssweb.netty;
 import com.alibaba.fastjson.JSONObject;
 import com.tssweb.dao.IRecordDao;
 import com.tssweb.dao.IWorkerDao;
+import com.tssweb.dto.LicencesInfo;
 import com.tssweb.dto.RealDataDto;
+import com.tssweb.dto.WorkerDto;
 import com.tssweb.entity.*;
 import com.tssweb.service.impl.RecordServiceImpl;
 import com.tssweb.service.impl.WorkerServiceImpl;
@@ -20,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @Component
 public class DataEngine implements Runnable{
     static public Integer uid;
-    static public final Map<String, CacheData> dataMap; //检测到的缓存数据
+    static public final Map<String, CacheData> dataMap;      //检测到的缓存数据
     static public final Queue<byte[]> msgQueue;             //保存从读卡器接收到的待处理消息
     static public final Queue<Boolean> cmdQueue;
 
@@ -122,33 +124,34 @@ public class DataEngine implements Runnable{
 
         //推送
         if (bSendFlag) {
-            List<RealDataDto> realDataDtoList = new ArrayList<RealDataDto>();
-            Iterator iter = dataMap.entrySet().iterator();
-            while (iter.hasNext()){
-                Map.Entry entry = (Map.Entry)iter.next();
-                String tagid = (String) entry.getKey();
-                CacheData cacheData = (CacheData) entry.getValue();
-                if (cacheData.getStartdate() == null)
-                    continue;
-
-                RealDataDto realDataDto = new RealDataDto();
-                realDataDto.setUsername(cacheData.getUsername());
-                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                realDataDto.setIntime(timeFormat.format(cacheData.getStartdate()));
-                for (LicenceEntity licenceEntity: cacheData.getLcList()) {
-                    if (licenceEntity.getLCNAME().equals("绿卡"))
-                        realDataDto.setLc1(licenceEntity.getLCDATE());
-                    else if (licenceEntity.getLCNAME().equals("密卡"))
-                        realDataDto.setLc2(licenceEntity.getLCDATE());
-                    else if (licenceEntity.getLCNAME().equals("CP"))
-                        realDataDto.setLc3(licenceEntity.getLCDATE());
-                }
-                realDataDtoList.add(realDataDto);
-            }
-            //推送
-            Collections.sort(realDataDtoList);
-            MessageHandler messageHandler = new MessageHandler();
-            messageHandler.sendMessageToUser(uid, JSONObject.toJSONString(realDataDtoList));
+//            List<RealDataDto> realDataDtoList = new ArrayList<RealDataDto>();
+//            Iterator iter = dataMap.entrySet().iterator();
+//            while (iter.hasNext()){
+//                Map.Entry entry = (Map.Entry)iter.next();
+//                String tagid = (String) entry.getKey();
+//                CacheData cacheData = (CacheData) entry.getValue();
+//                if (cacheData.getStartdate() == null)
+//                    continue;
+//
+//                RealDataDto realDataDto = new RealDataDto();
+//                realDataDto.setUsername(cacheData.getUsername());
+//                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+//                realDataDto.setIntime(timeFormat.format(cacheData.getStartdate()));
+//                for (LicenceEntity licenceEntity: cacheData.getLcList()) {
+//                    if (licenceEntity.getLCNAME().equals("绿卡"))
+//                        realDataDto.setLc1(licenceEntity.getLCDATE());
+//                    else if (licenceEntity.getLCNAME().equals("密卡"))
+//                        realDataDto.setLc2(licenceEntity.getLCDATE());
+//                    else if (licenceEntity.getLCNAME().equals("CP"))
+//                        realDataDto.setLc3(licenceEntity.getLCDATE());
+//                }
+//                realDataDtoList.add(realDataDto);
+//            }
+//            //推送
+//            Collections.sort(realDataDtoList);
+//            MessageHandler messageHandler = new MessageHandler();
+//            messageHandler.sendMessageToUser(uid, JSONObject.toJSONString(realDataDtoList));
+            SendMessage();
             bSendFlag = false;
         }
     }
@@ -159,6 +162,65 @@ public class DataEngine implements Runnable{
             bcheck += bytes[i];
         }
         return (byte) (~bcheck + 1);
+    }
+
+    public void CatchRemoveTID(String tid){
+        if (dataMap.containsKey(tid)){
+            dataMap.remove(tid);
+            SendMessage();
+        }
+    }
+
+    public void CatchUpdateByTid(String tid, WorkerDto workerDto){
+        if (dataMap.containsKey(tid)){
+            CacheData cacheData = dataMap.get(tid);
+            cacheData.setWid(workerDto.getWid());
+            cacheData.setUsername(workerDto.getChname());
+            List<LicenceEntity> workerEntities = new ArrayList<LicenceEntity>();
+            for (LicencesInfo licencesInfo : workerDto.getLicences()){
+                LicenceEntity licenceEntity = new LicenceEntity();
+                licenceEntity.setWID(workerDto.getWid());
+                licenceEntity.setLCNAME(licencesInfo.getLcname());
+                licenceEntity.setLCDATE(licencesInfo.getLcdate());
+                workerEntities.add(licenceEntity);
+            }
+            cacheData.setLcList(workerEntities);
+            dataMap.remove(tid);
+            dataMap.put(workerDto.getTags().get(0).getTid(), cacheData);
+            SendMessage();
+        }
+    }
+
+    //推送函数
+    public void SendMessage(){
+        List<RealDataDto> realDataDtoList = new ArrayList<RealDataDto>();
+        Iterator iter = dataMap.entrySet().iterator();
+        while (iter.hasNext()){
+            Map.Entry entry = (Map.Entry)iter.next();
+            String tagid = (String) entry.getKey();
+            CacheData cacheData = (CacheData) entry.getValue();
+            if (cacheData.getStartdate() == null)
+                continue;
+
+            RealDataDto realDataDto = new RealDataDto();
+            realDataDto.setWid(cacheData.getWid());
+            realDataDto.setUsername(cacheData.getUsername());
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+            realDataDto.setIntime(timeFormat.format(cacheData.getStartdate()));
+            for (LicenceEntity licenceEntity: cacheData.getLcList()) {
+                if (licenceEntity.getLCNAME().equals("绿卡"))
+                    realDataDto.setLc1(licenceEntity.getLCDATE());
+                else if (licenceEntity.getLCNAME().equals("密卡"))
+                    realDataDto.setLc2(licenceEntity.getLCDATE());
+                else if (licenceEntity.getLCNAME().equals("CP"))
+                    realDataDto.setLc3(licenceEntity.getLCDATE());
+            }
+            realDataDtoList.add(realDataDto);
+        }
+        //推送
+        Collections.sort(realDataDtoList);
+        MessageHandler messageHandler = new MessageHandler();
+        messageHandler.sendMessageToUser(uid, JSONObject.toJSONString(realDataDtoList));
     }
 
     @Override

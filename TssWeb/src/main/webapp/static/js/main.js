@@ -30,7 +30,6 @@ layui.use(['layer','element'],function () {
     //服务端关闭连接时触发该消息
     websocket.onclose = function (evnt) {
         $('#msg').removeClass("layui-bg-green");
-        sessionStorage.clear();
         sessionStorage.setItem("realTimeData", "[]");
         nframe.window.Refresh();
     }
@@ -38,7 +37,6 @@ layui.use(['layer','element'],function () {
     //网络发生错误时触发该消息
     websocket.onerror = function (evnt) {
         $('#msg').removeClass("layui-bg-green");
-        sessionStorage.clear();
         sessionStorage.setItem("realTimeData", "[]");
         nframe.window.Refresh();
     }
@@ -93,17 +91,27 @@ layui.use(['layer','element'],function () {
                     sessionStorage.clear();
                     window.location.href = "../view/login.html";
                 }else if (msg.code == 1){
-                    layer.msg(msg.message.toString());
+                    //layer.msg(msg.message.toString());
+                    Message(msg.message.toString());
                 }
             },
             complete:function () {
                 layer.close(index);
             },
             error:function (msg) {
-                layer.msg("网络异常");
+                //layer.msg("网络异常");
+                Message("网络异常");
             }
         });
     });
+
+    function Message(data) {
+        layer.open({
+            title: '提示'
+            ,content: '<div style="text-align: center">'+ data +'</div>'
+            ,btnAlign: 'c' //按钮居中
+        });
+    }
 
     // //添加一行
     // var oldData = table.cache["test"];
