@@ -44,6 +44,7 @@ public class MessageHandler implements WebSocketHandler {
                 if (cacheData.getStartdate() == null)
                     continue;
                 RealDataDto realDataDto = new RealDataDto();
+                realDataDto.setWid(cacheData.getWid());
                 realDataDto.setUsername(cacheData.getUsername());
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
                 realDataDto.setIntime(timeFormat.format(cacheData.getStartdate()));

@@ -3,6 +3,7 @@ package com.tssweb.netty;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.ReferenceCountUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.locks.Lock;
@@ -38,6 +39,7 @@ public class NettyInHandler extends ChannelInboundHandlerAdapter {
         ByteBuf buf = (ByteBuf)msg;
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
+        buf.release();
         if (req[0] == 0x0B && req[1] == 0x64){  //命令的回复
             if(req[3] == 0x00)
                 DataEngine.cmdQueue.offer(true);
@@ -48,7 +50,6 @@ public class NettyInHandler extends ChannelInboundHandlerAdapter {
         if (req.length < 30)    //小于30的长度，自动上传的数据是不完整的
             return;
         msgQueue.offer(req);
-        buf.release();
     }
 
     @Override
